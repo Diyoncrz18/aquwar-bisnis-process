@@ -1,0 +1,1734 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sistem Manajemen Operasional AQUWAR</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
+<script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
+<style>
+/* ===== RESET ===== */
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+/* ===== VARIABLES ===== */
+:root {
+  --navy:       #0d1f3c;
+  --navy-mid:   #1a3a6b;
+  --blue:       #2563eb;
+  --blue-soft:  #3b82f6;
+  --indigo:     #4f46e5;
+  --purple:     #7c3aed;
+  --green:      #059669;
+  --teal:       #0d9488;
+  --amber:      #d97706;
+  --orange:     #ea580c;
+  --red:        #dc2626;
+
+  --bg:         #eef2f7;
+  --surface:    #ffffff;
+  --surface-2:  #f8fafc;
+  --border:     #e2e8f0;
+
+  --tx1: #0f172a;
+  --tx2: #334155;
+  --tx3: #64748b;
+  --tx4: #94a3b8;
+
+  --r-sm: 8px;
+  --r:    12px;
+  --r-lg: 16px;
+  --r-xl: 20px;
+
+  --sh-sm: 0 1px 3px rgba(0,0,0,0.06), 0 1px 2px rgba(0,0,0,0.04);
+  --sh:    0 4px 16px rgba(0,0,0,0.06), 0 2px 6px rgba(0,0,0,0.04);
+  --sh-lg: 0 12px 32px rgba(0,0,0,0.08), 0 4px 10px rgba(0,0,0,0.04);
+}
+
+/* ===== BASE ===== */
+body {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  background: var(--bg);
+  color: var(--tx1);
+  line-height: 1.75;
+  font-size: 15px;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ===== COVER ===== */
+.cover {
+  position: relative;
+  min-height: 100vh;
+  background: linear-gradient(140deg, #060e20 0%, #0d1f3c 30%, #133568 60%, #1a4db0 100%);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  padding: 80px 40px;
+  overflow: hidden;
+}
+.cover::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(ellipse at 15% 60%, rgba(59,130,246,0.18) 0%, transparent 55%),
+    radial-gradient(ellipse at 85% 25%, rgba(124,58,237,0.14) 0%, transparent 50%),
+    radial-gradient(ellipse at 55% 85%, rgba(37,99,235,0.12) 0%, transparent 50%);
+}
+.cover::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(255,255,255,0.025) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,0.025) 1px, transparent 1px);
+  background-size: 56px 56px;
+}
+.cover-inner {
+  position: relative;
+  z-index: 1;
+  max-width: 820px;
+}
+.cover-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  background: rgba(255,255,255,0.08);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(255,255,255,0.14);
+  padding: 10px 26px;
+  border-radius: 50px;
+  color: rgba(255,255,255,0.75);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 2.5px;
+  text-transform: uppercase;
+  margin-bottom: 42px;
+}
+.cover-eyebrow .dot {
+  width: 6px; height: 6px;
+  background: #60a5fa;
+  border-radius: 50%;
+}
+.cover h1 {
+  font-size: clamp(30px, 5vw, 56px);
+  font-weight: 900;
+  color: #fff;
+  line-height: 1.15;
+  letter-spacing: -0.025em;
+  margin-bottom: 6px;
+}
+.cover h1 .hl {
+  background: linear-gradient(135deg, #60a5fa 0%, #a78bfa 55%, #f472b6 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+.cover-line {
+  width: 56px; height: 3px;
+  background: linear-gradient(90deg, #60a5fa, #a78bfa);
+  border-radius: 2px;
+  margin: 28px auto;
+}
+.cover-sub {
+  font-size: clamp(14px, 1.8vw, 18px);
+  color: rgba(255,255,255,0.65);
+  max-width: 580px;
+  margin: 0 auto 48px;
+  font-weight: 300;
+  line-height: 1.8;
+}
+.cover-meta {
+  display: flex;
+  gap: 32px;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+.cover-meta-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: rgba(255,255,255,0.6);
+  font-size: 13.5px;
+  font-weight: 500;
+}
+.cover-meta-item svg {
+  width: 16px; height: 16px;
+  stroke: #60a5fa;
+  flex-shrink: 0;
+}
+
+/* ===== PAGE WRAPPER ===== */
+.page {
+  max-width: 1080px;
+  margin: 0 auto;
+  padding: 48px 40px;
+}
+
+/* ===== TOC ===== */
+.toc-header { margin-bottom: 32px; }
+.toc-header h2 {
+  font-size: 26px;
+  font-weight: 800;
+  color: var(--navy);
+  margin-bottom: 6px;
+}
+.toc-header p { color: var(--tx3); font-size: 14px; margin: 0; }
+
+.toc-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+.toc-item {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 14px 18px;
+  background: var(--surface);
+  border-radius: var(--r);
+  border: 1px solid var(--border);
+  text-decoration: none;
+  color: inherit;
+  transition: border-color 0.18s, box-shadow 0.18s, transform 0.18s;
+}
+.toc-item:hover {
+  border-color: #93c5fd;
+  box-shadow: var(--sh);
+  transform: translateY(-1px);
+}
+.toc-num {
+  width: 34px; height: 34px;
+  border-radius: 9px;
+  background: linear-gradient(135deg, #2563eb, #7c3aed);
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 12px;
+  font-weight: 700;
+  flex-shrink: 0;
+}
+.toc-label { font-weight: 600; font-size: 14px; color: var(--tx1); line-height: 1.3; }
+.toc-desc  { font-size: 12px; color: var(--tx3); margin-top: 2px; }
+
+/* ===== SECTION CARD ===== */
+.section-card {
+  background: var(--surface);
+  border-radius: var(--r-xl);
+  padding: 44px 48px;
+  margin-bottom: 24px;
+  border: 1px solid var(--border);
+  box-shadow: var(--sh-sm);
+}
+.section-header {
+  margin-bottom: 32px;
+  padding-bottom: 22px;
+  border-bottom: 1px solid var(--border);
+}
+.section-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  background: #eff6ff;
+  color: #1d4ed8;
+  padding: 4px 14px;
+  border-radius: 20px;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 1.2px;
+  text-transform: uppercase;
+  margin-bottom: 12px;
+}
+.section-header h2 {
+  font-size: 24px;
+  font-weight: 800;
+  color: var(--navy);
+  line-height: 1.3;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.section-header h2 svg {
+  width: 24px; height: 24px;
+  stroke: var(--blue);
+  flex-shrink: 0;
+}
+.section-header p {
+  color: var(--tx3);
+  font-size: 14.5px;
+  margin-top: 6px;
+  margin-bottom: 0;
+}
+
+/* ===== TYPOGRAPHY ===== */
+h3 {
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--tx1);
+  margin: 32px 0 14px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+h3::before {
+  content: '';
+  display: block;
+  width: 4px; height: 18px;
+  background: linear-gradient(180deg, #2563eb, #7c3aed);
+  border-radius: 2px;
+  flex-shrink: 0;
+}
+h4 {
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--tx2);
+  margin: 20px 0 10px;
+}
+p { color: var(--tx3); margin-bottom: 14px; font-size: 14.5px; line-height: 1.75; }
+p:last-child { margin-bottom: 0; }
+ul, ol { padding-left: 20px; color: var(--tx3); font-size: 14px; }
+li { margin-bottom: 5px; }
+strong { color: var(--tx1); }
+
+/* ===== MERMAID DIAGRAM WRAPPER & EXPLANATION ===== */
+.diagram-wrap {
+  background: var(--surface-2);
+  border: 1px solid var(--border);
+  border-radius: var(--r-lg);
+  margin: 20px 0;
+  overflow: hidden;
+}
+.diagram-body {
+  padding: 28px 16px;
+  text-align: center;
+  overflow-x: auto;
+}
+.diagram-wrap .mermaid {
+  display: inline-block;
+  min-width: 260px;
+  max-width: 100%;
+}
+.diagram-explain {
+  background: #ffffff;
+  border-top: 1px dashed var(--border);
+  padding: 16px 22px;
+  text-align: left;
+  font-size: 13.5px;
+  color: var(--tx2);
+  line-height: 1.6;
+}
+.diagram-explain h5 {
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--navy);
+  margin: 0 0 6px 0;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.diagram-explain h5 svg { width: 16px; height: 16px; stroke: var(--blue); flex-shrink: 0; }
+
+/* ===== TWO COLUMN ===== */
+.two-col {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+  margin: 18px 0;
+}
+.col-card {
+  background: var(--surface-2);
+  border: 1px solid var(--border);
+  border-radius: var(--r);
+  padding: 22px;
+}
+.col-card h4 {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  margin: 0 0 10px;
+  font-size: 15px;
+  color: var(--tx1);
+}
+.col-card h4 svg { width: 18px; height: 18px; flex-shrink: 0; }
+
+/* ===== INFO GRID ===== */
+.info-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 14px;
+  margin: 18px 0;
+}
+.info-card {
+  background: var(--surface-2);
+  border: 1px solid var(--border);
+  border-radius: var(--r);
+  padding: 20px;
+  transition: border-color 0.18s, box-shadow 0.18s;
+}
+.info-card:hover {
+  border-color: #93c5fd;
+  box-shadow: var(--sh);
+}
+.card-icon {
+  width: 40px; height: 40px;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 13px;
+}
+.card-icon svg { width: 18px; height: 18px; }
+
+.card-icon.blue   { background: #dbeafe; } .card-icon.blue svg   { stroke: #2563eb; }
+.card-icon.green  { background: #d1fae5; } .card-icon.green svg  { stroke: #059669; }
+.card-icon.purple { background: #ede9fe; } .card-icon.purple svg { stroke: #7c3aed; }
+.card-icon.orange { background: #ffedd5; } .card-icon.orange svg { stroke: #ea580c; }
+.card-icon.teal   { background: #ccfbf1; } .card-icon.teal svg   { stroke: #0d9488; }
+.card-icon.red    { background: #fee2e2; } .card-icon.red svg    { stroke: #dc2626; }
+.card-icon.indigo { background: #e0e7ff; } .card-icon.indigo svg { stroke: #4f46e5; }
+.card-icon.gold   { background: #fef3c7; } .card-icon.gold svg   { stroke: #d97706; }
+.card-icon.slate  { background: #f1f5f9; } .card-icon.slate svg  { stroke: #475569; }
+
+.info-card h4 { font-size: 14.5px; font-weight: 600; color: var(--tx1); margin: 0 0 6px; }
+.info-card p  { font-size: 13px; color: var(--tx3); margin: 0; line-height: 1.6; }
+
+/* ===== HIGHLIGHT BOX ===== */
+.highlight {
+  display: flex;
+  gap: 16px;
+  padding: 20px 22px;
+  border-radius: var(--r);
+  border-left: 4px solid;
+  margin: 18px 0;
+}
+.hl-icon {
+  flex-shrink: 0;
+  width: 36px; height: 36px;
+  border-radius: 9px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.hl-icon svg { width: 18px; height: 18px; }
+.hl-body { flex: 1; }
+.hl-body h4 { margin: 0 0 8px; font-size: 14.5px; font-weight: 700; }
+.hl-body p, .hl-body ul, .hl-body ol { font-size: 13.5px; color: var(--tx2); margin-bottom: 0; }
+.hl-body li { margin-bottom: 4px; }
+
+.highlight.blue   { background: #eff6ff; border-color: #3b82f6; }
+.highlight.blue   .hl-icon { background: #dbeafe; } .highlight.blue .hl-icon svg { stroke: #2563eb; }
+.highlight.blue   .hl-body h4 { color: #1d4ed8; }
+
+.highlight.green  { background: #f0fdf4; border-color: #22c55e; }
+.highlight.green  .hl-icon { background: #dcfce7; } .highlight.green .hl-icon svg { stroke: #16a34a; }
+.highlight.green  .hl-body h4 { color: #15803d; }
+
+.highlight.orange { background: #fff7ed; border-color: #f97316; }
+.highlight.orange .hl-icon { background: #ffedd5; } .highlight.orange .hl-icon svg { stroke: #ea580c; }
+.highlight.orange .hl-body h4 { color: #c2410c; }
+
+.highlight.purple { background: #faf5ff; border-color: #a855f7; }
+.highlight.purple .hl-icon { background: #f3e8ff; } .highlight.purple .hl-icon svg { stroke: #9333ea; }
+.highlight.purple .hl-body h4 { color: #7e22ce; }
+
+.highlight.red    { background: #fff1f2; border-color: #f43f5e; }
+.highlight.red    .hl-icon { background: #ffe4e6; } .highlight.red .hl-icon svg { stroke: #e11d48; }
+.highlight.red    .hl-body h4 { color: #be123c; }
+
+/* ===== FORMULA BOX ===== */
+.formula-box {
+  background: linear-gradient(135deg, #eff6ff, #f5f3ff);
+  border: 1px solid #c7d2fe;
+  border-radius: var(--r);
+  padding: 18px 24px;
+  text-align: center;
+  margin: 18px 0;
+}
+.formula-text {
+  font-size: 17px;
+  font-weight: 700;
+  color: #1e3a8a;
+  letter-spacing: 0.01em;
+}
+
+/* ===== TABLE ===== */
+.table-wrap {
+  overflow-x: auto;
+  margin: 18px 0;
+  border-radius: var(--r);
+  border: 1px solid var(--border);
+  background: var(--surface);
+}
+table { width: 100%; border-collapse: collapse; font-size: 13.5px; }
+thead th {
+  background: #f8fafc;
+  padding: 11px 16px;
+  text-align: left;
+  font-weight: 600;
+  color: var(--tx3);
+  border-bottom: 1px solid var(--border);
+  font-size: 11.5px;
+  text-transform: uppercase;
+  letter-spacing: 0.6px;
+}
+tbody td { padding: 11px 16px; border-bottom: 1px solid #f1f5f9; color: var(--tx2); }
+tbody tr:last-child td { border-bottom: none; }
+tbody tr:hover { background: var(--surface-2); }
+
+/* ===== BADGE ===== */
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 3px 11px;
+  border-radius: 20px;
+  font-size: 11.5px;
+  font-weight: 600;
+}
+.badge-yes     { background: #d1fae5; color: #065f46; }
+.badge-no      { background: #fee2e2; color: #991b1b; }
+.badge-limited { background: #ffedd5; color: #9a3412; }
+.badge-green   { background: #d1fae5; color: #065f46; }
+.badge-red     { background: #fee2e2; color: #991b1b; }
+.badge-orange  { background: #ffedd5; color: #9a3412; }
+
+/* ===== ROLE CARDS ===== */
+.role-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(270px, 1fr));
+  gap: 18px;
+  margin: 22px 0;
+}
+.role-card {
+  background: var(--surface-2);
+  border: 1px solid var(--border);
+  border-radius: var(--r-lg);
+  padding: 26px;
+  position: relative;
+  overflow: hidden;
+  transition: box-shadow 0.2s, transform 0.2s;
+}
+.role-card:hover { box-shadow: var(--sh); transform: translateY(-2px); }
+.role-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 3px;
+}
+.role-card.owner::before { background: linear-gradient(90deg, #2563eb, #7c3aed); }
+.role-card.ops::before   { background: linear-gradient(90deg, #059669, #0d9488); }
+.role-card.prod::before  { background: linear-gradient(90deg, #d97706, #f59e0b); }
+.role-icon {
+  width: 46px; height: 46px;
+  border-radius: 12px;
+  display: flex; align-items: center; justify-content: center;
+  margin-bottom: 14px;
+}
+.role-icon svg { width: 20px; height: 20px; }
+.role-card.owner .role-icon { background: #dbeafe; } .role-card.owner .role-icon svg { stroke: #2563eb; }
+.role-card.ops .role-icon   { background: #d1fae5; } .role-card.ops .role-icon svg   { stroke: #059669; }
+.role-card.prod .role-icon  { background: #fef3c7; } .role-card.prod .role-icon svg  { stroke: #d97706; }
+.role-card h4    { font-size: 16px; font-weight: 700; color: var(--tx1); margin: 0 0 4px; }
+.role-card .role-sub { font-size: 12.5px; color: var(--tx3); margin-bottom: 14px; }
+.role-card ul    { padding-left: 17px; font-size: 13px; color: var(--tx3); }
+.role-card li    { margin-bottom: 5px; }
+
+/* ===== RULES LIST ===== */
+.rules-list {
+  counter-reset: rule;
+  list-style: none;
+  padding: 0; margin: 18px 0;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+}
+.rules-list li {
+  counter-increment: rule;
+  padding: 11px 14px 11px 50px;
+  background: var(--surface-2);
+  border-radius: 9px;
+  border: 1px solid var(--border);
+  position: relative;
+  font-size: 13px;
+  color: var(--tx2);
+  line-height: 1.5;
+}
+.rules-list li::before {
+  content: counter(rule);
+  position: absolute;
+  left: 13px; top: 11px;
+  width: 25px; height: 25px;
+  border-radius: 7px;
+  background: linear-gradient(135deg, #2563eb, #7c3aed);
+  color: #fff;
+  display: flex;
+  align-items: center; justify-content: center;
+  font-size: 10.5px;
+  font-weight: 700;
+}
+
+/* ===== MATRIX TABLE ===== */
+.matrix-wrap {
+  margin: 18px 0;
+  border-radius: var(--r);
+  border: 1px solid var(--border);
+  background: var(--surface);
+  overflow-x: auto;
+}
+.matrix-wrap table { min-width: 580px; }
+.matrix-wrap th { font-size: 11px; }
+.matrix-wrap td { text-align: center; }
+.matrix-wrap td:first-child { text-align: left; font-weight: 500; color: var(--tx2); }
+
+/* ===== FOOTER ===== */
+.doc-footer {
+  background: var(--surface);
+  border-radius: var(--r-xl);
+  border: 1px solid var(--border);
+  text-align: center;
+  padding: 40px 40px;
+  max-width: 1080px;
+  margin: 0 auto 20px;
+}
+.footer-brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  margin-bottom: 12px;
+}
+.footer-brand svg { width: 20px; height: 20px; stroke: var(--blue); }
+.footer-brand span { font-size: 15px; font-weight: 800; color: var(--navy); }
+.doc-footer p { color: var(--tx4); font-size: 13px; margin-bottom: 3px; }
+
+/* ===== PRINT ===== */
+@media print {
+  body { background: #fff; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  .section-card { box-shadow: none; page-break-inside: avoid; }
+  .page { padding: 30px 20px; }
+  .toc-grid, .two-col, .rules-list { grid-template-columns: 1fr 1fr; }
+}
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 768px) {
+  .page { padding: 28px 18px; }
+  .section-card { padding: 28px 20px; }
+  .toc-grid, .two-col, .rules-list { grid-template-columns: 1fr; }
+  .info-grid { grid-template-columns: 1fr; }
+  .role-cards { grid-template-columns: 1fr; }
+}
+</style>
+</head>
+<body>
+
+<!-- ===== COVER PAGE ===== -->
+<section class="cover">
+  <div class="cover-inner">
+    <div class="cover-eyebrow">
+      <span class="dot"></span>
+      Dokumen Spesifikasi Sistem
+      <span class="dot"></span>
+    </div>
+    <h1>Sistem Manajemen Operasional<br><span class="hl">AQUWAR &amp; Es Kristal</span></h1>
+    <div class="cover-line"></div>
+    <p class="cover-sub">Dokumen kebutuhan dan perancangan sistem untuk mengelola penjualan, produksi, persediaan, dan barang reject secara terintegrasi.</p>
+    <div class="cover-meta">
+      <div class="cover-meta-item"><i data-lucide="building-2"></i> AQUWAR</div>
+      <div class="cover-meta-item"><i data-lucide="file-text"></i> Versi 1.0</div>
+      <div class="cover-meta-item"><i data-lucide="calendar"></i> Juli 2026</div>
+      <div class="cover-meta-item"><i data-lucide="user"></i> Dokumen untuk Client</div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== TABLE OF CONTENTS ===== -->
+<div class="page">
+  <div class="toc-header">
+    <h2>Daftar Isi</h2>
+    <p>Ringkasan seluruh bagian dokumen spesifikasi sistem</p>
+  </div>
+  <div class="toc-grid">
+    <a href="#s1" class="toc-item"><span class="toc-num">1</span><div><div class="toc-label">Gambaran Umum Sistem</div><div class="toc-desc">Arsitektur dan komponen utama sistem</div></div></a>
+    <a href="#s2" class="toc-item"><span class="toc-num">2</span><div><div class="toc-label">Alur Pemesanan</div><div class="toc-desc">Pemesanan langsung &amp; via WhatsApp</div></div></a>
+    <a href="#s3" class="toc-item"><span class="toc-num">3</span><div><div class="toc-label">Alur Invoice &amp; Pembayaran</div><div class="toc-desc">Draft, konfirmasi, pembayaran, pengiriman</div></div></a>
+    <a href="#s4" class="toc-item"><span class="toc-num">4</span><div><div class="toc-label">Alur Produksi</div><div class="toc-desc">Formula BOM, bahan baku, hasil produksi</div></div></a>
+    <a href="#s5" class="toc-item"><span class="toc-num">5</span><div><div class="toc-label">Manajemen Stok</div><div class="toc-desc">Stok fisik, reservasi, tersedia, warning</div></div></a>
+    <a href="#s6" class="toc-item"><span class="toc-num">6</span><div><div class="toc-label">Barang Reject</div><div class="toc-desc">Pencatatan reject &amp; alur penanganan</div></div></a>
+    <a href="#s7" class="toc-item"><span class="toc-num">7</span><div><div class="toc-label">Barang Pengganti &amp; Retur</div><div class="toc-desc">Penggantian barang rusak &amp; retur pelanggan</div></div></a>
+    <a href="#s8" class="toc-item"><span class="toc-num">8</span><div><div class="toc-label">Stock Opname</div><div class="toc-desc">Siklus pencocokan stok fisik &amp; sistem</div></div></a>
+    <a href="#s9" class="toc-item"><span class="toc-num">9</span><div><div class="toc-label">Laporan</div><div class="toc-desc">Jenis laporan yang tersedia</div></div></a>
+    <a href="#s10" class="toc-item"><span class="toc-num">10</span><div><div class="toc-label">Pengguna &amp; Hak Akses</div><div class="toc-desc">Role, wewenang, dan matriks akses</div></div></a>
+    <a href="#s11" class="toc-item"><span class="toc-num">11</span><div><div class="toc-label">Aturan Bisnis</div><div class="toc-desc">Ketentuan utama sistem</div></div></a>
+    <a href="#s12" class="toc-item"><span class="toc-num">12</span><div><div class="toc-label">Fitur Tahap 1</div><div class="toc-desc">Ruang lingkup pengembangan pertama</div></div></a>
+  </div>
+</div>
+
+<!-- ===== BAB 1: GAMBARAN UMUM ===== -->
+<div class="page" id="s1">
+  <div class="section-card">
+    <div class="section-header">
+      <div class="section-tag">Bab 1</div>
+      <h2><i data-lucide="layout-dashboard"></i> Gambaran Umum Sistem</h2>
+      <p>Memahami arsitektur sistem, komponen utama, dan bagaimana setiap bagian saling terhubung</p>
+    </div>
+
+    <p>Sistem Manajemen Operasional AQUWAR adalah aplikasi berbasis web yang dirancang untuk mengintegrasikan seluruh kegiatan operasional perusahaan — mulai dari pemesanan pelanggan, produksi, pengelolaan stok, hingga pelaporan untuk pemilik usaha.</p>
+
+    <h3>Dua Bagian Utama Sistem</h3>
+    <div class="two-col">
+      <div class="col-card">
+        <h4><i data-lucide="globe" style="stroke:#2563eb;"></i> Website Company Profile</h4>
+        <p>Website publik yang menampilkan profil perusahaan, informasi produk (Aquar, Es Kristal, Tangki Air), spesifikasi, kontak, dan tombol WhatsApp. Dapat diakses siapa saja tanpa login.</p>
+      </div>
+      <div class="col-card">
+        <h4><i data-lucide="settings" style="stroke:#7c3aed;"></i> Sistem Manajemen Internal</h4>
+        <p>Sistem yang hanya bisa diakses oleh pengguna terdaftar. Mencakup manajemen pelanggan, produk, invoice, produksi, stok, reject, retur, laporan, dan audit aktivitas.</p>
+      </div>
+    </div>
+
+    <h3>Hubungan Antar Modul</h3>
+    <div class="diagram-wrap">
+      <div class="diagram-body">
+        <div class="mermaid">
+flowchart LR
+    A["Pelanggan"] --> B["Invoice"]
+    B --> C["Pembayaran"]
+    C --> D["Pengiriman"]
+    E["Produksi"] --> F["Stok Barang Jadi"]
+    F --> G["Warning Stok"]
+    H["Barang Reject / Cacat"] --> I["Barang Pengganti"]
+    I --> J["Laporan"]
+    style A fill:#dbeafe,stroke:#93c5fd,color:#1e40af
+    style B fill:#d1fae5,stroke:#6ee7b7,color:#065f46
+    style C fill:#ede9fe,stroke:#c4b5fd,color:#5b21b6
+    style D fill:#ffedd5,stroke:#fed7aa,color:#9a3412
+    style E fill:#e0e7ff,stroke:#a5b4fc,color:#3730a3
+    style F fill:#ccfbf1,stroke:#5eead4,color:#115e59
+    style G fill:#fef3c7,stroke:#fde68a,color:#92400e
+    style H fill:#fee2e2,stroke:#fca5a5,color:#991b1b
+    style I fill:#fce7f3,stroke:#fbcfe8,color:#9d174d
+    style J fill:#f1f5f9,stroke:#cbd5e1,color:#334155
+        </div>
+      </div>
+      <div class="diagram-explain">
+        <h5><i data-lucide="help-circle"></i> Penjelasan Diagram untuk Client:</h5>
+        <p>Diagram ini memperlihatkan bagaimana seluruh modul operasional saling terhubung. Transaksi penjualan (Pelanggan &rarr; Invoice &rarr; Bayar &rarr; Pengiriman) terhubung langsung dengan Manajemen Stok. Di sisi lain, Produksi menyuplai Stok Barang Jadi, serta penanganan Barang Reject langsung bermuara ke Laporan Keuangan/Operasional.</p>
+      </div>
+    </div>
+
+    <h3>Dua Kanal Pemesanan</h3>
+    <div class="two-col">
+      <div class="col-card">
+        <h4><i data-lucide="monitor" style="stroke:#2563eb;"></i> Pemesanan Langsung</h4>
+        <p>Tim Operasional membuat pesanan langsung di sistem melalui menu invoice. Pesanan dicatat sebagai <strong>Draft</strong> hingga dikonfirmasi.</p>
+      </div>
+      <div class="col-card">
+        <h4><i data-lucide="smartphone" style="stroke:#059669;"></i> Pemesanan via WhatsApp</h4>
+        <p>Pelanggan menghubungi via WhatsApp. Setelah dikonfirmasi, Tim Operasional <strong>menginput manual</strong> data pesanan ke sistem. Pesan WhatsApp <em>tidak otomatis</em> menjadi transaksi.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ===== BAB 2: ALUR PEMESANAN ===== -->
+<div class="page" id="s2">
+  <div class="section-card">
+    <div class="section-header">
+      <div class="section-tag">Bab 2</div>
+      <h2><i data-lucide="shopping-cart"></i> Alur Pemesanan</h2>
+      <p>Dua jalur pemesanan yang didukung sistem: langsung melalui sistem dan melalui WhatsApp</p>
+    </div>
+
+    <h3>Alur Pemesanan Langsung (oleh Tim Operasional)</h3>
+    <div class="diagram-wrap">
+      <div class="diagram-body">
+        <div class="mermaid">
+flowchart TD
+    A["Tim Ops Login ke Sistem"] --> B["Pilih / Tambah Data Pelanggan"]
+    B --> C["Input Detail Pesanan
+(Produk, Jumlah, Harga)"]
+    C --> D["Disimpan sebagai Invoice Draft"]
+    D --> E{Apakah Invoice Dikonfirmasi?}
+    E -->|"Ya"| F["Status Jadi Dikonfirmasi
+(Stok Direservasi Otomatis)"]
+    E -->|"Tidak / Batal"| G["Invoice Dibatalkan
+(Stok Tidak Berubah)"]
+    F --> H{Apakah Barang Dikirim?}
+    H -->|"Ya"| I["Status Jadi Pengiriman / Selesai
+(Stok Fisik Berkurang)"]
+    H -->|"Tidak / Batal Sebelum Kirim"| J["Invoice Dibatalkan
+(Stok Reservasi Dikembalikan)"]
+
+    style A fill:#dbeafe,stroke:#93c5fd,color:#1e40af
+    style B fill:#dbeafe,stroke:#93c5fd,color:#1e40af
+    style C fill:#dbeafe,stroke:#93c5fd,color:#1e40af
+    style D fill:#ffedd5,stroke:#fed7aa,color:#9a3412
+    style E fill:#fef3c7,stroke:#fde68a,color:#92400e
+    style F fill:#ede9fe,stroke:#c4b5fd,color:#5b21b6
+    style G fill:#fee2e2,stroke:#fca5a5,color:#991b1b
+    style H fill:#fef3c7,stroke:#fde68a,color:#92400e
+    style I fill:#d1fae5,stroke:#6ee7b7,color:#065f46
+    style J fill:#fee2e2,stroke:#fca5a5,color:#991b1b
+        </div>
+      </div>
+      <div class="diagram-explain">
+        <h5><i data-lucide="help-circle"></i> Penjelasan Alur untuk Client:</h5>
+        <p>Pesanan yang dibuat oleh Tim Ops awalnya berstatus <strong>Draft</strong> sehingga stok gudang aman. Begitu invoice <strong>Dikonfirmasi</strong>, sistem langsung mereservasi stok agar tidak terambil pelanggan lain. Ketika barang fisik dikirim dari gudang, stok nyata berkurang. Jika terjadi pembatalan sebelum pengiriman, reservasi stok otomatis dipulihkan.</p>
+      </div>
+    </div>
+
+    <h3>Alur Pemesanan via WhatsApp</h3>
+    <div class="diagram-wrap">
+      <div class="diagram-body">
+        <div class="mermaid">
+flowchart TD
+    A["Pelanggan Kirim Pesan via WA"] --> B["Tim Ops Cek Info Produk & Pembayaran"]
+    B --> C{Apakah Pesanan Valid & Deal?}
+    C -->|"Tidak / Hanya Tanya"| D["Tidak Diinput ke Sistem
+(Cukup di WhatsApp)"]
+    C -->|"Ya (Dikonfirmasi)"| E["Tim Ops Input Manual Pesanan ke Sistem"]
+    E --> F["Sistem Buat Invoice Draft"]
+    F --> G{Konfirmasi Final Pelanggan?}
+    G -->|"Ya"| H["Proses Transaksi & Reservasi Stok"]
+    G -->|"Batal"| I["Invoice Draft Dibatalkan"]
+
+    style A fill:#f1f5f9,stroke:#cbd5e1,color:#334155
+    style B fill:#f1f5f9,stroke:#cbd5e1,color:#334155
+    style C fill:#fef3c7,stroke:#fde68a,color:#92400e
+    style D fill:#fee2e2,stroke:#fca5a5,color:#991b1b
+    style E fill:#dbeafe,stroke:#93c5fd,color:#1e40af
+    style F fill:#ffedd5,stroke:#fed7aa,color:#9a3412
+    style G fill:#fef3c7,stroke:#fde68a,color:#92400e
+    style H fill:#d1fae5,stroke:#6ee7b7,color:#065f46
+    style I fill:#fee2e2,stroke:#fca5a5,color:#991b1b
+        </div>
+      </div>
+      <div class="diagram-explain">
+        <h5><i data-lucide="help-circle"></i> Penjelasan Alur untuk Client:</h5>
+        <p>Untuk menghindari transaksi fiktif atau perubahan mendadak di WhatsApp, pesan chat tidak otomatis ditarik ke sistem. Tim Ops bertugas melakukan verifikasi. Jika pesanan sudah dipastikan <strong>Deal</strong>, barulah pesanan diinput ke sistem untuk diproses stok dan invoice-nya.</p>
+      </div>
+    </div>
+
+    <div class="highlight orange">
+      <div class="hl-icon"><i data-lucide="zap"></i></div>
+      <div class="hl-body">
+        <h4>Poin Penting</h4>
+        <ul>
+          <li>Pesan WhatsApp <strong>tidak otomatis</strong> tercatat sebagai transaksi — mencegah pesanan fiktif atau belum dikonfirmasi.</li>
+          <li>Tim Operasional wajib mengonfirmasi produk, harga, jumlah, alamat, dan pembayaran <strong>sebelum</strong> mencatat ke sistem.</li>
+          <li>Setelah dikonfirmasi, alur invoice sama dengan pemesanan langsung.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ===== BAB 3: INVOICE & PEMBAYARAN ===== -->
+<div class="page" id="s3">
+  <div class="section-card">
+    <div class="section-header">
+      <div class="section-tag">Bab 3</div>
+      <h2><i data-lucide="receipt"></i> Alur Invoice &amp; Pembayaran</h2>
+      <p>Invoice sebagai dasar pencatatan transaksi penjualan, dengan sistem status dan hubungan stok</p>
+    </div>
+
+    <h3>Siklus Hidup Invoice</h3>
+    <div class="diagram-wrap">
+      <div class="diagram-body">
+        <div class="mermaid">
+flowchart TD
+    A["Invoice Dibuat (Draft)"] --> B{Dikonfirmasi Tim Ops?}
+    B -->|"Tidak / Batal"| X1["Dibatalkan (Stok Aman)"]
+    B -->|"Ya"| C["Status Dikonfirmasi
+(Stok Direservasi)"]
+    C --> D{Cek Status Pembayaran}
+    D -->|"Belum Bayar"| E["Menunggu Pembayaran"]
+    D -->|"Bayar Sebagian"| F["Status Dibayar Sebagian"]
+    D -->|"Lunas"| G["Status Lunas"]
+    E --> F
+    E --> G
+    F --> G
+    G --> H{Siap Dikirim?}
+    H -->|"Tidak / Batal"| X2["Dibatalkan
+(Stok Reservasi Kembali)"]
+    H -->|"Ya"| I["Proses Pengiriman
+(Stok Fisik Berkurang)"]
+    I --> J(["Transaksi Selesai"])
+
+    style A fill:#ffedd5,stroke:#fed7aa,color:#9a3412
+    style B fill:#fef3c7,stroke:#fde68a,color:#92400e
+    style C fill:#ede9fe,stroke:#c4b5fd,color:#5b21b6
+    style D fill:#fef3c7,stroke:#fde68a,color:#92400e
+    style E fill:#fef3c7,stroke:#fde68a,color:#92400e
+    style F fill:#ccfbf1,stroke:#5eead4,color:#115e59
+    style G fill:#d1fae5,stroke:#6ee7b7,color:#065f46
+    style H fill:#fef3c7,stroke:#fde68a,color:#92400e
+    style I fill:#e0e7ff,stroke:#a5b4fc,color:#3730a3
+    style J fill:#d1fae5,stroke:#6ee7b7,color:#065f46
+    style X1 fill:#fee2e2,stroke:#fca5a5,color:#991b1b
+    style X2 fill:#fee2e2,stroke:#fca5a5,color:#991b1b
+        </div>
+      </div>
+      <div class="diagram-explain">
+        <h5><i data-lucide="help-circle"></i> Penjelasan Alur untuk Client:</h5>
+        <p>Invoice memiliki status pembayaran dan pengiriman yang fleksibel. Pelanggan bisa membayar DP (Sebagian) atau Lunas sebelum barang dikirim. Setiap perubahan status terekam dengan jelas sehingga Owner dan Tim Ops bisa melacak posisi tagihan secara *real-time*.</p>
+      </div>
+    </div>
+
+    <h3>Data dalam Invoice</h3>
+    <div class="info-grid">
+      <div class="info-card">
+        <div class="card-icon blue"><i data-lucide="clipboard-list"></i></div>
+        <h4>Informasi Dasar</h4>
+        <p>Nomor invoice (otomatis), tanggal, data perusahaan, data pelanggan, alamat pengiriman</p>
+      </div>
+      <div class="info-card">
+        <div class="card-icon green"><i data-lucide="package"></i></div>
+        <h4>Detail Produk</h4>
+        <p>Daftar produk, jumlah, harga satuan, diskon, biaya pengiriman, subtotal, total tagihan</p>
+      </div>
+      <div class="info-card">
+        <div class="card-icon purple"><i data-lucide="credit-card"></i></div>
+        <h4>Pembayaran</h4>
+        <p>Metode pembayaran (tunai, transfer, tempo, sebagian), status pembayaran, bukti bayar</p>
+      </div>
+      <div class="info-card">
+        <div class="card-icon orange"><i data-lucide="info"></i></div>
+        <h4>Status &amp; Catatan</h4>
+        <p>Status pesanan, status pengiriman, catatan internal, pengguna pembuat invoice</p>
+      </div>
+    </div>
+
+    <h3>Hubungan Invoice dengan Stok</h3>
+    <div class="diagram-wrap">
+      <div class="diagram-body">
+        <div class="mermaid">
+flowchart TD
+    A["Pembuatan Invoice"] --> B{Status Invoice Saat Ini?}
+    B -->|"Draft"| C["Stok Tidak Berubah"]
+    B -->|"Dikonfirmasi"| D["Stok Direservasi
+(Stok Tersedia Berkurang)"]
+    D --> E{Apakah Barang Dikirim?}
+    E -->|"Ya"| F["Stok Fisik Berkurang di Gudang"]
+    E -->|"Batal Sebelum Kirim"| G["Stok Reservasi Dikembalikan
+(Stok Tersedia Kembali)"]
+
+    style A fill:#dbeafe,stroke:#93c5fd,color:#1e40af
+    style B fill:#fef3c7,stroke:#fde68a,color:#92400e
+    style C fill:#ffedd5,stroke:#fed7aa,color:#9a3412
+    style D fill:#ede9fe,stroke:#c4b5fd,color:#5b21b6
+    style E fill:#fef3c7,stroke:#fde68a,color:#92400e
+    style F fill:#d1fae5,stroke:#6ee7b7,color:#065f46
+    style G fill:#fee2e2,stroke:#fca5a5,color:#991b1b
+        </div>
+      </div>
+      <div class="diagram-explain">
+        <h5><i data-lucide="help-circle"></i> Penjelasan Alur untuk Client:</h5>
+        <p>Diagram ini membedakan <strong>Stok Tersedia</strong> dan <strong>Stok Fisik</strong>. Saat dikonfirmasi, Stok Tersedia langsung berkurang agar tidak terjadi *overbooking*. Namun Stok Fisik di gudang baru benar-benar berkurang saat armada truk berangkat mengirim barang.</p>
+      </div>
+    </div>
+
+    <div class="highlight blue">
+      <div class="hl-icon"><i data-lucide="calculator"></i></div>
+      <div class="hl-body">
+        <h4>Contoh Perhitungan Stok</h4>
+        <p><strong>Stok Tersedia = Stok Fisik − Stok Reservasi</strong></p>
+        <p>Stok fisik 1.500 dos, sudah dipesan 500 dos → Stok tersedia = 1.000 dos</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ===== BAB 4: ALUR PRODUKSI ===== -->
+<div class="page" id="s4">
+  <div class="section-card">
+    <div class="section-header">
+      <div class="section-tag">Bab 4</div>
+      <h2><i data-lucide="factory"></i> Alur Produksi</h2>
+      <p>Bagaimana sistem mencatat produksi, menghitung bahan baku, dan memperbarui stok secara otomatis</p>
+    </div>
+
+    <h3>Formula Produksi (Bill of Materials)</h3>
+    <p>Setiap produk memiliki formula yang menentukan kebutuhan bahan baku. Contoh formula untuk <strong>1 dos Aquar</strong>:</p>
+
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>Bahan Baku</th><th>Kebutuhan per 1 Dos</th><th>Satuan</th></tr></thead>
+        <tbody>
+          <tr><td>Cup</td><td>48</td><td>buah</td></tr>
+          <tr><td>Lid (plastik penutup)</td><td>48</td><td>buah</td></tr>
+          <tr><td>Sedotan</td><td>48</td><td>buah</td></tr>
+          <tr><td>Kardus</td><td>1</td><td>buah</td></tr>
+          <tr><td>Lem</td><td>Sesuai standar</td><td>gram / takaran</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="highlight green">
+      <div class="hl-icon"><i data-lucide="calculator"></i></div>
+      <div class="hl-body">
+        <h4>Contoh Perhitungan</h4>
+        <p>Produksi 100 dos Aquar:</p>
+        <table style="width:auto;min-width:auto;margin-top:10px;">
+          <thead><tr><th>Bahan</th><th>Formula</th><th>Total</th></tr></thead>
+          <tbody>
+            <tr><td>Cup</td><td>100 × 48</td><td><strong>4.800</strong> buah</td></tr>
+            <tr><td>Lid</td><td>100 × 48</td><td><strong>4.800</strong> buah</td></tr>
+            <tr><td>Sedotan</td><td>100 × 48</td><td><strong>4.800</strong> buah</td></tr>
+            <tr><td>Kardus</td><td>100 × 1</td><td><strong>100</strong> buah</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <h3>Alur Produksi Lengkap</h3>
+    <div class="diagram-wrap">
+      <div class="diagram-body">
+        <div class="mermaid">
+flowchart TD
+    A["Tim Produksi Pilih Produk & Input Target"] --> B["Sistem Hitung Otomatis Kebutuhan Bahan Baku"]
+    B --> C{Apakah Stok Bahan Baku Cukup?}
+    C -->|"Tidak Cukup"| D["Peringatan Stok Kritis!
+Produksi Ditolak / Tertunda"]
+    C -->|"Cukup"| E["Konfirmasi & Memulai Proses Produksi"]
+    E --> F["Tim Produksi Input Hasil Produksi Akhir"]
+    F --> G{Apakah Ada Barang Cacat / Reject?}
+    G -->|"Ya"| H["Input Jumlah & Foto Reject Produksi
+(Pisahkan dari Stok Layak Jual)"]
+    G -->|"Tidak / Hasil Baik"| I["Stok Barang Jadi Bertambah"]
+    H --> I
+    I --> J["Stok Bahan Baku Otomatis Berkurang"]
+
+    style A fill:#dbeafe,stroke:#93c5fd,color:#1e40af
+    style B fill:#ede9fe,stroke:#c4b5fd,color:#5b21b6
+    style C fill:#fef3c7,stroke:#fde68a,color:#92400e
+    style D fill:#fee2e2,stroke:#fca5a5,color:#991b1b
+    style E fill:#ffedd5,stroke:#fed7aa,color:#9a3412
+    style F fill:#e0e7ff,stroke:#a5b4fc,color:#3730a3
+    style G fill:#fef3c7,stroke:#fde68a,color:#92400e
+    style H fill:#fee2e2,stroke:#fca5a5,color:#991b1b
+    style I fill:#d1fae5,stroke:#6ee7b7,color:#065f46
+    style J fill:#ccfbf1,stroke:#5eead4,color:#115e59
+        </div>
+      </div>
+      <div class="diagram-explain">
+        <h5><i data-lucide="help-circle"></i> Penjelasan Alur untuk Client:</h5>
+        <p>Sistem memunculkan peringatan jika bahan baku kurang dari target produksi. Setelah produksi rampung, tim produksi mencatat hasil baik (masuk ke Stok Jadi) dan hasil cacat/bocor (masuk ke Rekap Reject). Bahan baku terpotong secara otomatis sesuai takaran formula BOM.</p>
+      </div>
+    </div>
+
+    <h3>Ketentuan Formula Produksi</h3>
+    <ul style="padding-left:20px;color:var(--tx3);font-size:14.5px;margin-bottom:20px;">
+      <li>Formula <strong>hanya dapat diubah oleh Owner</strong>.</li>
+      <li>Setiap formula memiliki <strong>tanggal mulai berlaku</strong>.</li>
+      <li>Perubahan formula <strong>tidak mengubah</strong> transaksi produksi lama.</li>
+      <li>Sistem dapat membandingkan <strong>pemakaian standar vs aktual</strong> — selisih dicatat sebagai <em>waste</em>.</li>
+    </ul>
+
+    <h3>Konversi Satuan Bahan Baku</h3>
+    <p>Bahan baku dibeli dalam satuan besar, digunakan dalam satuan kecil. Contoh: Cup dibeli 1 kemasan = 38.000 cup.</p>
+    <div class="highlight blue">
+      <div class="hl-icon"><i data-lucide="arrow-right-left"></i></div>
+      <div class="hl-body">
+        <p><strong>Penerimaan:</strong> 1 kemasan × 38.000 = stok 38.000 cup<br>
+        <strong>Produksi 100 dos:</strong> butuh 4.800 cup<br>
+        <strong>Stok akhir:</strong> 38.000 − 4.800 = <strong>33.200 cup</strong></p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ===== BAB 5: MANAJEMEN STOK ===== -->
+<div class="page" id="s5">
+  <div class="section-card">
+    <div class="section-header">
+      <div class="section-tag">Bab 5</div>
+      <h2><i data-lucide="boxes"></i> Manajemen Stok</h2>
+      <p>Tiga jenis stok, sumber perubahan stok, dan sistem peringatan stok menipis</p>
+    </div>
+
+    <h3>Tiga Jenis Stok</h3>
+    <div class="info-grid">
+      <div class="info-card">
+        <div class="card-icon blue"><i data-lucide="package"></i></div>
+        <h4>Stok Fisik</h4>
+        <p>Jumlah barang yang benar-benar ada di gudang. Berkurang saat barang dikirim.</p>
+      </div>
+      <div class="info-card">
+        <div class="card-icon orange"><i data-lucide="lock"></i></div>
+        <h4>Stok Reservasi</h4>
+        <p>Jumlah barang yang sudah dipesan (invoice dikonfirmasi) tetapi belum dikirim.</p>
+      </div>
+      <div class="info-card">
+        <div class="card-icon green"><i data-lucide="check-circle-2"></i></div>
+        <h4>Stok Tersedia</h4>
+        <p>Stok yang siap dijual = Stok Fisik − Stok Reservasi.</p>
+      </div>
+    </div>
+
+    <div class="formula-box">
+      <div class="formula-text">Stok Tersedia = Stok Fisik &minus; Stok Reservasi</div>
+    </div>
+
+    <h3>Sumber Perubahan Stok Barang Jadi</h3>
+    <div class="two-col">
+      <div class="col-card">
+        <h4><i data-lucide="plus-circle" style="stroke:#059669;"></i> Penambahan</h4>
+        <ul style="padding-left:18px;font-size:14px;color:var(--tx3);">
+          <li>Hasil produksi</li>
+          <li>Retur pelanggan (layak jual)</li>
+          <li>Penyesuaian stok</li>
+          <li>Pemindahan stok</li>
+        </ul>
+      </div>
+      <div class="col-card">
+        <h4><i data-lucide="minus-circle" style="stroke:#dc2626;"></i> Pengurangan</h4>
+        <ul style="padding-left:18px;font-size:14px;color:var(--tx3);">
+          <li>Penjualan</li>
+          <li>Barang pengganti</li>
+          <li>Barang reject / cacat</li>
+          <li>Barang bonus / sampel</li>
+          <li>Pemakaian internal</li>
+          <li>Penyesuaian stok</li>
+        </ul>
+      </div>
+    </div>
+
+    <h3>Sistem Warning Stok</h3>
+    <p>Sistem memberikan peringatan visual ketika stok mencapai kondisi tertentu:</p>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>Level Warning</th><th>Keterangan</th></tr></thead>
+        <tbody>
+          <tr><td><span class="badge badge-green">Aman</span></td><td>Stok di atas batas minimum</td></tr>
+          <tr><td><span class="badge badge-limited">Menipis</span></td><td>Stok mendekati batas minimum</td></tr>
+          <tr><td><span class="badge badge-red">Kritis</span></td><td>Stok di bawah batas minimum</td></tr>
+          <tr><td><span class="badge badge-red">Habis</span></td><td>Stok = 0</td></tr>
+          <tr><td><span class="badge badge-red">Negatif</span></td><td>Stok &lt; 0 (memerlukan persetujuan Owner)</td></tr>
+          <tr><td><span class="badge badge-limited">Produksi</span></td><td>Bahan baku tidak cukup untuk rencana produksi</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="highlight orange">
+      <div class="hl-icon"><i data-lucide="settings"></i></div>
+      <div class="hl-body">
+        <h4>Pengaturan Batas Minimum</h4>
+        <p>Owner dapat mengatur batas minimum stok berdasarkan: pemakaian rata-rata, waktu pengiriman supplier, kapasitas produksi, permintaan pelanggan, stok pengaman, dan musim ramai.</p>
+      </div>
+    </div>
+
+    <h3>Riwayat Stok</h3>
+    <p>Setiap pergerakan stok mencatat: tanggal, produk, jenis transaksi, jumlah masuk/keluar, stok sebelum dan sesudah, nomor referensi (misal nomor invoice/produksi), pengguna, dan catatan.</p>
+  </div>
+</div>
+
+<!-- ===== BAB 6: BARANG REJECT ===== -->
+<div class="page" id="s6">
+  <div class="section-card">
+    <div class="section-header">
+      <div class="section-tag">Bab 6</div>
+      <h2><i data-lucide="alert-octagon"></i> Manajemen Barang Cacat (Reject)</h2>
+      <p>Pencatatan barang rusak atau tidak sesuai standar secara terstruktur di setiap tahap operasional</p>
+    </div>
+
+    <h3>Sumber Terjadinya Barang Cacat / Reject</h3>
+    <div class="info-grid">
+      <div class="info-card">
+        <div class="card-icon red"><i data-lucide="factory"></i></div>
+        <h4>Saat Produksi</h4>
+        <p>Cup bocor, lid tidak rapat, sedotan rusak, kemasan kotor</p>
+      </div>
+      <div class="info-card">
+        <div class="card-icon orange"><i data-lucide="warehouse"></i></div>
+        <h4>Saat Penyimpanan</h4>
+        <p>Kardus basah, produk jatuh, es mencair, kesalahan penyimpanan</p>
+      </div>
+      <div class="info-card">
+        <div class="card-icon purple"><i data-lucide="truck"></i></div>
+        <h4>Saat Pengiriman</h4>
+        <p>Kerusakan kendaraan, barang jatuh, kemasan sobek, kesalahan pengiriman</p>
+      </div>
+      <div class="info-card">
+        <div class="card-icon blue"><i data-lucide="route"></i></div>
+        <h4>Saat Canvassing</h4>
+        <p>Barang rusak saat dibawa sopir canvassing, produk tidak laku</p>
+      </div>
+      <div class="info-card">
+        <div class="card-icon gold"><i data-lucide="user-x"></i></div>
+        <h4>Dari Pelanggan</h4>
+        <p>Produk kedaluwarsa, kualitas tidak sesuai, kerusakan setelah diterima</p>
+      </div>
+      <div class="info-card">
+        <div class="card-icon slate"><i data-lucide="more-horizontal"></i></div>
+        <h4>Jenis Lain</h4>
+        <p>Produk kedaluwarsa, hilang, tidak ditemukan</p>
+      </div>
+    </div>
+
+    <h3>Alur Pencatatan &amp; Pemisahan Stok Barang Cacat</h3>
+    <div class="diagram-wrap">
+      <div class="diagram-body">
+        <div class="mermaid">
+flowchart TD
+    START(["Barang Cacat / Rusak Ditemukan"]) --> A["Isolasi Barang & Login ke Sistem"]
+    A --> B["Pilih Produk/Bahan Baku & Input Jumlah Cacat"]
+    B --> C["Pilih Penyebab Cacat & Upload Foto Bukti"]
+    C --> D{Apakah Jumlah Reject Besar / Perlu Approver?}
+    D -->|"Ya"| E["Kirim Pengajuan ke Owner"]
+    D -->|"Tidak"| F["Sistem Otomatis Menyetujui Laporan"]
+    E --> G{Apakah Owner Menyetujui?}
+    G -->|"Ya"| F
+    G -->|"Tidak"| H["Laporan Ditolak / Perlu Klarifikasi"]
+    
+    F --> I["Potong Stok Barang Layak Jual di Gudang"]
+    I --> J{Pemeriksaan Keputusan Penanganan Cacat}
+    J -->|"Hanya Kemasan Rusak"| K["Kemas Ulang (Repack) & Masuk Stok Baik"]
+    J -->|"Cacat Bahan Baku Supplier"| L["Retur / Klaim Garansi ke Supplier"]
+    J -->|"Cacat Produksi / Tidak Layak"| M["Dimusnahkan / Didaur Ulang (Afkir)"]
+    
+    K --> END(["Stok & Laporan Kerugian Terupdate"])
+    L --> END
+    M --> END
+
+    style START fill:#fee2e2,stroke:#fca5a5,color:#991b1b
+    style A    fill:#ffedd5,stroke:#fed7aa,color:#9a3412
+    style B    fill:#fef3c7,stroke:#fde68a,color:#92400e
+    style C    fill:#dbeafe,stroke:#93c5fd,color:#1e40af
+    style D    fill:#fef3c7,stroke:#fde68a,color:#92400e
+    style E    fill:#ede9fe,stroke:#c4b5fd,color:#5b21b6
+    style F    fill:#d1fae5,stroke:#6ee7b7,color:#065f46
+    style G    fill:#fef3c7,stroke:#fde68a,color:#92400e
+    style H    fill:#fee2e2,stroke:#fca5a5,color:#991b1b
+    style I    fill:#fee2e2,stroke:#fca5a5,color:#991b1b
+    style J    fill:#fef3c7,stroke:#fde68a,color:#92400e
+    style K    fill:#d1fae5,stroke:#6ee7b7,color:#065f46
+    style L    fill:#e0e7ff,stroke:#a5b4fc,color:#3730a3
+    style M    fill:#fce7f3,stroke:#fbcfe8,color:#9d174d
+    style END  fill:#d1fae5,stroke:#6ee7b7,color:#065f46
+        </div>
+      </div>
+      <div class="diagram-explain">
+        <h5><i data-lucide="help-circle"></i> Penjelasan Alur untuk Client:</h5>
+        <p>Barang cacat langsung dipisahkan secara fisik agar tidak salah dikirim. Setelah diinput (dengan foto & penyebab), stok fisik barang bagus langsung dipotong. Selanjutnya barang cacat diproses sesuai jenisnya: dikemas ulang jika hanya dusnya rusak, diklaim ke supplier jika bahan baku rusak pabrik, atau dimusnahkan/diafkir jika barang rusak total.</p>
+      </div>
+    </div>
+
+    <h3>Data yang Dicatat saat Barang Cacat</h3>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>Field</th><th>Keterangan</th></tr></thead>
+        <tbody>
+          <tr><td>Nomor Reject</td><td>Otomatis dari sistem</td></tr>
+          <tr><td>Tanggal &amp; Lokasi</td><td>Kapan dan di mana reject terjadi</td></tr>
+          <tr><td>Jenis Reject</td><td>Produksi, gudang, pengiriman, canvassing, pelanggan</td></tr>
+          <tr><td>Produk / Bahan Baku</td><td>Barang yang rusak/cacat</td></tr>
+          <tr><td>Jumlah &amp; Satuan</td><td>Kuantitas barang reject</td></tr>
+          <tr><td>Penyebab</td><td>Pilihan penyebab yang sudah ditentukan</td></tr>
+          <tr><td>Foto Bukti</td><td>Dapat diwajibkan untuk jumlah tertentu</td></tr>
+          <tr><td>Penanggung Jawab</td><td>Karyawan yang menemukan / bertanggung jawab</td></tr>
+          <tr><td>Tindakan Lanjutan</td><td>Repack, Retur Supplier, atau Dimusnahkan</td></tr>
+          <tr><td>Status Persetujuan</td><td>Apakah perlu persetujuan Owner</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<!-- ===== BAB 7: BARANG PENGGANTI & RETUR ===== -->
+<div class="page" id="s7">
+  <div class="section-card">
+    <div class="section-header">
+      <div class="section-tag">Bab 7</div>
+      <h2><i data-lucide="rotate-ccw"></i> Barang Pengganti &amp; Retur</h2>
+      <p>Menangani barang rusak yang diterima pelanggan dan barang yang dikembalikan pelanggan</p>
+    </div>
+
+    <h3>Alur Penanganan Komplain & Retur Pelanggan</h3>
+    <div class="diagram-wrap">
+      <div class="diagram-body">
+        <div class="mermaid">
+flowchart TD
+    A(["Komplain / Pengembalian dari Pelanggan"]) --> B["Cek Ref Invoice Asal Pembelian"]
+    B --> C{Jenis Penanganan Khusus?}
+    C -->|"Barang Pengganti (Barang Cacat/Rusak)"| D["Buat Transaksi Barang Pengganti"]
+    C -->|"Retur Barang (Batal / Salah)"| E["Buat Transaksi Retur Barang"]
+    
+    D --> D1["Potong Stok Barang Jadi (Barang Baik)"]
+    D1 --> D2["Catat Barang Cacat sebagai Reject"]
+    D2 --> D3["Omzet Penjualan TIDAK Bertambah"]
+
+    E --> E1["Pemeriksaan Kondisi Barang Retur"]
+    E1 --> E2{Kondisi Barang Retur?}
+    E2 -->|"Masih Layak Jual"| E3["Dikembalikan ke Stok Barang Jadi"]
+    E2 -->|"Cacat / Rusak / Tidak Layak"| E4["Dicatat sebagai Barang Reject (Afkir)"]
+
+    style A fill:#fee2e2,stroke:#fca5a5,color:#991b1b
+    style B fill:#dbeafe,stroke:#93c5fd,color:#1e40af
+    style C fill:#fef3c7,stroke:#fde68a,color:#92400e
+    style D fill:#ffedd5,stroke:#fed7aa,color:#9a3412
+    style E fill:#e0e7ff,stroke:#a5b4fc,color:#3730a3
+    style D1 fill:#fce7f3,stroke:#fbcfe8,color:#9d174d
+    style D2 fill:#fee2e2,stroke:#fca5a5,color:#991b1b
+    style D3 fill:#fee2e2,stroke:#fca5a5,color:#991b1b
+    style E1 fill:#ede9fe,stroke:#c4b5fd,color:#5b21b6
+    style E2 fill:#fef3c7,stroke:#fde68a,color:#92400e
+    style E3 fill:#d1fae5,stroke:#6ee7b7,color:#065f46
+    style E4 fill:#fee2e2,stroke:#fca5a5,color:#991b1b
+        </div>
+      </div>
+      <div class="diagram-explain">
+        <h5><i data-lucide="help-circle"></i> Penjelasan Alur untuk Client:</h5>
+        <p>Jika pelanggan menerima barang cacat, perusahaan memberikan barang pengganti baik. Stok barang jadi berkurang <strong>tanpa menambah angka omzet penjualan</strong> (mencegah double omzet). Sedangkan untuk barang retur, jika kondisinya masih layak jual akan dimasukkan kembali ke stok utama, namun jika cacat akan langsung dikelompokkan ke persediaan reject.</p>
+      </div>
+    </div>
+
+    <h3>Barang Pengganti</h3>
+    <p>Barang pengganti adalah <strong>barang baik</strong> yang diberikan untuk mengganti barang rusak yang diterima pelanggan.</p>
+
+    <div class="highlight red">
+      <div class="hl-icon"><i data-lucide="flame"></i></div>
+      <div class="hl-body">
+        <h4>Aturan Kritis</h4>
+        <p><strong>Barang pengganti mengurangi stok tetapi TIDAK menambah omzet (pendapatan).</strong></p>
+      </div>
+    </div>
+
+    <h4>Contoh Kasus</h4>
+    <div class="highlight orange">
+      <div class="hl-icon"><i data-lucide="book-open"></i></div>
+      <div class="hl-body">
+        <p>Pelanggan membeli 100 dos Aquar. Setelah diterima, ditemukan 5 dos rusak.</p>
+        <ol style="margin-top:10px;">
+          <li>Transaksi penjualan tetap tercatat <strong>100 dos</strong></li>
+          <li>Kerusakan dicatat <strong>5 dos</strong> sebagai reject</li>
+          <li>Barang pengganti <strong>5 dos</strong> dibuat</li>
+          <li>Stok barang jadi <strong>berkurang 5 dos</strong></li>
+          <li><strong>Omzet TIDAK bertambah</strong> — biaya masuk laporan operasional</li>
+        </ol>
+      </div>
+    </div>
+
+    <h4>Data Barang Pengganti</h4>
+    <ul style="padding-left:20px;color:var(--tx3);font-size:14.5px;margin-bottom:20px;">
+      <li>Nomor transaksi, pelanggan, invoice asal</li>
+      <li>Produk yang rusak &amp; jumlahnya</li>
+      <li>Jumlah barang pengganti yang diberikan</li>
+      <li>Alasan penggantian &amp; foto bukti</li>
+      <li>Tanggal penggantian, status pengiriman</li>
+      <li>Persetujuan &amp; catatan</li>
+    </ul>
+
+    <h3>Retur Barang</h3>
+    <p>Retur digunakan ketika pelanggan <strong>mengembalikan barang</strong> ke perusahaan.</p>
+
+    <div class="two-col">
+      <div class="col-card">
+        <h4><i data-lucide="help-circle" style="stroke:#2563eb;"></i> Alasan Retur</h4>
+        <ul style="padding-left:18px;font-size:14px;">
+          <li>Barang rusak / cacat</li>
+          <li>Jumlah tidak sesuai</li>
+          <li>Produk salah</li>
+          <li>Kualitas tidak sesuai</li>
+          <li>Pengiriman terlambat</li>
+          <li>Kesalahan pesanan</li>
+        </ul>
+      </div>
+      <div class="col-card">
+        <h4><i data-lucide="search" style="stroke:#059669;"></i> Hasil Pemeriksaan Retur</h4>
+        <ul style="padding-left:18px;font-size:14px;">
+          <li>Masih layak jual → stok lagi</li>
+          <li>Perlu dikemas ulang</li>
+          <li>Menjadi barang reject (cacat)</li>
+          <li>Dikembalikan ke produksi</li>
+          <li>Dimusnahkan</li>
+          <li>Diganti dengan barang baru</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="highlight blue">
+      <div class="hl-icon"><i data-lucide="link"></i></div>
+      <div class="hl-body">
+        <h4>Syarat Retur</h4>
+        <p>Setiap retur <strong>harus memiliki referensi transaksi asal</strong> (nomor invoice) agar sistem dapat melacak riwayat transaksi dengan benar.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ===== BAB 8: STOCK OPNAME ===== -->
+<div class="page" id="s8">
+  <div class="section-card">
+    <div class="section-header">
+      <div class="section-tag">Bab 8</div>
+      <h2><i data-lucide="clipboard-check"></i> Stock Opname</h2>
+      <p>Proses pencocokan stok fisik dengan stok sistem untuk menjaga akurasi data</p>
+    </div>
+
+    <h3>Alur Stock Opname</h3>
+    <div class="diagram-wrap">
+      <div class="diagram-body">
+        <div class="mermaid">
+flowchart TD
+    A["Pilih Produk / Bahan Baku"] --> B["Hitung Stok Fisik di Gudang"]
+    B --> C["Input Hasil Hitung Fisik ke Sistem"]
+    C --> D["Sistem Hitung Otomatis Selisih (Fisik vs Sistem)"]
+    D --> E{Apakah Ada Selisih Stok?}
+    E -->|"Tidak (Sesuai)"| F(["Stok Akurat — Stock Opname Selesai"])
+    E -->|"Ya (Terdapat Selisih)"| G["Input Alasan Selisih & Ajukan Penyesuaian"]
+    G --> H{Apakah Owner Menyetujui?}
+    H -->|"Ya"| I(["Stok Fisik Terupdate & Audit Trail Dicatat"])
+    H -->|"Tidak"| J(["Hitung Ulang Stok / Ditolak Koreksi"])
+
+    style A  fill:#dbeafe,stroke:#93c5fd,color:#1e40af
+    style B  fill:#ffedd5,stroke:#fed7aa,color:#9a3412
+    style C  fill:#ede9fe,stroke:#c4b5fd,color:#5b21b6
+    style D  fill:#e0e7ff,stroke:#a5b4fc,color:#3730a3
+    style E  fill:#fef3c7,stroke:#fde68a,color:#92400e
+    style F  fill:#d1fae5,stroke:#6ee7b7,color:#065f46
+    style G  fill:#fee2e2,stroke:#fca5a5,color:#991b1b
+    style H  fill:#fef3c7,stroke:#fde68a,color:#92400e
+    style I  fill:#d1fae5,stroke:#6ee7b7,color:#065f46
+    style J  fill:#fee2e2,stroke:#fca5a5,color:#991b1b
+        </div>
+      </div>
+      <div class="diagram-explain">
+        <h5><i data-lucide="help-circle"></i> Penjelasan Alur untuk Client:</h5>
+        <p>Stock opname berfungsi memastikan barang di gudang sesuai dengan catatan sistem. Jika ada barang bocor/hilang yang belum sempat terdata, selisihnya diinput dan harus mendapat persetujuan dari Owner sebelum sistem melakukan penyesuaian stok (*adjustment*).</p>
+      </div>
+    </div>
+
+    <h4>Penyebab Selisih Stok</h4>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>Penyebab</th><th>Keterangan</th></tr></thead>
+        <tbody>
+          <tr><td>Salah input</td><td>Kesalahan saat memasukkan data transaksi</td></tr>
+          <tr><td>Barang rusak / cacat / hilang</td><td>Kerusakan atau kehilangan yang belum tercatat</td></tr>
+          <tr><td>Barang belum tercatat</td><td>Barang masuk/keluar tanpa pencatatan</td></tr>
+          <tr><td>Pemakaian internal</td><td>Barang digunakan untuk keperluan internal</td></tr>
+          <tr><td>Kesalahan satuan</td><td>Perbedaan satuan saat pencatatan</td></tr>
+          <tr><td>Transaksi ganda</td><td>Data transaksi tercatat dua kali</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<!-- ===== BAB 9: LAPORAN ===== -->
+<div class="page" id="s9">
+  <div class="section-card">
+    <div class="section-header">
+      <div class="section-tag">Bab 9</div>
+      <h2><i data-lucide="bar-chart-2"></i> Laporan</h2>
+      <p>Jenis laporan yang tersedia untuk membantu Owner memantau dan menganalisis perusahaan</p>
+    </div>
+
+    <p>Sistem menyediakan laporan yang dapat difilter berdasarkan tanggal, dilihat langsung, dicetak, dan diunduh dalam format PDF atau Excel.</p>
+
+    <div class="info-grid">
+      <div class="info-card">
+        <div class="card-icon green"><i data-lucide="trending-up"></i></div>
+        <h4>Laporan Penjualan</h4>
+        <p>Harian, mingguan, bulanan, tahunan, per produk, per pelanggan, per wilayah, produk terlaris</p>
+      </div>
+      <div class="info-card">
+        <div class="card-icon blue"><i data-lucide="clipboard-list"></i></div>
+        <h4>Laporan Invoice</h4>
+        <p>Berdasarkan tanggal, status, invoice belum dibayar, dibayar sebagian, lunas, dibatalkan</p>
+      </div>
+      <div class="info-card">
+        <div class="card-icon purple"><i data-lucide="credit-card"></i></div>
+        <h4>Laporan Pembayaran</h4>
+        <p>Harian, per metode, per pelanggan, piutang pelanggan, invoice jatuh tempo</p>
+      </div>
+      <div class="info-card">
+        <div class="card-icon orange"><i data-lucide="factory"></i></div>
+        <h4>Laporan Produksi</h4>
+        <p>Harian, bulanan, per produk, per shift, per batch, hasil baik, reject, pemakaian bahan baku</p>
+      </div>
+      <div class="info-card">
+        <div class="card-icon teal"><i data-lucide="package"></i></div>
+        <h4>Laporan Stok</h4>
+        <p>Barang jadi, bahan baku, stok tersedia, reservasi, minimum, kritis, riwayat pergerakan, stock opname</p>
+      </div>
+      <div class="info-card">
+        <div class="card-icon red"><i data-lucide="x-circle"></i></div>
+        <h4>Laporan Reject / Cacat</h4>
+        <p>Per periode, produk, penyebab, lokasi, shift, karyawan, persentase reject, estimasi nilai kerugian</p>
+      </div>
+      <div class="info-card">
+        <div class="card-icon gold"><i data-lucide="rotate-ccw"></i></div>
+        <h4>Laporan Barang Pengganti</h4>
+        <p>Per pelanggan, produk, periode, alasan, total stok terpakai, estimasi biaya</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ===== BAB 10: PENGGUNA & HAK AKSES ===== -->
+<div class="page" id="s10">
+  <div class="section-card">
+    <div class="section-header">
+      <div class="section-tag">Bab 10</div>
+      <h2><i data-lucide="shield"></i> Pengguna &amp; Hak Akses</h2>
+      <p>Tiga peran pengguna dengan wewenang yang berbeda sesuai kebutuhan operasional</p>
+    </div>
+
+    <div class="role-cards">
+      <div class="role-card owner">
+        <div class="role-icon"><i data-lucide="shield-check"></i></div>
+        <h4>Owner</h4>
+        <div class="role-sub">Akses tertinggi — pengawasan &amp; pengambilan keputusan</div>
+        <ul>
+          <li>Melihat seluruh data: penjualan, omzet, produksi, stok, reject, laporan</li>
+          <li>Mengelola produk, harga, bahan baku, formula produksi</li>
+          <li>Mengelola akun pengguna &amp; melihat aktivitas</li>
+          <li>Menyetujui penyesuaian stok &amp; transaksi tertentu</li>
+          <li>Mengubah pengaturan perusahaan &amp; template invoice</li>
+        </ul>
+      </div>
+      <div class="role-card ops">
+        <div class="role-icon"><i data-lucide="users"></i></div>
+        <h4>Tim Operasional</h4>
+        <div class="role-sub">Penanganan pelanggan, transaksi, stok, dan pengiriman</div>
+        <ul>
+          <li>Mengelola data pelanggan, membuat &amp; mengonfirmasi invoice</li>
+          <li>Mencatat pembayaran (tunai, transfer, tempo, sebagian)</li>
+          <li>Melihat stok barang jadi &amp; stok tersedia</li>
+          <li>Mencatat barang keluar/masuk, penerimaan bahan baku</li>
+          <li>Mencatat reject/cacat (gudang/pengiriman), retur, barang pengganti</li>
+          <li>Melakukan stock opname, mengajukan penyesuaian stok</li>
+        </ul>
+      </div>
+      <div class="role-card prod">
+        <div class="role-icon"><i data-lucide="factory"></i></div>
+        <h4>Tim Produksi</h4>
+        <div class="role-sub">Pencatatan proses produksi dan bahan baku</div>
+        <ul>
+          <li>Melihat dashboard produksi &amp; ketersediaan bahan baku</li>
+          <li>Menginput hasil produksi, tanggal, shift, batch, penanggung jawab</li>
+          <li>Mencatat reject/cacat produksi dengan foto</li>
+          <li>Melihat riwayat produksi &amp; formula yang berlaku</li>
+          <li><strong>Tidak bisa melihat:</strong> omzet, harga jual, pembayaran, piutang, laporan laba</li>
+        </ul>
+      </div>
+    </div>
+
+    <h3>Matriks Hak Akses</h3>
+    <div class="matrix-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>Fitur</th>
+            <th style="text-align:center;">Owner</th>
+            <th style="text-align:center;">Tim Ops</th>
+            <th style="text-align:center;">Tim Produksi</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td>Dashboard keseluruhan</td><td><span class="badge badge-yes">Ya</span></td><td><span class="badge badge-limited">Terbatas</span></td><td><span class="badge badge-limited">Terbatas</span></td></tr>
+          <tr><td>Melihat omzet</td><td><span class="badge badge-yes">Ya</span></td><td><span class="badge badge-limited">Terbatas</span></td><td><span class="badge badge-no">Tidak</span></td></tr>
+          <tr><td>Mengelola pengguna</td><td><span class="badge badge-yes">Ya</span></td><td><span class="badge badge-no">Tidak</span></td><td><span class="badge badge-no">Tidak</span></td></tr>
+          <tr><td>Mengelola pelanggan</td><td><span class="badge badge-yes">Ya</span></td><td><span class="badge badge-yes">Ya</span></td><td><span class="badge badge-no">Tidak</span></td></tr>
+          <tr><td>Mengelola produk &amp; harga</td><td><span class="badge badge-yes">Ya</span></td><td><span class="badge badge-limited">Terbatas</span></td><td><span class="badge badge-no">Tidak</span></td></tr>
+          <tr><td>Mengelola bahan baku</td><td><span class="badge badge-yes">Ya</span></td><td><span class="badge badge-yes">Ya</span></td><td><span class="badge badge-limited">Terbatas</span></td></tr>
+          <tr><td>Mengelola formula produksi</td><td><span class="badge badge-yes">Ya</span></td><td><span class="badge badge-no">Tidak</span></td><td><span class="badge badge-no">Tidak</span></td></tr>
+          <tr><td>Membuat invoice</td><td><span class="badge badge-yes">Ya</span></td><td><span class="badge badge-yes">Ya</span></td><td><span class="badge badge-no">Tidak</span></td></tr>
+          <tr><td>Mencatat pembayaran</td><td><span class="badge badge-yes">Ya</span></td><td><span class="badge badge-yes">Ya</span></td><td><span class="badge badge-no">Tidak</span></td></tr>
+          <tr><td>Mencatat produksi</td><td><span class="badge badge-yes">Ya</span></td><td><span class="badge badge-limited">Opsional</span></td><td><span class="badge badge-yes">Ya</span></td></tr>
+          <tr><td>Mencatat reject / barang cacat</td><td><span class="badge badge-yes">Ya</span></td><td><span class="badge badge-yes">Ya</span></td><td><span class="badge badge-yes">Ya</span></td></tr>
+          <tr><td>Mencatat barang pengganti</td><td><span class="badge badge-yes">Ya</span></td><td><span class="badge badge-yes">Ya</span></td><td><span class="badge badge-no">Tidak</span></td></tr>
+          <tr><td>Mencatat retur</td><td><span class="badge badge-yes">Ya</span></td><td><span class="badge badge-yes">Ya</span></td><td><span class="badge badge-no">Tidak</span></td></tr>
+          <tr><td>Stock opname</td><td><span class="badge badge-yes">Ya</span></td><td><span class="badge badge-yes">Ya</span></td><td><span class="badge badge-limited">Terbatas</span></td></tr>
+          <tr><td>Menyetujui penyesuaian stok</td><td><span class="badge badge-yes">Ya</span></td><td><span class="badge badge-no">Tidak</span></td><td><span class="badge badge-no">Tidak</span></td></tr>
+          <tr><td>Melihat laporan</td><td><span class="badge badge-yes">Ya</span></td><td><span class="badge badge-limited">Terbatas</span></td><td><span class="badge badge-limited">Terbatas</span></td></tr>
+          <tr><td>Mengunduh laporan</td><td><span class="badge badge-yes">Ya</span></td><td><span class="badge badge-limited">Terbatas</span></td><td><span class="badge badge-no">Tidak</span></td></tr>
+          <tr><td>Melihat aktivitas pengguna</td><td><span class="badge badge-yes">Ya</span></td><td><span class="badge badge-no">Tidak</span></td><td><span class="badge badge-no">Tidak</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<!-- ===== BAB 11: ATURAN BISNIS ===== -->
+<div class="page" id="s11">
+  <div class="section-card">
+    <div class="section-header">
+      <div class="section-tag">Bab 11</div>
+      <h2><i data-lucide="book-open"></i> Aturan Bisnis</h2>
+      <p>Ketentuan utama yang menjadi dasar perancangan sistem</p>
+    </div>
+
+    <ol class="rules-list">
+      <li><strong>Pemesanan</strong> — Pesanan dapat dibuat langsung di sistem oleh Tim Operasional atau diterima melalui WhatsApp.</li>
+      <li><strong>Pencatatan WA</strong> — Pesanan dari WhatsApp baru masuk ke sistem setelah dikonfirmasi dan diinput manual.</li>
+      <li><strong>Konfirmasi WA</strong> — Pesan WhatsApp tidak otomatis menjadi transaksi (mencegah pesanan fiktif).</li>
+      <li><strong>Nomor Invoice</strong> — Setiap invoice memiliki nomor unik yang dibuat otomatis.</li>
+      <li><strong>Status Draft</strong> — Invoice Draft tidak memengaruhi stok sama sekali.</li>
+      <li><strong>Reservasi Stok</strong> — Invoice Dikonfirmasi akan mereservasi stok barang.</li>
+      <li><strong>Stok Fisik</strong> — Stok fisik berkurang ketika barang benar-benar dikirim.</li>
+      <li><strong>Pembatalan</strong> — Invoice dibatalkan sebelum kirim → stok reservasi dikembalikan.</li>
+      <li><strong>Stok Negatif</strong> — Stok tidak boleh negatif tanpa persetujuan Owner.</li>
+      <li><strong>Formula Aquar</strong> — 1 dos Aquar = 48 cup. Produksi mengurangi cup, lid, sedotan, kardus, lem.</li>
+      <li><strong>Cek Bahan Baku</strong> — Sistem tidak bisa konfirmasi produksi jika bahan baku tidak cukup.</li>
+      <li><strong>Hasil Produksi</strong> — Hasil baik → tambah stok barang jadi. Reject → tidak tambah stok.</li>
+      <li><strong>Barang Pengganti</strong> — Mengurangi stok tetapi tidak menambah omzet.</li>
+      <li><strong>Retur</strong> — Harus memiliki referensi transaksi asal (nomor invoice).</li>
+      <li><strong>Penyesuaian Stok</strong> — Harus disertai alasan dan memerlukan persetujuan Owner.</li>
+      <li><strong>Audit Trail</strong> — Semua perubahan penting dicatat dalam riwayat aktivitas.</li>
+      <li><strong>Larangan Hapus</strong> — Data transaksi lama tidak boleh dihapus langsung; harus dibatalkan/dikoreksi.</li>
+      <li><strong>Perubahan Harga</strong> — Perubahan harga tidak mengubah invoice lama.</li>
+      <li><strong>Perubahan Formula</strong> — Perubahan formula tidak mengubah data produksi lama.</li>
+      <li><strong>Akun Pengguna</strong> — Setiap pengguna menggunakan akun masing-masing (disarankan).</li>
+      <li><strong>Role Produksi</strong> — Tim Produksi tidak dapat melihat informasi keuangan (omzet, harga jual).</li>
+      <li><strong>Foto Reject</strong> — Foto dapat diwajibkan untuk jumlah reject tertentu.</li>
+      <li><strong>Persetujuan Reject</strong> — Reject dalam jumlah besar dapat memerlukan persetujuan Owner.</li>
+      <li><strong>Stock Opname</strong> — Menyimpan stok sistem dan stok fisik untuk perbandingan.</li>
+      <li><strong>Pencatatan Waktu</strong> — Semua aktivitas penting mencatat pengguna dan waktu.</li>
+    </ol>
+  </div>
+</div>
+
+<!-- ===== BAB 12: FITUR TAHAP 1 ===== -->
+<div class="page" id="s12">
+  <div class="section-card">
+    <div class="section-header">
+      <div class="section-tag">Bab 12</div>
+      <h2><i data-lucide="rocket"></i> Fitur Tahap Pertama</h2>
+      <p>Fitur-fitur yang akan dikembangkan dalam tahap pertama implementasi sistem</p>
+    </div>
+
+    <div class="info-grid">
+      <div class="info-card">
+        <div class="card-icon blue"><i data-lucide="globe"></i></div>
+        <h4>Company Profile</h4>
+        <p>Website profil perusahaan, informasi produk, tombol WhatsApp</p>
+      </div>
+      <div class="info-card">
+        <div class="card-icon green"><i data-lucide="lock"></i></div>
+        <h4>Login &amp; Role</h4>
+        <p>Login/logout dengan 3 role: Owner, Tim Operasional, Tim Produksi</p>
+      </div>
+      <div class="info-card">
+        <div class="card-icon purple"><i data-lucide="layout-dashboard"></i></div>
+        <h4>Dashboard</h4>
+        <p>Dashboard disesuaikan berdasarkan role pengguna</p>
+      </div>
+      <div class="info-card">
+        <div class="card-icon orange"><i data-lucide="users"></i></div>
+        <h4>Data Pelanggan</h4>
+        <p>Manajemen data pelanggan terpusat</p>
+      </div>
+      <div class="info-card">
+        <div class="card-icon teal"><i data-lucide="boxes"></i></div>
+        <h4>Produk &amp; Bahan Baku</h4>
+        <p>Data produk, bahan baku, dan formula produksi</p>
+      </div>
+      <div class="info-card">
+        <div class="card-icon red"><i data-lucide="factory"></i></div>
+        <h4>Produksi</h4>
+        <p>Pencatatan produksi, otomatisasi bahan baku &amp; barang jadi</p>
+      </div>
+      <div class="info-card">
+        <div class="card-icon gold"><i data-lucide="receipt"></i></div>
+        <h4>Invoice &amp; Pesanan</h4>
+        <p>Pembuatan pesanan langsung &amp; input manual dari WA, invoice, pembayaran</p>
+      </div>
+      <div class="info-card">
+        <div class="card-icon blue"><i data-lucide="warehouse"></i></div>
+        <h4>Manajemen Stok</h4>
+        <p>Stok barang jadi, bahan baku, reservasi, warning stok</p>
+      </div>
+      <div class="info-card">
+        <div class="card-icon red"><i data-lucide="alert-octagon"></i></div>
+        <h4>Reject &amp; Pengganti</h4>
+        <p>Barang reject/cacat, barang pengganti, retur</p>
+      </div>
+      <div class="info-card">
+        <div class="card-icon purple"><i data-lucide="clipboard-check"></i></div>
+        <h4>Stock Opname</h4>
+        <p>Pencocokan stok fisik dengan sistem</p>
+      </div>
+      <div class="info-card">
+        <div class="card-icon green"><i data-lucide="bar-chart-2"></i></div>
+        <h4>Laporan</h4>
+        <p>Laporan penjualan, produksi, stok, reject</p>
+      </div>
+      <div class="info-card">
+        <div class="card-icon orange"><i data-lucide="shield-check"></i></div>
+        <h4>Audit &amp; Pengaturan</h4>
+        <p>Audit aktivitas, pengaturan perusahaan</p>
+      </div>
+    </div>
+
+    <div class="highlight blue" style="margin-top:28px;">
+      <div class="hl-icon"><i data-lucide="check-circle-2"></i></div>
+      <div class="hl-body">
+        <h4>Kriteria Penerimaan (32 Poin Kelayakan)</h4>
+        <p>Sistem dinyatakan memenuhi kebutuhan awal apabila seluruh kriteria penerimaan terpenuhi — mulai dari login berdasarkan role, pembuatan invoice dengan nomor otomatis, produksi dengan formula yang tepat, pengelolaan stok yang akurat, hingga laporan yang transparan untuk Owner.</p>
+        <p style="margin-top:10px;">Daftar lengkap kriteria penerimaan tercantum pada dokumen spesifikasi teknis.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ===== FOOTER ===== -->
+<div class="page">
+  <div class="doc-footer">
+    <div class="footer-brand">
+      <i data-lucide="droplets"></i>
+      <span>AQUWAR</span>
+    </div>
+    <p><strong>Sistem Manajemen Operasional AQUWAR &amp; Es Kristal</strong></p>
+    <p>Dokumen ini disusun sebagai media informasi alur bisnis untuk client.</p>
+    <p>&copy; 2026 &mdash; All Rights Reserved</p>
+  </div>
+</div>
+
+<script>
+  /* ===== MERMAID INIT ===== */
+  mermaid.initialize({
+    startOnLoad: true,
+    theme: 'base',
+    themeVariables: {
+      primaryColor:        '#EFF6FF',
+      primaryTextColor:    '#1E3A5F',
+      primaryBorderColor:  '#93C5FD',
+      lineColor:           '#94A3B8',
+      secondaryColor:      '#F0FDF4',
+      secondaryTextColor:  '#065F46',
+      secondaryBorderColor:'#6EE7B7',
+      tertiaryColor:       '#FAF5FF',
+      tertiaryTextColor:   '#5B21B6',
+      tertiaryBorderColor: '#C4B5FD',
+      background:          '#FFFFFF',
+      mainBkg:             '#EFF6FF',
+      nodeBorder:          '#93C5FD',
+      clusterBkg:          '#F8FAFC',
+      titleColor:          '#0F172A',
+      edgeLabelBackground: '#F8FAFC',
+      fontSize:            '13px',
+      fontFamily:          'Inter, -apple-system, sans-serif'
+    },
+    flowchart: {
+      curve:       'cardinal',
+      padding:     18,
+      htmlLabels:  true,
+      useMaxWidth: true
+    },
+    securityLevel: 'loose'
+  });
+
+  /* ===== LUCIDE ICONS INIT ===== */
+  document.addEventListener('DOMContentLoaded', function () {
+    lucide.createIcons();
+  });
+</script>
+</body>
+</html>
