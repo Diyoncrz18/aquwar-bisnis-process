@@ -2,7 +2,7 @@
 <html lang="id">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=768, initial-scale=1.0">
 <title>Sistem Manajemen Operasional AQUWAR</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -55,6 +55,8 @@ body {
   line-height: 1.75;
   font-size: 15px;
   -webkit-font-smoothing: antialiased;
+  min-width: 768px;
+  overflow-x: auto;
 }
 
 /* ===== COVER ===== */
@@ -657,13 +659,12 @@ tbody tr:hover { background: var(--surface-2); }
     <a href="#s3" class="toc-item"><span class="toc-num">3</span><div><div class="toc-label">Alur Invoice &amp; Pembayaran</div><div class="toc-desc">Draft, konfirmasi, pembayaran, pengiriman</div></div></a>
     <a href="#s4" class="toc-item"><span class="toc-num">4</span><div><div class="toc-label">Alur Produksi</div><div class="toc-desc">Formula BOM, bahan baku, hasil produksi</div></div></a>
     <a href="#s5" class="toc-item"><span class="toc-num">5</span><div><div class="toc-label">Manajemen Stok</div><div class="toc-desc">Stok fisik, reservasi, tersedia, warning</div></div></a>
-    <a href="#s6" class="toc-item"><span class="toc-num">6</span><div><div class="toc-label">Barang Reject</div><div class="toc-desc">Pencatatan reject &amp; alur penanganan</div></div></a>
-    <a href="#s7" class="toc-item"><span class="toc-num">7</span><div><div class="toc-label">Barang Pengganti &amp; Retur</div><div class="toc-desc">Penggantian barang rusak &amp; retur pelanggan</div></div></a>
-    <a href="#s8" class="toc-item"><span class="toc-num">8</span><div><div class="toc-label">Stock Opname</div><div class="toc-desc">Siklus pencocokan stok fisik &amp; sistem</div></div></a>
-    <a href="#s9" class="toc-item"><span class="toc-num">9</span><div><div class="toc-label">Laporan</div><div class="toc-desc">Jenis laporan yang tersedia</div></div></a>
-    <a href="#s10" class="toc-item"><span class="toc-num">10</span><div><div class="toc-label">Pengguna &amp; Hak Akses</div><div class="toc-desc">Role, wewenang, dan matriks akses</div></div></a>
-    <a href="#s11" class="toc-item"><span class="toc-num">11</span><div><div class="toc-label">Aturan Bisnis</div><div class="toc-desc">Ketentuan utama sistem</div></div></a>
-    <a href="#s12" class="toc-item"><span class="toc-num">12</span><div><div class="toc-label">Fitur Tahap 1</div><div class="toc-desc">Ruang lingkup pengembangan pertama</div></div></a>
+    <a href="#s6" class="toc-item"><span class="toc-num">6</span><div><div class="toc-label">Barang Reject / Cacat</div><div class="toc-desc">Pencatatan reject &amp; alur penanganan</div></div></a>
+    <a href="#s7" class="toc-item"><span class="toc-num">7</span><div><div class="toc-label">Stock Opname</div><div class="toc-desc">Siklus pencocokan stok fisik &amp; sistem</div></div></a>
+    <a href="#s8" class="toc-item"><span class="toc-num">8</span><div><div class="toc-label">Laporan</div><div class="toc-desc">Jenis laporan yang tersedia</div></div></a>
+    <a href="#s9" class="toc-item"><span class="toc-num">9</span><div><div class="toc-label">Pengguna &amp; Hak Akses</div><div class="toc-desc">Role, wewenang, dan matriks akses</div></div></a>
+    <a href="#s10" class="toc-item"><span class="toc-num">10</span><div><div class="toc-label">Aturan Bisnis</div><div class="toc-desc">Ketentuan utama sistem</div></div></a>
+    <a href="#s11" class="toc-item"><span class="toc-num">11</span><div><div class="toc-label">Fitur Tahap 1</div><div class="toc-desc">Ruang lingkup pengembangan pertama</div></div></a>
   </div>
 </div>
 
@@ -682,11 +683,24 @@ tbody tr:hover { background: var(--surface-2); }
     <div class="two-col">
       <div class="col-card">
         <h4><i data-lucide="globe" style="stroke:#2563eb;"></i> Website Company Profile</h4>
-        <p>Website publik yang menampilkan profil perusahaan, informasi produk (Aquar, Es Kristal, Tangki Air), spesifikasi, kontak, dan tombol WhatsApp. Dapat diakses siapa saja tanpa login.</p>
+        <p>Website publik yang menampilkan profil perusahaan, informasi produk (Aquar, Es Kristal, Tangki Air), spesifikasi, foto pabrik, kontak, dan tombol WhatsApp. Dapat diakses siapa saja tanpa login.</p>
       </div>
       <div class="col-card">
         <h4><i data-lucide="settings" style="stroke:#7c3aed;"></i> Sistem Manajemen Internal</h4>
-        <p>Sistem yang hanya bisa diakses oleh pengguna terdaftar. Mencakup manajemen pelanggan, produk, invoice, produksi, stok, reject, retur, laporan, dan audit aktivitas.</p>
+        <p>Sistem yang hanya bisa diakses oleh pengguna terdaftar. Mencakup manajemen pelanggan, produk, invoice, produksi, stok, reject, laporan, dan audit aktivitas.</p>
+      </div>
+    </div>
+
+    <div class="highlight blue">
+      <div class="hl-icon"><i data-lucide="handshake"></i></div>
+      <div class="hl-body">
+        <h4>Kesepakatan Utama Bersama Client</h4>
+        <ul>
+          <li>Website berfungsi sebagai company profile dan kanal awal ke WhatsApp; pesan WhatsApp tidak otomatis menjadi transaksi agar pesanan fiktif atau pembatalan tidak memengaruhi stok dan laporan.</li>
+          <li>Invoice menjadi dasar pembukuan. Invoice <strong>Draft</strong> tidak mengubah stok; setelah dikonfirmasi, stok <strong>tersedia</strong> langsung berkurang melalui reservasi. Stok fisik baru berkurang ketika seluruh barang dikirim.</li>
+          <li>Pengurangan cup, lid, sedotan, kardus, dan lem terjadi ketika <strong>produksi</strong> Aquar dicatat. Penjualan hanya mengurangi stok barang jadi, sehingga stok bahan baku tidak terpotong dua kali.</li>
+          <li>Karyawan berwenang mencatat reject langsung melalui sistem. Barang pengganti tetap mengurangi stok, tetapi tidak dihitung sebagai omzet.</li>
+        </ul>
       </div>
     </div>
 
@@ -700,8 +714,7 @@ flowchart LR
     C --> D["Pengiriman"]
     E["Produksi"] --> F["Stok Barang Jadi"]
     F --> G["Warning Stok"]
-    H["Barang Reject / Cacat"] --> I["Barang Pengganti"]
-    I --> J["Laporan"]
+    H["Barang Reject / Cacat"] --> J["Laporan"]
     style A fill:#dbeafe,stroke:#93c5fd,color:#1e40af
     style B fill:#d1fae5,stroke:#6ee7b7,color:#065f46
     style C fill:#ede9fe,stroke:#c4b5fd,color:#5b21b6
@@ -710,7 +723,6 @@ flowchart LR
     style F fill:#ccfbf1,stroke:#5eead4,color:#115e59
     style G fill:#fef3c7,stroke:#fde68a,color:#92400e
     style H fill:#fee2e2,stroke:#fca5a5,color:#991b1b
-    style I fill:#fce7f3,stroke:#fbcfe8,color:#9d174d
     style J fill:#f1f5f9,stroke:#cbd5e1,color:#334155
         </div>
       </div>
@@ -1080,7 +1092,6 @@ Produksi Ditolak / Tertunda"]
         <h4><i data-lucide="plus-circle" style="stroke:#059669;"></i> Penambahan</h4>
         <ul style="padding-left:18px;font-size:14px;color:var(--tx3);">
           <li>Hasil produksi</li>
-          <li>Retur pelanggan (layak jual)</li>
           <li>Penyesuaian stok</li>
           <li>Pemindahan stok</li>
         </ul>
@@ -1089,7 +1100,6 @@ Produksi Ditolak / Tertunda"]
         <h4><i data-lucide="minus-circle" style="stroke:#dc2626;"></i> Pengurangan</h4>
         <ul style="padding-left:18px;font-size:14px;color:var(--tx3);">
           <li>Penjualan</li>
-          <li>Barang pengganti</li>
           <li>Barang reject / cacat</li>
           <li>Barang bonus / sampel</li>
           <li>Pemakaian internal</li>
@@ -1188,7 +1198,7 @@ flowchart TD
     F --> I["Potong Stok Barang Layak Jual di Gudang"]
     I --> J{Pemeriksaan Keputusan Penanganan Cacat}
     J -->|"Hanya Kemasan Rusak"| K["Kemas Ulang (Repack) & Masuk Stok Baik"]
-    J -->|"Cacat Bahan Baku Supplier"| L["Retur / Klaim Garansi ke Supplier"]
+    J -->|"Cacat Bahan Baku Supplier"| L["Klaim Garansi ke Supplier"]
     J -->|"Cacat Produksi / Tidak Layak"| M["Dimusnahkan / Didaur Ulang (Afkir)"]
     
     K --> END(["Stok & Laporan Kerugian Terupdate"])
@@ -1231,7 +1241,7 @@ flowchart TD
           <tr><td>Penyebab</td><td>Pilihan penyebab yang sudah ditentukan</td></tr>
           <tr><td>Foto Bukti</td><td>Dapat diwajibkan untuk jumlah tertentu</td></tr>
           <tr><td>Penanggung Jawab</td><td>Karyawan yang menemukan / bertanggung jawab</td></tr>
-          <tr><td>Tindakan Lanjutan</td><td>Repack, Retur Supplier, atau Dimusnahkan</td></tr>
+          <tr><td>Tindakan Lanjutan</td><td>Repack, Klaim Garansi Supplier, atau Dimusnahkan</td></tr>
           <tr><td>Status Persetujuan</td><td>Apakah perlu persetujuan Owner</td></tr>
         </tbody>
       </table>
@@ -1239,133 +1249,11 @@ flowchart TD
   </div>
 </div>
 
-<!-- ===== BAB 7: BARANG PENGGANTI & RETUR ===== -->
+<!-- ===== BAB 7: STOCK OPNAME ===== -->
 <div class="page" id="s7">
   <div class="section-card">
     <div class="section-header">
       <div class="section-tag">Bab 7</div>
-      <h2><i data-lucide="rotate-ccw"></i> Barang Pengganti &amp; Retur</h2>
-      <p>Menangani barang rusak yang diterima pelanggan dan barang yang dikembalikan pelanggan</p>
-    </div>
-
-    <h3>Alur Penanganan Komplain & Retur Pelanggan</h3>
-    <div class="diagram-wrap">
-      <div class="diagram-body">
-        <div class="mermaid">
-flowchart TD
-    A(["Komplain / Pengembalian dari Pelanggan"]) --> B["Cek Ref Invoice Asal Pembelian"]
-    B --> C{Jenis Penanganan Khusus?}
-    C -->|"Barang Pengganti (Barang Cacat/Rusak)"| D["Buat Transaksi Barang Pengganti"]
-    C -->|"Retur Barang (Batal / Salah)"| E["Buat Transaksi Retur Barang"]
-    
-    D --> D1["Potong Stok Barang Jadi (Barang Baik)"]
-    D1 --> D2["Catat Barang Cacat sebagai Reject"]
-    D2 --> D3["Omzet Penjualan TIDAK Bertambah"]
-
-    E --> E1["Pemeriksaan Kondisi Barang Retur"]
-    E1 --> E2{Kondisi Barang Retur?}
-    E2 -->|"Masih Layak Jual"| E3["Dikembalikan ke Stok Barang Jadi"]
-    E2 -->|"Cacat / Rusak / Tidak Layak"| E4["Dicatat sebagai Barang Reject (Afkir)"]
-
-    style A fill:#fee2e2,stroke:#fca5a5,color:#991b1b
-    style B fill:#dbeafe,stroke:#93c5fd,color:#1e40af
-    style C fill:#fef3c7,stroke:#fde68a,color:#92400e
-    style D fill:#ffedd5,stroke:#fed7aa,color:#9a3412
-    style E fill:#e0e7ff,stroke:#a5b4fc,color:#3730a3
-    style D1 fill:#fce7f3,stroke:#fbcfe8,color:#9d174d
-    style D2 fill:#fee2e2,stroke:#fca5a5,color:#991b1b
-    style D3 fill:#fee2e2,stroke:#fca5a5,color:#991b1b
-    style E1 fill:#ede9fe,stroke:#c4b5fd,color:#5b21b6
-    style E2 fill:#fef3c7,stroke:#fde68a,color:#92400e
-    style E3 fill:#d1fae5,stroke:#6ee7b7,color:#065f46
-    style E4 fill:#fee2e2,stroke:#fca5a5,color:#991b1b
-        </div>
-      </div>
-      <div class="diagram-explain">
-        <h5><i data-lucide="help-circle"></i> Penjelasan Alur untuk Client:</h5>
-        <p>Jika pelanggan menerima barang cacat, perusahaan memberikan barang pengganti baik. Stok barang jadi berkurang <strong>tanpa menambah angka omzet penjualan</strong> (mencegah double omzet). Sedangkan untuk barang retur, jika kondisinya masih layak jual akan dimasukkan kembali ke stok utama, namun jika cacat akan langsung dikelompokkan ke persediaan reject.</p>
-      </div>
-    </div>
-
-    <h3>Barang Pengganti</h3>
-    <p>Barang pengganti adalah <strong>barang baik</strong> yang diberikan untuk mengganti barang rusak yang diterima pelanggan.</p>
-
-    <div class="highlight red">
-      <div class="hl-icon"><i data-lucide="flame"></i></div>
-      <div class="hl-body">
-        <h4>Aturan Kritis</h4>
-        <p><strong>Barang pengganti mengurangi stok tetapi TIDAK menambah omzet (pendapatan).</strong></p>
-      </div>
-    </div>
-
-    <h4>Contoh Kasus</h4>
-    <div class="highlight orange">
-      <div class="hl-icon"><i data-lucide="book-open"></i></div>
-      <div class="hl-body">
-        <p>Pelanggan membeli 100 dos Aquar. Setelah diterima, ditemukan 5 dos rusak.</p>
-        <ol style="margin-top:10px;">
-          <li>Transaksi penjualan tetap tercatat <strong>100 dos</strong></li>
-          <li>Kerusakan dicatat <strong>5 dos</strong> sebagai reject</li>
-          <li>Barang pengganti <strong>5 dos</strong> dibuat</li>
-          <li>Stok barang jadi <strong>berkurang 5 dos</strong></li>
-          <li><strong>Omzet TIDAK bertambah</strong> — biaya masuk laporan operasional</li>
-        </ol>
-      </div>
-    </div>
-
-    <h4>Data Barang Pengganti</h4>
-    <ul style="padding-left:20px;color:var(--tx3);font-size:14.5px;margin-bottom:20px;">
-      <li>Nomor transaksi, pelanggan, invoice asal</li>
-      <li>Produk yang rusak &amp; jumlahnya</li>
-      <li>Jumlah barang pengganti yang diberikan</li>
-      <li>Alasan penggantian &amp; foto bukti</li>
-      <li>Tanggal penggantian, status pengiriman</li>
-      <li>Persetujuan &amp; catatan</li>
-    </ul>
-
-    <h3>Retur Barang</h3>
-    <p>Retur digunakan ketika pelanggan <strong>mengembalikan barang</strong> ke perusahaan.</p>
-
-    <div class="two-col">
-      <div class="col-card">
-        <h4><i data-lucide="help-circle" style="stroke:#2563eb;"></i> Alasan Retur</h4>
-        <ul style="padding-left:18px;font-size:14px;">
-          <li>Barang rusak / cacat</li>
-          <li>Jumlah tidak sesuai</li>
-          <li>Produk salah</li>
-          <li>Kualitas tidak sesuai</li>
-          <li>Pengiriman terlambat</li>
-          <li>Kesalahan pesanan</li>
-        </ul>
-      </div>
-      <div class="col-card">
-        <h4><i data-lucide="search" style="stroke:#059669;"></i> Hasil Pemeriksaan Retur</h4>
-        <ul style="padding-left:18px;font-size:14px;">
-          <li>Masih layak jual → stok lagi</li>
-          <li>Perlu dikemas ulang</li>
-          <li>Menjadi barang reject (cacat)</li>
-          <li>Dikembalikan ke produksi</li>
-          <li>Dimusnahkan</li>
-          <li>Diganti dengan barang baru</li>
-        </ul>
-      </div>
-    </div>
-
-    <div class="highlight blue">
-      <div class="hl-icon"><i data-lucide="link"></i></div>
-      <div class="hl-body">
-        <h4>Syarat Retur</h4>
-        <p>Setiap retur <strong>harus memiliki referensi transaksi asal</strong> (nomor invoice) agar sistem dapat melacak riwayat transaksi dengan benar.</p>
-      </div>
-    </div>
-  </div>
-</div>
-
-<!-- ===== BAB 8: STOCK OPNAME ===== -->
-<div class="page" id="s8">
-  <div class="section-card">
-    <div class="section-header">
-      <div class="section-tag">Bab 8</div>
       <h2><i data-lucide="clipboard-check"></i> Stock Opname</h2>
       <p>Proses pencocokan stok fisik dengan stok sistem untuk menjaga akurasi data</p>
     </div>
@@ -1420,11 +1308,11 @@ flowchart TD
   </div>
 </div>
 
-<!-- ===== BAB 9: LAPORAN ===== -->
-<div class="page" id="s9">
+<!-- ===== BAB 8: LAPORAN ===== -->
+<div class="page" id="s8">
   <div class="section-card">
     <div class="section-header">
-      <div class="section-tag">Bab 9</div>
+      <div class="section-tag">Bab 8</div>
       <h2><i data-lucide="bar-chart-2"></i> Laporan</h2>
       <p>Jenis laporan yang tersedia untuk membantu Owner memantau dan menganalisis perusahaan</p>
     </div>
@@ -1445,7 +1333,7 @@ flowchart TD
       <div class="info-card">
         <div class="card-icon purple"><i data-lucide="credit-card"></i></div>
         <h4>Laporan Pembayaran</h4>
-        <p>Harian, per metode, per pelanggan, piutang pelanggan, invoice jatuh tempo</p>
+        <p>Harian, per metode, per pelanggan, status pembayaran, invoice jatuh tempo</p>
       </div>
       <div class="info-card">
         <div class="card-icon orange"><i data-lucide="factory"></i></div>
@@ -1462,20 +1350,15 @@ flowchart TD
         <h4>Laporan Reject / Cacat</h4>
         <p>Per periode, produk, penyebab, lokasi, shift, karyawan, persentase reject, estimasi nilai kerugian</p>
       </div>
-      <div class="info-card">
-        <div class="card-icon gold"><i data-lucide="rotate-ccw"></i></div>
-        <h4>Laporan Barang Pengganti</h4>
-        <p>Per pelanggan, produk, periode, alasan, total stok terpakai, estimasi biaya</p>
-      </div>
     </div>
   </div>
 </div>
 
-<!-- ===== BAB 10: PENGGUNA & HAK AKSES ===== -->
-<div class="page" id="s10">
+<!-- ===== BAB 9: PENGGUNA & HAK AKSES ===== -->
+<div class="page" id="s9">
   <div class="section-card">
     <div class="section-header">
-      <div class="section-tag">Bab 10</div>
+      <div class="section-tag">Bab 9</div>
       <h2><i data-lucide="shield"></i> Pengguna &amp; Hak Akses</h2>
       <p>Tiga peran pengguna dengan wewenang yang berbeda sesuai kebutuhan operasional</p>
     </div>
@@ -1502,7 +1385,7 @@ flowchart TD
           <li>Mencatat pembayaran (tunai, transfer, tempo, sebagian)</li>
           <li>Melihat stok barang jadi &amp; stok tersedia</li>
           <li>Mencatat barang keluar/masuk, penerimaan bahan baku</li>
-          <li>Mencatat reject/cacat (gudang/pengiriman), retur, barang pengganti</li>
+          <li>Mencatat reject/cacat (gudang/pengiriman)</li>
           <li>Melakukan stock opname, mengajukan penyesuaian stok</li>
         </ul>
       </div>
@@ -1515,7 +1398,7 @@ flowchart TD
           <li>Menginput hasil produksi, tanggal, shift, batch, penanggung jawab</li>
           <li>Mencatat reject/cacat produksi dengan foto</li>
           <li>Melihat riwayat produksi &amp; formula yang berlaku</li>
-          <li><strong>Tidak bisa melihat:</strong> omzet, harga jual, pembayaran, piutang, laporan laba</li>
+          <li><strong>Tidak bisa melihat:</strong> omzet, harga jual, pembayaran, laporan laba</li>
         </ul>
       </div>
     </div>
@@ -1543,8 +1426,6 @@ flowchart TD
           <tr><td>Mencatat pembayaran</td><td><span class="badge badge-yes">Ya</span></td><td><span class="badge badge-yes">Ya</span></td><td><span class="badge badge-no">Tidak</span></td></tr>
           <tr><td>Mencatat produksi</td><td><span class="badge badge-yes">Ya</span></td><td><span class="badge badge-limited">Opsional</span></td><td><span class="badge badge-yes">Ya</span></td></tr>
           <tr><td>Mencatat reject / barang cacat</td><td><span class="badge badge-yes">Ya</span></td><td><span class="badge badge-yes">Ya</span></td><td><span class="badge badge-yes">Ya</span></td></tr>
-          <tr><td>Mencatat barang pengganti</td><td><span class="badge badge-yes">Ya</span></td><td><span class="badge badge-yes">Ya</span></td><td><span class="badge badge-no">Tidak</span></td></tr>
-          <tr><td>Mencatat retur</td><td><span class="badge badge-yes">Ya</span></td><td><span class="badge badge-yes">Ya</span></td><td><span class="badge badge-no">Tidak</span></td></tr>
           <tr><td>Stock opname</td><td><span class="badge badge-yes">Ya</span></td><td><span class="badge badge-yes">Ya</span></td><td><span class="badge badge-limited">Terbatas</span></td></tr>
           <tr><td>Menyetujui penyesuaian stok</td><td><span class="badge badge-yes">Ya</span></td><td><span class="badge badge-no">Tidak</span></td><td><span class="badge badge-no">Tidak</span></td></tr>
           <tr><td>Melihat laporan</td><td><span class="badge badge-yes">Ya</span></td><td><span class="badge badge-limited">Terbatas</span></td><td><span class="badge badge-limited">Terbatas</span></td></tr>
@@ -1556,11 +1437,11 @@ flowchart TD
   </div>
 </div>
 
-<!-- ===== BAB 11: ATURAN BISNIS ===== -->
-<div class="page" id="s11">
+<!-- ===== BAB 10: ATURAN BISNIS ===== -->
+<div class="page" id="s10">
   <div class="section-card">
     <div class="section-header">
-      <div class="section-tag">Bab 11</div>
+      <div class="section-tag">Bab 10</div>
       <h2><i data-lucide="book-open"></i> Aturan Bisnis</h2>
       <p>Ketentuan utama yang menjadi dasar perancangan sistem</p>
     </div>
@@ -1578,8 +1459,6 @@ flowchart TD
       <li><strong>Formula Aquar</strong> — 1 dos Aquar = 48 cup. Produksi mengurangi cup, lid, sedotan, kardus, lem.</li>
       <li><strong>Cek Bahan Baku</strong> — Sistem tidak bisa konfirmasi produksi jika bahan baku tidak cukup.</li>
       <li><strong>Hasil Produksi</strong> — Hasil baik → tambah stok barang jadi. Reject → tidak tambah stok.</li>
-      <li><strong>Barang Pengganti</strong> — Mengurangi stok tetapi tidak menambah omzet.</li>
-      <li><strong>Retur</strong> — Harus memiliki referensi transaksi asal (nomor invoice).</li>
       <li><strong>Penyesuaian Stok</strong> — Harus disertai alasan dan memerlukan persetujuan Owner.</li>
       <li><strong>Audit Trail</strong> — Semua perubahan penting dicatat dalam riwayat aktivitas.</li>
       <li><strong>Larangan Hapus</strong> — Data transaksi lama tidak boleh dihapus langsung; harus dibatalkan/dikoreksi.</li>
@@ -1595,11 +1474,11 @@ flowchart TD
   </div>
 </div>
 
-<!-- ===== BAB 12: FITUR TAHAP 1 ===== -->
-<div class="page" id="s12">
+<!-- ===== BAB 11: FITUR TAHAP 1 ===== -->
+<div class="page" id="s11">
   <div class="section-card">
     <div class="section-header">
-      <div class="section-tag">Bab 12</div>
+      <div class="section-tag">Bab 11</div>
       <h2><i data-lucide="rocket"></i> Fitur Tahap Pertama</h2>
       <p>Fitur-fitur yang akan dikembangkan dalam tahap pertama implementasi sistem</p>
     </div>
@@ -1647,8 +1526,8 @@ flowchart TD
       </div>
       <div class="info-card">
         <div class="card-icon red"><i data-lucide="alert-octagon"></i></div>
-        <h4>Reject &amp; Pengganti</h4>
-        <p>Barang reject/cacat, barang pengganti, retur</p>
+        <h4>Reject / Cacat</h4>
+        <p>Barang reject / cacat produksi &amp; gudang</p>
       </div>
       <div class="info-card">
         <div class="card-icon purple"><i data-lucide="clipboard-check"></i></div>

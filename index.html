@@ -1,0 +1,1974 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=768, initial-scale=1.0">
+    <title>Dokumen Analisis Masalah, Solusi Fitur & Alur Proses Sistem AQUWAR</title>
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap"
+        rel="stylesheet">
+
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <style>
+        :root {
+            --navy-900: #0f172a;
+            --navy-800: #1e293b;
+            --navy-700: #334155;
+
+            --blue-600: #2563eb;
+            --blue-700: #1d4ed8;
+            --blue-50: #eff6ff;
+
+            --teal-600: #0d9488;
+            --teal-50: #f0fdfa;
+
+            --emerald-600: #059669;
+            --emerald-50: #ecfdf5;
+
+            --rose-600: #e11d48;
+            --rose-50: #fff1f2;
+
+            --amber-600: #d97706;
+            --amber-50: #fffbebfb;
+
+            --slate-100: #f1f5f9;
+            --slate-200: #e2e8f0;
+            --slate-300: #cbd5e1;
+            --slate-600: #475569;
+            --slate-700: #334155;
+            --slate-800: #1e293b;
+
+            --shadow-doc: 0 4px 20px -2px rgba(15, 23, 42, 0.08), 0 2px 6px -1px rgba(0, 0, 0, 0.04);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background-color: #f8fafc;
+            color: var(--slate-800);
+            line-height: 1.7;
+            font-size: 15px;
+            -webkit-font-smoothing: antialiased;
+            min-width: 768px;
+            overflow-x: auto;
+        }
+
+        h1,
+        h2,
+        h3,
+        h4,
+        .font-heading {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            color: var(--navy-900);
+        }
+
+        /* Layout & Page Format */
+        .page-wrapper {
+            min-width: 768px;
+            max-width: 1040px;
+            margin: 40px auto;
+            background: #ffffff;
+            border: 1px solid var(--slate-200);
+            box-shadow: var(--shadow-doc);
+            border-radius: 12px;
+            overflow: hidden;
+        }
+
+        /* Document Header Header / Cover Header */
+        .doc-header {
+            background: linear-gradient(135deg, #0f172a 0%, #1e3a8a 100%);
+            color: white;
+            padding: 48px 56px;
+            border-bottom: 4px solid var(--blue-600);
+            position: relative;
+        }
+
+        .doc-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: rgba(255, 255, 255, 0.12);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            padding: 6px 14px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+            color: #93c5fd;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 20px;
+        }
+
+        .doc-title {
+            font-size: 32px;
+            font-weight: 800;
+            line-height: 1.25;
+            margin-bottom: 12px;
+            color: #ffffff;
+            letter-spacing: -0.5px;
+        }
+
+        .doc-subtitle {
+            font-size: 16px;
+            color: #cbd5e1;
+            font-weight: 400;
+            max-width: 800px;
+            line-height: 1.6;
+        }
+
+        .doc-meta-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 16px;
+            margin-top: 32px;
+            padding-top: 24px;
+            border-top: 1px solid rgba(255, 255, 255, 0.15);
+        }
+
+        .meta-item {
+            font-size: 13px;
+        }
+
+        .meta-label {
+            color: #94a3b8;
+            text-transform: uppercase;
+            font-size: 11px;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+        }
+
+        .meta-val {
+            color: #ffffff;
+            font-weight: 600;
+            margin-top: 2px;
+        }
+
+        /* Document Body Content */
+        .doc-body {
+            padding: 56px;
+        }
+
+        @media (max-width: 768px) {
+            .page-wrapper {
+                margin: 0;
+                border-radius: 0;
+            }
+
+            .doc-header,
+            .doc-body {
+                padding: 24px;
+            }
+        }
+
+        /* Navigation / TOC Box */
+        .toc-box {
+            background: var(--blue-50);
+            border: 1px solid #bfdbfe;
+            border-radius: 10px;
+            padding: 24px 28px;
+            margin-bottom: 48px;
+        }
+
+        .toc-title {
+            font-size: 16px;
+            font-weight: 700;
+            color: var(--blue-700);
+            margin-bottom: 14px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .toc-list {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px 24px;
+            list-style: none;
+        }
+
+        @media (max-width: 640px) {
+            .toc-list {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .toc-list a {
+            color: var(--slate-700);
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: color 0.2s;
+        }
+
+        .toc-list a:hover {
+            color: var(--blue-600);
+        }
+
+        /* Typography & Sections */
+        .section-num {
+            color: var(--blue-600);
+            font-weight: 800;
+            margin-right: 6px;
+        }
+
+        h2.doc-sec-heading {
+            font-size: 22px;
+            font-weight: 800;
+            padding-bottom: 12px;
+            border-bottom: 2px solid var(--slate-200);
+            margin-top: 48px;
+            margin-bottom: 24px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        h3.doc-sub-heading {
+            font-size: 17px;
+            font-weight: 700;
+            margin-top: 28px;
+            margin-bottom: 14px;
+            color: var(--navy-800);
+        }
+
+        p.doc-p {
+            margin-bottom: 16px;
+            color: var(--slate-700);
+            font-size: 15px;
+        }
+
+        /* Data Tables */
+        .doc-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0 32px;
+            font-size: 14px;
+        }
+
+        .doc-table th {
+            background: var(--slate-100);
+            color: var(--navy-900);
+            font-weight: 700;
+            text-align: left;
+            padding: 12px 16px;
+            border: 1px solid var(--slate-200);
+        }
+
+        .doc-table td {
+            padding: 12px 16px;
+            border: 1px solid var(--slate-200);
+            vertical-align: top;
+            color: var(--slate-700);
+        }
+
+        .doc-table tr:nth-child(even) td {
+            background: #fafafa;
+        }
+
+        /* Problem - Solution Document Block */
+        .ps-block {
+            background: #ffffff;
+            border: 1px solid var(--slate-200);
+            border-radius: 10px;
+            margin-bottom: 20px;
+            overflow: hidden;
+        }
+
+        .ps-header {
+            padding: 16px 20px;
+            background: var(--slate-100);
+            border-bottom: 1px solid var(--slate-200);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .ps-title {
+            font-weight: 700;
+            font-size: 16px;
+            color: var(--navy-900);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .ps-body {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            divide-x: 1px solid var(--slate-200);
+        }
+
+        @media (max-width: 768px) {
+            .ps-body {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .ps-prob {
+            padding: 20px;
+            background: var(--rose-50);
+            border-right: 1px solid var(--slate-200);
+        }
+
+        .ps-sol {
+            padding: 20px;
+            background: var(--emerald-50);
+        }
+
+        .ps-label {
+            font-size: 11px;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 6px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .ps-prob .ps-label {
+            color: var(--rose-600);
+        }
+
+        .ps-sol .ps-label {
+            color: var(--emerald-600);
+        }
+
+        .ps-desc {
+            font-size: 14px;
+            color: var(--slate-800);
+            line-height: 1.6;
+        }
+
+        /* Simulation Calculation Box */
+        .sim-box {
+            background: #f8fafc;
+            border: 1px solid #cbd5e1;
+            border-radius: 8px;
+            padding: 18px 20px;
+            margin: 14px 0;
+        }
+
+        .sim-header {
+            font-weight: 700;
+            font-size: 14px;
+            color: var(--navy-900);
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .sim-badge-success {
+            background: #d1fae5;
+            color: #065f46;
+            border: 1px solid #a7f3d0;
+            padding: 4px 10px;
+            border-radius: 6px;
+            font-weight: 700;
+            font-size: 12px;
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .sim-badge-danger {
+            background: #fee2e2;
+            color: #991b1b;
+            border: 1px solid #fecaca;
+            padding: 4px 10px;
+            border-radius: 6px;
+            font-weight: 700;
+            font-size: 12px;
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        /* WhatsApp Box Example */
+        .wa-box {
+            background: #f0fdf4;
+            border: 1px solid #bbf7d0;
+            border-radius: 8px;
+            padding: 16px 20px;
+            margin: 12px 0;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 13px;
+            color: #14532d;
+            line-height: 1.6;
+        }
+
+        /* Invoice Preview Card Styling */
+        .inv-preview-card {
+            background: #ffffff;
+            border: 2px solid var(--blue-600);
+            border-radius: 12px;
+            padding: 28px;
+            margin: 16px 0;
+            box-shadow: 0 8px 24px rgba(37, 99, 235, 0.08);
+            position: relative;
+        }
+
+        .inv-preview-badge {
+            position: absolute;
+            top: -12px;
+            right: 24px;
+            background: var(--blue-600);
+            color: white;
+            font-size: 11px;
+            font-weight: 800;
+            padding: 4px 12px;
+            border-radius: 20px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .inv-top-bar {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            border-bottom: 2px solid var(--slate-100);
+            padding-bottom: 18px;
+            margin-bottom: 20px;
+        }
+
+        .inv-brand {
+            font-size: 22px;
+            font-weight: 800;
+            color: var(--navy-900);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .inv-brand span {
+            color: var(--blue-600);
+        }
+
+        .inv-details-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin-bottom: 20px;
+            font-size: 13px;
+        }
+
+        .inv-table-preview {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+            font-size: 13px;
+        }
+
+        .inv-table-preview th {
+            background: var(--navy-900);
+            color: white;
+            padding: 10px 14px;
+            text-align: left;
+        }
+
+        .inv-table-preview td {
+            padding: 10px 14px;
+            border-bottom: 1px solid var(--slate-200);
+        }
+
+        .inv-summary-box {
+            display: flex;
+            justify-content: flex-end;
+            margin-bottom: 20px;
+        }
+
+        .inv-summary-table {
+            width: 280px;
+            font-size: 13px;
+        }
+
+        .inv-summary-table td {
+            padding: 4px 8px;
+        }
+
+        .inv-summary-table tr.grand-total td {
+            font-weight: 800;
+            font-size: 16px;
+            color: var(--blue-700);
+            border-top: 2px solid var(--slate-300);
+            padding-top: 8px;
+        }
+
+        .inv-actions-mock {
+            display: flex;
+            gap: 10px;
+            justify-content: flex-end;
+            padding-top: 14px;
+            border-top: 1px dashed var(--slate-200);
+        }
+
+        .inv-btn-mock {
+            padding: 8px 16px;
+            border-radius: 6px;
+            font-size: 12px;
+            font-weight: 700;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .inv-btn-primary {
+            background: var(--blue-600);
+            color: white;
+            border: none;
+        }
+
+        .inv-btn-secondary {
+            background: var(--emerald-600);
+            color: white;
+            border: none;
+        }
+
+        .inv-btn-outline {
+            background: white;
+            border: 1px solid var(--slate-300);
+            color: var(--slate-700);
+        }
+
+        /* Process Workflow Step Cards */
+        .process-card {
+            background: #ffffff;
+            border: 1px solid var(--slate-200);
+            border-left: 4px solid var(--blue-600);
+            border-radius: 8px;
+            padding: 24px;
+            margin-bottom: 24px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.02);
+        }
+
+        .process-title {
+            font-size: 17px;
+            font-weight: 800;
+            color: var(--navy-900);
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .process-flow {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            margin-top: 16px;
+            position: relative;
+        }
+
+        .flow-step {
+            display: flex;
+            align-items: flex-start;
+            gap: 16px;
+            background: var(--slate-100);
+            padding: 14px 18px;
+            border-radius: 8px;
+            border: 1px solid var(--slate-200);
+        }
+
+        .flow-num {
+            width: 28px;
+            height: 28px;
+            background: var(--blue-600);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 13px;
+            flex-shrink: 0;
+            margin-top: 2px;
+        }
+
+        .flow-content {
+            font-size: 14px;
+            width: 100%;
+        }
+
+        .flow-header {
+            font-weight: 700;
+            color: var(--navy-900);
+            margin-bottom: 2px;
+        }
+
+        .flow-text {
+            color: var(--slate-600);
+        }
+
+        /* Callout Note Box */
+        .doc-callout {
+            background: #f8fafc;
+            border-left: 4px solid var(--amber-600);
+            padding: 16px 20px;
+            border-radius: 0 8px 8px 0;
+            margin: 20px 0;
+            font-size: 14px;
+        }
+
+        .doc-callout-title {
+            font-weight: 700;
+            color: var(--amber-600);
+            margin-bottom: 4px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        /* Timeline */
+        .timeline {
+            position: relative;
+            padding-left: 24px;
+            border-left: 2px solid var(--slate-200);
+            margin: 24px 0;
+        }
+
+        .timeline-item {
+            position: relative;
+            margin-bottom: 24px;
+        }
+
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: -31px;
+            top: 4px;
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: var(--blue-600);
+            border: 3px solid white;
+        }
+
+        .timeline-title {
+            font-weight: 700;
+            font-size: 15px;
+            color: var(--navy-900);
+        }
+
+        .timeline-desc {
+            font-size: 13px;
+            color: var(--slate-600);
+            margin-top: 2px;
+        }
+
+        /* Sign-off Box */
+        .sign-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            margin-top: 48px;
+            padding-top: 32px;
+            border-top: 2px dashed var(--slate-200);
+        }
+
+        .sign-box {
+            border: 1px solid var(--slate-200);
+            border-radius: 8px;
+            padding: 24px;
+            text-align: center;
+            background: var(--slate-100);
+        }
+
+        .sign-space {
+            height: 80px;
+        }
+
+        /* Print styling */
+        @media print {
+            body {
+                background: white;
+            }
+
+            .page-wrapper {
+                box-shadow: none;
+                border: none;
+                max-width: 100%;
+                margin: 0;
+            }
+
+            .doc-header {
+                background: #0f172a !important;
+                -webkit-print-color-adjust: exact;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="page-wrapper">
+
+        <!-- DOCUMENT HEADER / COVER -->
+        <header class="doc-header">
+            <h1 class="doc-title">Sistem Manajemen Operasional AQUWAR & Es Kristal</h1>
+            <p class="doc-subtitle">
+                Dokumen resmi penjelasan masalah operasional bisnis, solusi fitur terintegrasi, serta detail alur kerja
+                (proses) sistem yang dirancang secara mudah dipahami untuk klien dan tim operasional.
+            </p>
+        </header>
+
+        <!-- DOCUMENT BODY -->
+        <main class="doc-body">
+
+            <!-- TABLE OF CONTENTS -->
+            <nav class="toc-box">
+                <div class="toc-title">
+                    <i data-lucide="list"></i> Daftar Isi Dokumen
+                </div>
+                <ul class="toc-list">
+                    <li><a href="#sec1"><span class="section-num">1.</span> Pendahuluan & Ringkasan Eksekutif</a></li>
+                    <li><a href="#sec2"><span class="section-num">2.</span> Analisis Masalah & Solusi Fitur Sistem</a>
+                    </li>
+                    <li><a href="#sec3"><span class="section-num">3.</span> Detail Alur & Proses Kerja Sistem
+                            (Step-by-Step)</a></li>
+                    <li><a href="#sec4"><span class="section-num">4.</span> Matriks Pembagian Hak Akses Pengguna</a>
+                    </li>
+                    <li><a href="#sec5"><span class="section-num">5.</span> Tahapan Pelaksanaan & Implementasi</a></li>
+                </ul>
+            </nav>
+
+            <!-- SECTION 1 -->
+            <section id="sec1">
+                <h2 class="doc-sec-heading">
+                    <span class="section-num">1.</span> Pendahuluan & Ringkasan Eksekutif
+                </h2>
+                <p class="doc-p">
+                    Perusahaan <b>AQUWAR</b> bergerak di bidang produksi dan distribusi air minum dalam kemasan (Aquar),
+                    es kristal, serta tangki air. Saat ini sebagian besar transaksi dan pencatatan operasional masih
+                    menggunakan komunikasi WhatsApp dan pencatatan manual.
+                </p>
+                <p class="doc-p">
+                    Seiring pertumbuhan bisnis, pencatatan manual berisiko tinggi memicu pesanan terlewat, selisih stok
+                    barang jadi, bahan baku mendadak habis saat produksi, barang rusak tidak terdata, pengeluaran harian
+                    sopir (bensin/makan) tercecer, kesulitan ekspor data ke Excel, hingga kesulitan Pemilik (Owner)
+                    dalam memantau secara real-time arus keuangan (pemasukan & pengeluaran).
+                </p>
+                <p class="doc-p">
+                    <b>Tujuan Sistem:</b> Mengintegrasikan seluruh proses dari pemesanan pelanggan via <b>Form Order
+                        Website (Auto Direct WhatsApp)</b>, generator invoice resmi, perhitungan bahan baku produksi
+                    otomatis, penguncian stok reservasi, pencatatan barang *reject* dengan Approval Owner, <b>Form
+                        Pencatatan Biaya Operasional Sopir & Pengeluaran Kas</b>, ekspor data lengkap ke Excel
+                    (`.xlsx`), hingga Dashboard Monitoring Keuangan (Pemasukan, Pengeluaran, & Cashflow) untuk Owner.
+                </p>
+            </section>
+
+            <!-- SECTION 2 -->
+            <section id="sec2">
+                <h2 class="doc-sec-heading">
+                    <span class="section-num">2.</span> Analisis Masalah & Solusi Fitur Sistem
+                </h2>
+                <p class="doc-p">
+                    Berikut adalah matriks penjelasan masalah operasional yang dihadapi saat ini beserta solusi fitur
+                    sistem yang akan dikembangkan:
+                </p>
+
+                <!-- Problem 1 -->
+                <div class="ps-block">
+                    <div class="ps-header">
+                        <div class="ps-title"><i data-lucide="shopping-cart" style="color: var(--blue-600);"></i> 1.
+                            Pemesanan Pelanggan (Form Website Auto Direct WhatsApp)</div>
+                    </div>
+                    <div class="ps-body">
+                        <div class="ps-prob">
+                            <div class="ps-label"><i data-lucide="x-circle"></i> Masalah Saat Ini</div>
+                            <div class="ps-desc">Pelanggan mengetik pesanan WA secara acak tanpa format standar,
+                                sehingga staf sering harus bertanya berulang kali mengenai nama, jumlah, dan alamat
+                                pengiriman.</div>
+                        </div>
+                        <div class="ps-sol">
+                            <div class="ps-label"><i data-lucide="check-circle-2"></i> Solusi Fitur Sistem</div>
+                            <div class="ps-desc"><b>Form Order Website Auto Direct WhatsApp</b>: Pelanggan mengisi
+                                formulir pemesanan di website publik, lalu saat tombol diklik, data otomatis terformat
+                                rapi dan langsung mengarahkan (direct) ke chat WhatsApp perusahaan AQUWAR.</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Problem 2 -->
+                <div class="ps-block">
+                    <div class="ps-header">
+                        <div class="ps-title"><i data-lucide="package" style="color: var(--blue-600);"></i> 2. Akurasi
+                            Stok Barang Jadi</div>
+                    </div>
+                    <div class="ps-body">
+                        <div class="ps-prob">
+                            <div class="ps-label"><i data-lucide="x-circle"></i> Masalah Saat Ini</div>
+                            <div class="ps-desc">Stok fisik kelihatan ada di gudang, tetapi ternyata sudah dipesan
+                                pembeli lain sehingga terjadi penjualan ganda (*over-selling*).</div>
+                        </div>
+                        <div class="ps-sol">
+                            <div class="ps-label"><i data-lucide="check-circle-2"></i> Solusi Fitur Sistem</div>
+                            <div class="ps-desc">Sistem menghitung 3 Layer Stok:
+                                <code>Stok Tersedia = Stok Fisik - Stok Reservasi</code>. Saat invoice dikonfirmasi,
+                                stok langsung ter-reservasi rapi.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Problem 3 -->
+                <div class="ps-block">
+                    <div class="ps-header">
+                        <div class="ps-title"><i data-lucide="factory" style="color: var(--blue-600);"></i> 3.
+                            Perhitungan Pemakaian Bahan Baku</div>
+                    </div>
+                    <div class="ps-body">
+                        <div class="ps-prob">
+                            <div class="ps-label"><i data-lucide="x-circle"></i> Masalah Saat Ini</div>
+                            <div class="ps-desc">Menghitung cup, lid, sedotan, dan kardus secara manual sangat rumit dan
+                                khawatir terpotong dua kali (saat invoice dan saat produksi).</div>
+                        </div>
+                        <div class="ps-sol">
+                            <div class="ps-label"><i data-lucide="check-circle-2"></i> Solusi Fitur Sistem</div>
+                            <div class="ps-desc">Pemisahan tegas: Invoice HANYA memotong barang jadi. <b>Bahan baku
+                                    HANYA terpotong otomatis dari Formula Produksi</b> ($1\text{ Dos} = 48\text{ Cup,
+                                Lid, Sedotan}$) saat produksi dicatat.</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Problem 4 -->
+                <div class="ps-block">
+                    <div class="ps-header">
+                        <div class="ps-title"><i data-lucide="alert-triangle" style="color: var(--blue-600);"></i> 4.
+                            Kehabisan Bahan Baku Mendadak</div>
+                    </div>
+                    <div class="ps-body">
+                        <div class="ps-prob">
+                            <div class="ps-label"><i data-lucide="x-circle"></i> Masalah Saat Ini</div>
+                            <div class="ps-desc">Bahan baku seperti sedotan atau kardus mendadak habis tanpa diketahui
+                                lebih awal, memicu penghentian mesin produksi.</div>
+                        </div>
+                        <div class="ps-sol">
+                            <div class="ps-label"><i data-lucide="check-circle-2"></i> Solusi Fitur Sistem</div>
+                            <div class="ps-desc"><b>Warning System Stok Minimum</b>: Sistem otomatis memberi notifikasi
+                                warna kuning/merah saat stok bahan baku mendekati batas aman pemesanan ulang.</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Problem 5 -->
+                <div class="ps-block">
+                    <div class="ps-header">
+                        <div class="ps-title"><i data-lucide="trash-2" style="color: var(--blue-600);"></i> 5.
+                            Pencatatan Barang Rusak / Reject (Approval Owner)</div>
+                    </div>
+                    <div class="ps-body">
+                        <div class="ps-prob">
+                            <div class="ps-label"><i data-lucide="x-circle"></i> Masalah Saat Ini</div>
+                            <div class="ps-desc">Cup bocor, lid tidak rapat, kardus basah, atau es mencair hilang tanpa
+                                pencatatan lokasi kejadian dan tanpa persetujuan dari Pemilik Usaha.</div>
+                        </div>
+                        <div class="ps-sol">
+                            <div class="ps-label"><i data-lucide="check-circle-2"></i> Solusi Fitur Sistem</div>
+                            <div class="ps-desc"><b>Modul Laporan Reject & Approval Owner</b>: Karyawan menginput form
+                                laporan reject (lokasi, jumlah, deskripsi penyebab). Data masuk ke status <i>Menunggu
+                                    Approval</i>. <b>Owner wajib meninjau dan mengonfirmasi (Approve)</b> sebelum
+                                stok/kerugian resmi diperbarui.</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Problem 6 -->
+                <div class="ps-block">
+                    <div class="ps-header">
+                        <div class="ps-title"><i data-lucide="refresh-cw" style="color: var(--blue-600);"></i> 6. Barang
+                            Pengganti Pelanggan</div>
+                    </div>
+                    <div class="ps-body">
+                        <div class="ps-prob">
+                            <div class="ps-label"><i data-lucide="x-circle"></i> Masalah Saat Ini</div>
+                            <div class="ps-desc">Pengiriman barang pengganti untuk barang rusak pelanggan berpotensi
+                                terhitung salah sebagai penjualan baru yang membiaskan omzet.</div>
+                        </div>
+                        <div class="ps-sol">
+                            <div class="ps-label"><i data-lucide="check-circle-2"></i> Solusi Fitur Sistem</div>
+                            <div class="ps-desc"><b>Fitur Barang Pengganti</b>: Mengurangi stok barang jadi di gudang
+                                untuk dikirim, tetapi <b>TIDAK menambah omzet penjualan rupiah</b>.</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Problem 7 -->
+                <div class="ps-block">
+                    <div class="ps-header">
+                        <div class="ps-title"><i data-lucide="lock" style="color: var(--blue-600);"></i> 7. Keamanan
+                            Data Keuangan Owner</div>
+                    </div>
+                    <div class="ps-body">
+                        <div class="ps-prob">
+                            <div class="ps-label"><i data-lucide="x-circle"></i> Masalah Saat Ini</div>
+                            <div class="ps-desc">Data modal (HPP), omzet, dan margin keuntungan berisiko terlihat oleh
+                                staf bagian produksi yang tidak berwenang.</div>
+                        </div>
+                        <div class="ps-sol">
+                            <div class="ps-label"><i data-lucide="check-circle-2"></i> Solusi Fitur Sistem</div>
+                            <div class="ps-desc"><b>Isolasi Role Ketat</b>: Tim Produksi hanya mengelola data fisik
+                                produksi. Informasi omzet & laba dilarang keras diakses oleh role produksi.</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Problem 8 -->
+                <div class="ps-block">
+                    <div class="ps-header">
+                        <div class="ps-title"><i data-lucide="file-spreadsheet" style="color: var(--emerald-600);"></i>
+                            8. Kesulitan Ekspor Data Operasional ke Excel</div>
+                    </div>
+                    <div class="ps-body">
+                        <div class="ps-prob">
+                            <div class="ps-label"><i data-lucide="x-circle"></i> Masalah Saat Ini</div>
+                            <div class="ps-desc">Pemilik dan akuntan kesulitan jika data laporan (penjualan, stok,
+                                produksi, reject) hanya bisa dilihat di layar dan tidak bisa diolah di Microsoft Excel.
+                            </div>
+                        </div>
+                        <div class="ps-sol">
+                            <div class="ps-label"><i data-lucide="check-circle-2"></i> Solusi Fitur Sistem</div>
+                            <div class="ps-desc"><b>Fitur Export Laporan Microsoft Excel (.xlsx) & PDF</b>: Seluruh data
+                                penjualan, invoice, pembayaran, produksi, stok, reject, retur, barang
+                                pengganti, hingga stock opname dapat di-download ke format Excel sesuai filter tanggal
+                                dan hak akses role user.</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Problem 9 -->
+                <div class="ps-block">
+                    <div class="ps-header">
+                        <div class="ps-title"><i data-lucide="wallet" style="color: var(--blue-600);"></i> 9. Monitoring
+                            Keuangan (Pemasukan vs Pengeluaran)</div>
+                    </div>
+                    <div class="ps-body">
+                        <div class="ps-prob">
+                            <div class="ps-label"><i data-lucide="x-circle"></i> Masalah Saat Ini</div>
+                            <div class="ps-desc">Pemilik bisnis kesulitan memantau secara real-time arus kas (Cashflow):
+                                berapa total uang masuk dari penjualan vs total pengeluaran operasional (pembelian bahan
+                                baku, biaya pengiriman, & kerugian barang rusak).</div>
+                        </div>
+                        <div class="ps-sol">
+                            <div class="ps-label"><i data-lucide="check-circle-2"></i> Solusi Fitur Sistem</div>
+                            <div class="ps-desc"><b>Dashboard Keuangan & Cashflow Real-Time</b>: Menyajikan grafik
+                                ringkas Pemasukan (Penjualan & Pelunasan Invoice), Pengeluaran (Pembelian Bahan Baku &
+                                Beban Operasional), serta Estimasi Laba/Rugi Bersih khusus untuk
+                                Owner.</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Problem 10 -->
+                <div class="ps-block">
+                    <div class="ps-header">
+                        <div class="ps-title"><i data-lucide="truck" style="color: var(--amber-600);"></i> 10.
+                            Pencatatan Biaya Sopir (Bensin, Uang Makan, Perawatan Armada)</div>
+                    </div>
+                    <div class="ps-body">
+                        <div class="ps-prob">
+                            <div class="ps-label"><i data-lucide="x-circle"></i> Masalah Saat Ini</div>
+                            <div class="ps-desc">Pengeluaran harian armada seperti uang bensin BBM sopir, uang makan
+                                pengiriman, tol/parkir, atau servis rutin kendaraan dicatat manual di nota fisik
+                                terpisah sehingga mudah tercecer dan membuat perhitungan kas tidak seimbang.</div>
+                        </div>
+                        <div class="ps-sol">
+                            <div class="ps-label"><i data-lucide="check-circle-2"></i> Solusi Fitur Sistem</div>
+                            <div class="ps-desc"><b>Modul Form Biaya Operasional Sopir & Kas Pengeluaran</b>: Staf Ops
+                                atau Sopir menginput pengeluaran harian di sistem dengan kategori khusus (<i>Bensin BBM,
+                                    Uang Makan Sopir/Kernet, Parkir/Tol, Servis Kendaraan, & Biaya Lainnya</i>).
+                                Pengeluaran otomatis terintegrasi memotong Kas Bersih di Dashboard Keuangan Owner.</div>
+                        </div>
+                    </div>
+                </div>
+
+            </section>
+
+            <!-- SECTION 3 -->
+            <section id="sec3">
+                <h2 class="doc-sec-heading">
+                    <span class="section-num">3.</span> Detail Alur & Proses Kerja Sistem (Step-by-Step)
+                </h2>
+                <p class="doc-p">
+                    Bagian ini menjelaskan secara rinci bagaimana setiap proses bisnis berjalan di dalam sistem
+                    nantinya, dari tahap awal hingga transaksi selesai:
+                </p>
+
+                <!-- PROSES 1 -->
+                <div class="process-card">
+                    <div class="process-title">
+                        <i data-lucide="shopping-bag" style="color: var(--blue-600);"></i>
+                        3.1 Alur Pemesanan ➔ Direct WA ➔ Input Staf ➔ Generate & Kirim Invoice Resmi
+                    </div>
+                    <p class="doc-p">Alur lengkap pemesanan dari form website ke WhatsApp, diinput staf di sistem,
+                        hingga penerbitan Invoice resmi untuk dikirim ke pelanggan:</p>
+
+                    <div class="process-flow">
+                        <div class="flow-step">
+                            <div class="flow-num">1</div>
+                            <div class="flow-content">
+                                <div class="flow-header">Pelanggan Mengisi Form Order di Website Publik</div>
+                                <div class="flow-text">
+                                    Pelanggan membuka website publik AQUWAR, memilih produk (Aquar / Es Kristal / Tangki
+                                    Air), dan menginput data pemesanan pada form order.
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="flow-step">
+                            <div class="flow-num">2</div>
+                            <div class="flow-content">
+                                <div class="flow-header">Klik "Kirim Pesanan" ➔ Direct Otomatis ke WhatsApp Perusahaan
+                                </div>
+                                <div class="flow-text">
+                                    Sistem di website otomatis memformat isi form menjadi pesan terstruktur dan langsung
+                                    membuka aplikasi WhatsApp ke nomor staf AQUWAR.
+                                </div>
+
+                                <div class="wa-box">
+                                    📱 <b>Tampilan Preview Pesan Otomatis di WhatsApp AQUWAR:</b><br><br>
+                                    Halo Tim AQUWAR, saya ingin memesan produk berikut:<br>
+                                    --------------------------------------------------<br>
+                                    • <b>Nama Pelanggan</b> : Budi Santoso (Toko Berkah)<br>
+                                    • <b>No. WhatsApp</b> : 0812-3456-7890<br>
+                                    • <b>Produk Pesanan</b> : Aquar 220ml (Dos) - 50 Dos & Es Kristal 10kg - 10
+                                    Karung<br>
+                                    • <b>Alamat Kirim</b> : Jl. Merdeka No. 12, Surabaya<br>
+                                    • <b>Catatan</b> : Mohon dikirim besok pagi sebelum jam 10.00 WIB.<br>
+                                    --------------------------------------------------<br>
+                                    Mohon konfirmasi harga total dan ketersediaan pengiriman. Terima kasih!
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="flow-step">
+                            <div class="flow-num">3</div>
+                            <div class="flow-content">
+                                <div class="flow-header">Staf Mengisi Form di Halaman Sistem Admin ➔ Generate Invoice
+                                    Resmi</div>
+                                <div class="flow-text">
+                                    Staf Ops menerima pesan WA terformat di atas, melakukan konfirmasi final, lalu login
+                                    ke sistem admin <code>/admin/invoice/create</code> untuk mengisi form transaksi.
+                                    Setelah diklik <b>"Generate Invoice"</b>, sistem otomatis menerbitkan Invoice resmi
+                                    ber-nomor unik <code>INV-2026-07-0042</code>:
+                                </div>
+
+                                <div class="inv-preview-card">
+                                    <div class="inv-preview-badge"><i data-lucide="eye"></i> Preview Visual Invoice
+                                        Sistem AQUWAR</div>
+
+                                    <div class="inv-top-bar">
+                                        <div>
+                                            <div class="inv-brand">AQU<span>WAR</span></div>
+                                            <div style="font-size: 11px; color: var(--slate-600);">Air Minum Dalam
+                                                Kemasan & Es Kristal</div>
+                                            <div style="font-size: 11px; color: var(--slate-600);">Jl. Raya Industry No.
+                                                88, Surabaya | WA: 0812-9999-8888</div>
+                                        </div>
+                                        <div style="text-align: right;">
+                                            <div style="font-size: 18px; font-weight: 800; color: var(--blue-700);">
+                                                INVOICE</div>
+                                            <div style="font-size: 13px; font-weight: 700; color: var(--navy-900);">
+                                                #INV-2026-07-0042</div>
+                                            <div style="font-size: 11px; color: var(--slate-600);">Tanggal: 22 Juli 2026
+                                            </div>
+                                            <div style="margin-top: 4px;"><span class="sim-badge-success"
+                                                    style="font-size: 11px;"><i data-lucide="check"></i>
+                                                    DIKONFIRMASI</span></div>
+                                        </div>
+                                    </div>
+
+                                    <div class="inv-details-grid">
+                                        <div>
+                                            <div
+                                                style="font-size: 11px; font-weight: 700; color: var(--slate-600); text-transform: uppercase;">
+                                                DITAGIHKAN KEPADA:</div>
+                                            <div style="font-weight: 700; color: var(--navy-900); font-size: 14px;">Budi
+                                                Santoso (Toko Berkah)</div>
+                                            <div style="color: var(--slate-600);">No. WA: 0812-3456-7890</div>
+                                            <div style="color: var(--slate-600);">Alamat: Jl. Merdeka No. 12, Surabaya
+                                            </div>
+                                        </div>
+                                        <div style="text-align: right;">
+                                            <div
+                                                style="font-size: 11px; font-weight: 700; color: var(--slate-600); text-transform: uppercase;">
+                                                METODE PEMBAYARAN:</div>
+                                            <div style="font-weight: 700; color: var(--navy-900);">Transfer Bank (BCA)
+                                            </div>
+                                            <div style="color: var(--slate-600);">No. Rek: 123-456-7890 a.n. AQUWAR
+                                            </div>
+                                            <div style="color: var(--amber-600); font-weight: 600;">Jatuh Tempo: 24 Juli
+                                                2026</div>
+                                        </div>
+                                    </div>
+
+                                    <table class="inv-table-preview">
+                                        <thead>
+                                            <tr>
+                                                <th>Deskripsi Produk</th>
+                                                <th style="text-align: center;">Qty</th>
+                                                <th style="text-align: right;">Harga Satuan</th>
+                                                <th style="text-align: right;">Total Subtotal</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td><b>Aquar Air Minum Cup 220ml</b> (Isi 48 cup/dos)</td>
+                                                <td style="text-align: center;">50 Dos</td>
+                                                <td style="text-align: right;">Rp 20.000</td>
+                                                <td style="text-align: right; font-weight: 600;">Rp 1.000.000</td>
+                                            </tr>
+                                            <tr>
+                                                <td><b>Es Kristal Higienis Kemasan 10kg</b></td>
+                                                <td style="text-align: center;">10 Karung</td>
+                                                <td style="text-align: right;">Rp 15.000</td>
+                                                <td style="text-align: right; font-weight: 600;">Rp 150.000</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+
+                                    <div class="inv-summary-box">
+                                        <table class="inv-summary-table">
+                                            <tr>
+                                                <td>Subtotal Produk:</td>
+                                                <td style="text-align: right; font-weight: 600;">Rp 1.150.000</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Biaya Pengiriman:</td>
+                                                <td style="text-align: right; font-weight: 600;">Rp 50.000</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Diskon Khusus:</td>
+                                                <td
+                                                    style="text-align: right; font-weight: 600; color: var(--rose-600);">
+                                                    -Rp 20.000</td>
+                                            </tr>
+                                            <tr class="grand-total">
+                                                <td>TOTAL TAGIHAN:</td>
+                                                <td style="text-align: right;">Rp 1.180.000</td>
+                                            </tr>
+                                        </table>
+                                    </div>
+
+                                    <div class="inv-actions-mock">
+                                        <button class="inv-btn-mock inv-btn-secondary"><i data-lucide="send"></i> Kirim
+                                            Invoice via WhatsApp Client</button>
+                                        <button class="inv-btn-mock inv-btn-primary"><i data-lucide="file-text"></i>
+                                            Download PDF Invoice</button>
+                                        <button class="inv-btn-mock inv-btn-outline"><i data-lucide="printer"></i> Cetak
+                                            Nota</button>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+
+                        <div class="flow-step">
+                            <div class="flow-num">4</div>
+                            <div class="flow-content">
+                                <div class="flow-header">Konfirmasi Invoice & Penguncian Stok Reservasi</div>
+                                <div class="flow-text">Setelah disetujui, Staf Ops mengonfirmasi invoice. Sistem
+                                    otomatis memindahkan stok fisik ke <b>Stok Reservasi</b> (`Stok Tersedia` langsung
+                                    berkurang).</div>
+                            </div>
+                        </div>
+
+                        <div class="flow-step">
+                            <div class="flow-num">5</div>
+                            <div class="flow-content">
+                                <div class="flow-header">Pencatatan Pembayaran & Pengiriman Barang</div>
+                                <div class="flow-text">Staf Ops mencatat pembayaran (Tunai/Transfer). Saat barang resmi
+                                    dikirim armada kurir, status berubah menjadi <b>Dikirim</b> dan stok fisik gudang
+                                    resmi terpotong.</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- PROSES 2 -->
+                <div class="process-card">
+                    <div class="process-title">
+                        <i data-lucide="factory" style="color: var(--blue-600);"></i>
+                        3.2 Alur Pencatatan Produksi & Perhitungan Bahan Baku (Pemeriksaan Otomatis)
+                    </div>
+                    <p class="doc-p">Proses bagaimana pabrik mencatat hasil jadi, sistem menghitung ketersediaan bahan
+                        baku, dan otomatis mengurangi stok gudang:</p>
+
+                    <div class="process-flow">
+                        <div class="flow-step">
+                            <div class="flow-num">1</div>
+                            <div class="flow-content">
+                                <div class="flow-header">Input Rencana Produksi</div>
+                                <div class="flow-text">Tim Produksi memilih produk yang akan dibuat (misal: Aquar 220ml)
+                                    dan menginput target rencana produksi sebanyak <b>100 Dos</b>.</div>
+                            </div>
+                        </div>
+
+                        <div class="flow-step">
+                            <div class="flow-num">2</div>
+                            <div class="flow-content">
+                                <div class="flow-header">Pemeriksaan Ketersediaan Bahan Baku (Hitungan Otomatis Sistem)
+                                </div>
+                                <div class="flow-text">
+                                    Sistem langsung menghitung otomatis kebutuhan bahan baku berdasarkan formula baku
+                                    <b>($1\text{ Dos} = 48\text{ Cup, } 48\text{ Lid, } 48\text{ Sedotan, } 1\text{
+                                        Kardus}$)</b> dan membandingkannya dengan stok di gudang saat itu:
+                                </div>
+
+                                <div class="sim-box">
+                                    <div class="sim-header">
+                                        <i data-lucide="calculator" style="color: var(--blue-600);"></i>
+                                        Simulasi Hitungan Sistem untuk Produksi 100 Dos Aquar:
+                                    </div>
+
+                                    <table class="doc-table" style="margin: 8px 0 12px; font-size: 13px;">
+                                        <thead>
+                                            <tr>
+                                                <th>Bahan Baku</th>
+                                                <th>Formula Baku (per Dos)</th>
+                                                <th>Hitungan Kebutuhan (100 Dos)</th>
+                                                <th>Stok Ada di Gudang</th>
+                                                <th>Status Pemeriksaan Sistem</th>
+                                                <th>Sisa Stok Jika Produksi Lanjut</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td><b>Cup</b></td>
+                                                <td>$100 \times 48\text{ buah}$</td>
+                                                <td><b>4.800 buah</b></td>
+                                                <td>38.000 buah</td>
+                                                <td><span class="sim-badge-success"><i data-lucide="check"></i>
+                                                        CUKUP</span></td>
+                                                <td>33.200 buah</td>
+                                            </tr>
+                                            <tr>
+                                                <td><b>Lid (Plastik)</b></td>
+                                                <td>$100 \times 48\text{ buah}$</td>
+                                                <td><b>4.800 buah</b></td>
+                                                <td>10.000 buah</td>
+                                                <td><span class="sim-badge-success"><i data-lucide="check"></i>
+                                                        CUKUP</span></td>
+                                                <td>5.200 buah</td>
+                                            </tr>
+                                            <tr>
+                                                <td><b>Sedotan</b></td>
+                                                <td>$100 \times 48\text{ buah}$</td>
+                                                <td><b>4.800 buah</b></td>
+                                                <td>5.000 buah</td>
+                                                <td><span class="sim-badge-success"
+                                                        style="background:#fef3c7; color:#92400e; border-color:#fde68a;"><i
+                                                            data-lucide="alert-triangle"></i> CUKUP (MENIPIS)</span>
+                                                </td>
+                                                <td><b>200 buah</b> <i>(Warning Stok Menipis)</i></td>
+                                            </tr>
+                                            <tr>
+                                                <td><b>Kardus</b></td>
+                                                <td>$100 \times 1\text{ buah}$</td>
+                                                <td><b>100 buah</b></td>
+                                                <td>150 buah</td>
+                                                <td><span class="sim-badge-success"><i data-lucide="check"></i>
+                                                        CUKUP</span></td>
+                                                <td>50 buah</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+
+                                    <div style="font-size: 13px; color: var(--slate-700); font-weight: 600;">
+                                        📌 <b>Hasil Keputusan Sistem:</b> Karena seluruh 4 bahan baku mencukupi ($\ge
+                                        4.800\text{ buah}$), tombol konfirmasi berwarna hijau aktif: <span
+                                            class="sim-badge-success"><i data-lucide="check-circle-2"></i> PRODUKSI
+                                            DISETUJUI & DAPAT DILANJUTKAN</span>.
+                                    </div>
+                                    <div style="font-size: 12px; color: var(--rose-600); margin-top: 6px;">
+                                        <i>*Skenario Jika Gagal: Seandainya stok Sedotan hanya ada 4.000 buah (kurang
+                                            800 buah), sistem akan langsung mengunci tombol dan menampilkan pesan merah:
+                                            <span class="sim-badge-danger"><i data-lucide="x-circle"></i> GAGAL: Stok
+                                                Sedotan Kurang 800 Buah! Produksi Dibatalkan.</span></i>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+
+                        <div class="flow-step">
+                            <div class="flow-num">3</div>
+                            <div class="flow-content">
+                                <div class="flow-header">Input Hasil Aktual & Reject Produksi</div>
+                                <div class="flow-text">Setelah shift selesai, Tim Produksi memasukkan hasil fisik yang
+                                    baik (misal: <b>97 dos</b>) dan hasil reject mesin (misal: <b>3 dos</b>). Total
+                                    produksi tetap 100 dos.</div>
+                            </div>
+                        </div>
+
+                        <div class="flow-step">
+                            <div class="flow-num">4</div>
+                            <div class="flow-content">
+                                <div class="flow-header">Update Stok Otomatis</div>
+                                <div class="flow-text">
+                                    Saat transaksi disimpan, sistem otomatis melakukan 3 aksi bersamaan:
+                                    <ul style="margin-left: 20px; margin-top: 4px;">
+                                        <li><b>Stok Barang Jadi (Aquar Dos)</b>: Bertambah <b>+97 Dos</b> (stok siap
+                                            jual).</li>
+                                        <li><b>Stok Bahan Baku Gudang</b>: Terpotong otomatis untuk 100 dos (Cup:
+                                            -4.800, Lid: -4.800, Sedotan: -4.800, Kardus: -100).</li>
+                                        <li><b>Laporan Reject Mesin</b>: Mencatat <b>3 Dos</b> sebagai barang rusak
+                                            pabrik beserta rincian kategori dan penyebab kerusakannya.</li>
+                                    </ul>
+                                </div>
+
+                                 <div class="inv-preview-card"
+                                     style="border-color: var(--emerald-600); margin-top: 14px; background: #ffffff; padding: 16px; border-radius: 10px; box-shadow: 0 2px 8px rgba(0,0,0,0.04);">
+                                     <div class="inv-preview-badge" style="background: var(--emerald-600);"><i
+                                             data-lucide="zap"></i> Preview Visual Simulasi Update Stok Otomatis (3 Aksi
+                                         Bersamaan System)</div>
+
+                                     <div
+                                         style="background: #ecfdf5; border: 1px solid #a7f3d0; border-radius: 8px; padding: 10px 14px; margin-bottom: 14px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 8px;">
+                                         <div style="font-size: 13px; font-weight: 800; color: #065f46; display: flex; align-items: center; gap: 8px;">
+                                             <span style="display: inline-flex; align-items: center; justify-content: center; width: 22px; height: 22px; background: #10b981; color: white; border-radius: 50%; font-size: 12px;"><i data-lucide="check" style="width: 14px; height: 14px;"></i></span>
+                                             <span>Status Eksekusi Sistem: <span style="color: #047857;">Transaksi Produksi 100 Dos Disimpan!</span></span>
+                                         </div>
+                                         <span style="font-size: 11px; font-weight: 700; background: #d1fae5; color: #065f46; padding: 3px 10px; border-radius: 20px; font-family: 'JetBrains Mono', monospace;">TRX-PROD-20260722-001</span>
+                                     </div>
+
+                                     <!-- 3 AKSI SIMULTAN -->
+                                     <div
+                                         style="display: flex; gap: 12px; flex-wrap: wrap;">
+                                         <!-- AKSI 1: STOK BARANG JADI -->
+                                         <div
+                                             style="flex: 1 1 220px; min-width: 200px; background: #f0fdf4; border: 1px solid #a7f3d0; border-radius: 8px; padding: 14px; display: flex; flex-direction: column; justify-content: space-between;">
+                                             <div>
+                                                 <div
+                                                     style="font-size: 11px; font-weight: 800; color: #166534; text-transform: uppercase; display: flex; align-items: center; justify-content: space-between; border-bottom: 1px dashed #a7f3d0; padding-bottom: 6px; margin-bottom: 8px;">
+                                                     <span style="display: flex; align-items: center; gap: 6px;"><i data-lucide="package-plus" style="width: 15px; height: 15px; color: #15803d;"></i> 1. STOK BARANG JADI</span>
+                                                     <span style="font-size: 10px; background: #d1fae5; color: #15803d; padding: 1px 6px; border-radius: 4px;">+TAMBAH</span>
+                                                 </div>
+                                                 <div style="font-size: 17px; font-weight: 800; color: #15803d; margin-bottom: 8px;">Aquar 220ml: <span style="color: #047857;">+97 Dos</span></div>
+                                             </div>
+                                             <div style="font-size: 11.5px; background: #ffffff; border: 1px solid #d1fae5; border-radius: 6px; padding: 8px 10px; color: #166534; display: flex; flex-direction: column; gap: 4px;">
+                                                 <div style="display: flex; justify-content: space-between;"><span>Stok Awal Gudang:</span> <b>50 Dos</b></div>
+                                                 <div style="display: flex; justify-content: space-between; border-top: 1px dotted #a7f3d0; padding-top: 4px; color: #14532d; font-weight: 700;"><span>Stok Siap Jual Akhir:</span> <span style="color: #059669; font-size: 13px;">147 Dos</span></div>
+                                             </div>
+                                         </div>
+
+                                         <!-- AKSI 2: POTONG BAHAN BAKU -->
+                                         <div
+                                             style="flex: 1 1 220px; min-width: 200px; background: #eff6ff; border: 1px solid #bfdbfe; border-radius: 8px; padding: 14px; display: flex; flex-direction: column; justify-content: space-between;">
+                                             <div>
+                                                 <div
+                                                     style="font-size: 11px; font-weight: 800; color: #1e40af; text-transform: uppercase; display: flex; align-items: center; justify-content: space-between; border-bottom: 1px dashed #bfdbfe; padding-bottom: 6px; margin-bottom: 8px;">
+                                                     <span style="display: flex; align-items: center; gap: 6px;"><i data-lucide="minus-circle" style="width: 15px; height: 15px; color: #1d4ed8;"></i> 2. POTONG BAHAN BAKU</span>
+                                                     <span style="font-size: 10px; background: #dbeafe; color: #1d4ed8; padding: 1px 6px; border-radius: 4px;">-TERPOTONG</span>
+                                                 </div>
+                                                 <div style="font-size: 17px; font-weight: 800; color: #1d4ed8; margin-bottom: 8px;">Bahan Baku <span style="font-size: 12px; font-weight: 600; color: #2563eb;">(4 Item)</span></div>
+                                             </div>
+                                             <div style="font-size: 11px; background: #ffffff; border: 1px solid #dbeafe; border-radius: 6px; padding: 6px 10px; color: #1e3a8a; display: flex; flex-direction: column; gap: 3px;">
+                                                 <div style="display: flex; justify-content: space-between; align-items: center;"><span>• <b>Cup</b>:</span> <span><b style="color: #dc2626;">-4.800 bh</b> <i style="color: #64748b; font-size: 10px;">(Sisa: 33.200)</i></span></div>
+                                                 <div style="display: flex; justify-content: space-between; align-items: center;"><span>• <b>Lid Plastik</b>:</span> <span><b style="color: #dc2626;">-4.800 bh</b> <i style="color: #64748b; font-size: 10px;">(Sisa: 5.200)</i></span></div>
+                                                 <div style="display: flex; justify-content: space-between; align-items: center;"><span>• <b>Sedotan</b>:</span> <span><b style="color: #dc2626;">-4.800 bh</b> <i style="color: #64748b; font-size: 10px;">(Sisa: 200)</i></span></div>
+                                                 <div style="display: flex; justify-content: space-between; align-items: center;"><span>• <b>Kardus</b>:</span> <span><b style="color: #dc2626;">-100 bh</b> <i style="color: #64748b; font-size: 10px;">(Sisa: 50)</i></span></div>
+                                             </div>
+                                         </div>
+
+                                         <!-- AKSI 3: REJECT MESIN PABRIK -->
+                                         <div
+                                             style="flex: 1 1 220px; min-width: 200px; background: #fff1f2; border: 1px solid #fecdd3; border-radius: 8px; padding: 14px; display: flex; flex-direction: column; justify-content: space-between;">
+                                             <div>
+                                                 <div
+                                                     style="font-size: 11px; font-weight: 800; color: #9f1239; text-transform: uppercase; display: flex; align-items: center; justify-content: space-between; border-bottom: 1px dashed #fecdd3; padding-bottom: 6px; margin-bottom: 8px;">
+                                                     <span style="display: flex; align-items: center; gap: 6px;"><i data-lucide="alert-octagon" style="width: 15px; height: 15px; color: #e11d48;"></i> 3. REJECT MESIN PABRIK</span>
+                                                     <span style="font-size: 10px; background: #ffe4e6; color: #e11d48; padding: 1px 6px; border-radius: 4px;">AFKIR</span>
+                                                 </div>
+                                                 <div style="font-size: 17px; font-weight: 800; color: #be123c; margin-bottom: 8px;">Barang Rusak: <span style="color: #e11d48;">3 Dos</span></div>
+                                             </div>
+                                             <div style="font-size: 11.5px; background: #ffffff; border: 1px solid #ffe4e6; border-radius: 6px; padding: 8px 10px; color: #881337; display: flex; flex-direction: column; gap: 4px;">
+                                                 <div style="display: flex; justify-content: space-between;"><span>Kategori:</span> <b style="color: #9f1239;">Sealer Tidak Rapat</b></div>
+                                                 <div style="display: flex; justify-content: space-between; border-top: 1px dotted #fecdd3; padding-top: 4px;"><span>Detail:</span> <i style="color: #be123c;">Cup bocor &amp; lid miring</i></div>
+                                             </div>
+                                         </div>
+                                     </div>
+                                 </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- PROSES 3 -->
+                <div class="process-card">
+                    <div class="process-title">
+                        <i data-lucide="refresh-cw" style="color: var(--blue-600);"></i>
+                        3.3 Alur Barang Reject & Persetujuan (Approval) Konfirmasi Owner
+                    </div>
+                    <p class="doc-p">Proses pengajuan dan konfirmasi langsung dari Owner apabila terjadi kerusakan
+                        produk di gudang, pengiriman, atau klaim pelanggan:</p>
+
+                    <div class="process-flow">
+                        <div class="flow-step">
+                            <div class="flow-num">1</div>
+                            <div class="flow-content">
+                                <div class="flow-header">Pengajuan Pelaporan Barang Rusak / Reject oleh Staf</div>
+                                <div class="flow-text">Karyawan menemukan produk rusak, menginput jumlah barang rusak,
+                                    memilih lokasi (mesin/gudang/pengiriman), dan menuliskan rincian penyebabnya. Status
+                                    laporan tersimpan sebagai <b>"Menunggu Konfirmasi Owner"</b>.</div>
+                            </div>
+                        </div>
+
+                        <div class="flow-step">
+                            <div class="flow-num">2</div>
+                            <div class="flow-content">
+                                <div class="flow-header">Pemeriksaan & Konfirmasi Persetujuan (Approval) oleh Owner
+                                </div>
+                                <div class="flow-text">
+                                    Owner menerima notifikasi di Dashboard dan meninjau rincian pengajuan reject.
+                                    <b>Owner memberikan Konfirmasi Persetujuan (Approve/Reject)</b>:
+                                    <ul style="margin-left: 20px; margin-top: 4px; font-size: 13px;">
+                                        <li><b>Jika Disetujui (Approved)</b>: Laporan resmi disahkan, sisa stok gudang
+                                            dipotong, dan nilai kerugian masuk ke pembukuan beban operasional.</li>
+                                        <li><b>Jika Ditolak (Rejected)</b>: Laporan dikembalikan ke staf dengan catatan
+                                            revisi/pemeriksaan ulang.</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="flow-step">
+                            <div class="flow-num">3</div>
+                            <div class="flow-content">
+                                <div class="flow-header">Penerbitan Transaksi Barang Pengganti</div>
+                                <div class="flow-text">Setelah disetujui Owner, jika pelanggan memerlukan penggantian
+                                    barang, Staf Ops menerbitkan transaksi <b>"Barang Pengganti"</b> yang mereferensikan
+                                    nomor invoice asal.</div>
+                            </div>
+                        </div>
+
+                        <div class="flow-step">
+                            <div class="flow-num">4</div>
+                            <div class="flow-content">
+                                <div class="flow-header">Pengeluaran Barang Tanpa Omzet</div>
+                                <div class="flow-text">Stok barang jadi berkurang untuk dikirim ke pelanggan. Sistem
+                                    memastikan nilai transaksi <b>Rp 0 (tidak menambah omzet penjualan)</b>.</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- PROSES 4 -->
+                <div class="process-card">
+                    <div class="process-title">
+                        <i data-lucide="truck" style="color: var(--amber-600);"></i>
+                        3.4 Alur Pencatatan Biaya Sopir (Bensin BBM, Uang Makan, Perawatan Armada)
+                    </div>
+                    <p class="doc-p">Proses penginputan biaya pengeluaran operasional harian armada pengiriman oleh Staf
+                        Ops / Sopir:</p>
+
+                    <div class="process-flow">
+                        <div class="flow-step">
+                            <div class="flow-num">1</div>
+                            <div class="flow-content">
+                                <div class="flow-header">Pengisian Form Pengeluaran Operasional di Sistem</div>
+                                <div class="flow-text">
+                                    Staf Ops atau Sopir membuka menu <code>/admin/expenses/create</code> dan menginput
+                                    rincian biaya pengeluaran:
+                                    <ul style="margin-left: 20px; margin-top: 4px; font-size: 13px;">
+                                        <li><b>Kategori Pengeluaran</b>: Bensin BBM / Uang Makan Sopir & Kernet / Tol &
+                                            Parkir / Perawatan Kendaraan / Lainnya</li>
+                                        <li><b>Nominal Pengeluaran (Rp)</b>: Jumlah nominal rupiah yang dikeluarkan</li>
+                                        <li><b>Armada / No. Polisi Kendaraan</b>: Nomor plat truk/pickup pengiriman</li>
+                                        <li><b>Deskripsi & Catatan Rute</b>: Keterangan rute pengiriman (misal: "Bensin
+                                            Truk L-1234-AB Rute Surabaya - Sidoarjo")</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="flow-step">
+                            <div class="flow-num">2</div>
+                            <div class="flow-content">
+                                <div class="flow-header">Auto-Update Kas Pengeluaran & Akumulasi Cashflow</div>
+                                <div class="flow-text">
+                                    Saat form disimpan, sistem otomatis mencatat pengeluaran kas harian dan meng-update
+                                    total <b>Beban Pengeluaran Operasional</b> pada Dashboard Keuangan Owner secara
+                                    real-time (otomatis memotong Estimasi Laba Bersih).
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="flow-step">
+                            <div class="flow-num">3</div>
+                            <div class="flow-content">
+                                <div class="flow-header">Rekap & Export Laporan Pengeluaran Sopir ke Excel</div>
+                                <div class="flow-text">
+                                    Seluruh riwayat biaya pengeluaran sopir dapat di-filter berdasarkan tanggal/nama
+                                    armada, serta di-export ke **Microsoft Excel (.xlsx)** dan PDF untuk keperluan audit
+                                    keuangan Owner.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- PROSES 5 (WITH FULL VISUAL PREVIEWS FOR ALL 3 STEPS) -->
+                <div class="process-card">
+                    <div class="process-title">
+                        <i data-lucide="pie-chart" style="color: var(--blue-600);"></i>
+                        3.5 Alur Pemantauan Keuangan & Ekspor Data Excel
+                    </div>
+                    <p class="doc-p">Proses pengawasan arus kas (pemasukan vs pengeluaran) dan pencetakan data ke
+                        Microsoft Excel:</p>
+
+                    <div class="process-flow">
+
+                        <!-- STEP 1 & PREVIEW DASHBOARD -->
+                        <div class="flow-step">
+                            <div class="flow-num">1</div>
+                            <div class="flow-content">
+                                <div class="flow-header">Monitoring Dashboard Keuangan (Real-Time)</div>
+                                <div class="flow-text">
+                                    Owner membuka Dashboard Keuangan untuk melihat total Pemasukan (pelunasan invoice),
+                                    Pengeluaran (pembelian bahan baku & biaya operasional), serta Estimasi Laba Bersih secara real-time.
+                                </div>
+
+                                <!-- PREVIEW VISUAL DASHBOARD KEUANGAN OWNER -->
+                                <div class="inv-preview-card"
+                                    style="margin-top: 14px; background: #ffffff; border-color: var(--blue-600);">
+                                    <div class="inv-preview-badge" style="background: var(--blue-600);"><i
+                                            data-lucide="layout-dashboard"></i> Preview Visual Dashboard Keuangan Owner
+                                        AQUWAR</div>
+
+                                    <div
+                                        style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px; border-bottom: 1px solid var(--slate-200); padding-bottom: 12px;">
+                                        <div>
+                                            <div style="font-size: 16px; font-weight: 800; color: var(--navy-900);">
+                                                Ringkasan Cashflow & Laba/Rugi</div>
+                                            <div style="font-size: 11px; color: var(--slate-600);">Periode: 01 Juli 2026
+                                                – 22 Juli 2026 | Role: 👑 Owner Privileged</div>
+                                        </div>
+                                        <span class="sim-badge-success" style="font-size: 11px;"><i
+                                                data-lucide="refresh-cw"></i> Data Real-Time</span>
+                                    </div>
+
+                                     <!-- GRID STATISTIK KEUANGAN (3 KOLOM BERJEJER) -->
+                                     <div
+                                         style="display: flex; gap: 12px; margin-bottom: 16px; flex-wrap: wrap;">
+                                         <!-- CARD 1: PEMASUKAN -->
+                                         <div
+                                             style="flex: 1 1 200px; min-width: 180px; background: var(--emerald-50); border: 1px solid #a7f3d0; border-radius: 8px; padding: 14px; display: flex; flex-direction: column; justify-content: space-between;">
+                                             <div>
+                                                 <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 4px;">
+                                                     <span style="font-size: 11px; font-weight: 700; color: var(--emerald-600); text-transform: uppercase; letter-spacing: 0.3px;">TOTAL PEMASUKAN</span>
+                                                     <i data-lucide="trending-up" style="width: 16px; height: 16px; color: var(--emerald-600);"></i>
+                                                 </div>
+                                                 <div style="font-size: 18px; font-weight: 800; color: #065f46; margin-top: 2px; white-space: nowrap;">Rp 128.500.000</div>
+                                             </div>
+                                             <div style="font-size: 11px; color: #047857; margin-top: 8px; display: flex; align-items: center; gap: 4px;">
+                                                 <i data-lucide="check-circle-2" style="width: 12px; height: 12px;"></i> Penjualan & Pelunasan Invoice
+                                             </div>
+                                         </div>
+
+                                         <!-- CARD 2: PENGELUARAN -->
+                                         <div
+                                             style="flex: 1 1 200px; min-width: 180px; background: var(--rose-50); border: 1px solid #fecdd3; border-radius: 8px; padding: 14px; display: flex; flex-direction: column; justify-content: space-between;">
+                                             <div>
+                                                 <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 4px;">
+                                                     <span style="font-size: 11px; font-weight: 700; color: var(--rose-600); text-transform: uppercase; letter-spacing: 0.3px;">TOTAL PENGELUARAN</span>
+                                                     <i data-lucide="trending-down" style="width: 16px; height: 16px; color: var(--rose-600);"></i>
+                                                 </div>
+                                                 <div style="font-size: 18px; font-weight: 800; color: #9f1239; margin-top: 2px; white-space: nowrap;">Rp 64.200.000</div>
+                                             </div>
+                                             <div style="font-size: 11px; color: #be123c; margin-top: 8px; display: flex; align-items: center; gap: 4px;">
+                                                 <i data-lucide="shopping-cart" style="width: 12px; height: 12px;"></i> Bahan Baku, Bensin Sopir, Ops
+                                             </div>
+                                         </div>
+
+                                         <!-- CARD 3: LABA BERSIH -->
+                                         <div
+                                             style="flex: 1 1 200px; min-width: 180px; background: var(--blue-50); border: 1px solid #bfdbfe; border-radius: 8px; padding: 14px; display: flex; flex-direction: column; justify-content: space-between;">
+                                             <div>
+                                                 <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 4px;">
+                                                     <span style="font-size: 11px; font-weight: 700; color: var(--blue-700); text-transform: uppercase; letter-spacing: 0.3px;">ESTIMASI LABA BERSIH</span>
+                                                     <i data-lucide="wallet" style="width: 16px; height: 16px; color: var(--blue-700);"></i>
+                                                 </div>
+                                                 <div style="font-size: 18px; font-weight: 800; color: var(--blue-700); margin-top: 2px; white-space: nowrap;">Rp 64.300.000</div>
+                                             </div>
+                                             <div style="font-size: 11px; color: var(--blue-600); margin-top: 8px; display: flex; align-items: center; gap: 4px;">
+                                                 <i data-lucide="pie-chart" style="width: 12px; height: 12px;"></i> Margin Keuntungan Bersih
+                                             </div>
+                                         </div>
+                                     </div>
+                                </div>
+
+                            </div>
+                        </div>
+
+                        <!-- STEP 2 & PREVIEW CONTROL FILTER LAPORAN -->
+                        <div class="flow-step">
+                            <div class="flow-num">2</div>
+                            <div class="flow-content">
+                                <div class="flow-header">Filter Rentang Tanggal Laporan</div>
+                                <div class="flow-text">
+                                    User memilih modul laporan yang dibutuhkan (Penjualan / Stok / Produksi / Reject /
+                                    Pengeluaran Sopir) dan menentukan filter periode (Harian, Bulanan, atau
+                                    Kustom Tanggal).
+                                </div>
+
+                                <!-- PREVIEW VISUAL CONTROL PANEL FILTER -->
+                                <div class="inv-preview-card"
+                                    style="margin-top: 14px; background: #f8fafc; border-color: var(--slate-300);">
+
+                                    <div
+                                        style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 14px; align-items: end;">
+                                        <div>
+                                            <label
+                                                style="font-size: 11px; font-weight: 700; color: var(--slate-600); text-transform: uppercase;">1.
+                                                PILIH MODUL LAPORAN:</label>
+                                            <div
+                                                style="background: white; border: 1px solid var(--slate-300); padding: 8px 12px; border-radius: 6px; font-weight: 700; font-size: 13px; color: var(--navy-900); margin-top: 4px; display: flex; align-items: center; justify-content: space-between;">
+                                                <span>Laporan Rekap Keuangan & Cashflow</span>
+                                                <i data-lucide="chevron-down"
+                                                    style="width: 16px; height: 16px; color: var(--slate-600);"></i>
+                                            </div>
+                                        </div>
+
+                                        <div>
+                                            <label
+                                                style="font-size: 11px; font-weight: 700; color: var(--slate-600); text-transform: uppercase;">2.
+                                                PERIODE TANGGAL (DARI - SAMPAI):</label>
+                                            <div
+                                                style="background: white; border: 1px solid var(--slate-300); padding: 8px 12px; border-radius: 6px; font-weight: 600; font-size: 13px; color: var(--slate-800); margin-top: 4px; display: flex; align-items: center; gap: 8px;">
+                                                <i data-lucide="calendar"
+                                                    style="width: 14px; height: 14px; color: var(--blue-600);"></i>
+                                                <span>01/07/2026 s/d 22/07/2026</span>
+                                            </div>
+                                        </div>
+
+                                        <div>
+                                            <button
+                                                style="width: 100%; background: var(--blue-600); color: white; border: none; padding: 9px 16px; border-radius: 6px; font-weight: 700; font-size: 13px; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 6px;">
+                                                <i data-lucide="filter"></i> Tampilkan Data Laporan
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+
+                        <!-- STEP 3 & PREVIEW OUTPUT EXCEL SHEET -->
+                        <div class="flow-step">
+                            <div class="flow-num">3</div>
+                            <div class="flow-content">
+                                <div class="flow-header">Download File Microsoft Excel (.xlsx) / PDF</div>
+                                <div class="flow-text">
+                                    User menekan tombol <b>"Export Excel"</b> atau <b>"Download PDF"</b>. Sistem
+                                    menghasilkan dokumen laporan yang rapi dan siap disetorkan ke akuntan atau diolah di
+                                    Excel.
+                                </div>
+
+                                <!-- PREVIEW VISUAL FILE EXCEL MOCKUP & BUTTONS -->
+                                <div class="inv-preview-card"
+                                    style="margin-top: 14px; background: #ffffff; border-color: var(--emerald-600);">
+
+                                    <div
+                                        style="background: #107c41; color: white; padding: 10px 14px; border-radius: 6px 6px 0 0; font-size: 13px; font-weight: 700; display: flex; justify-content: space-between; align-items: center;">
+                                        <div style="display: flex; align-items: center; gap: 8px;">
+                                            <i data-lucide="file-spreadsheet"></i> Berkas Excel:
+                                            LAPORAN_KEUANGAN_JULI_2026.xlsx
+                                        </div>
+                                        <span
+                                            style="font-size: 11px; background: rgba(255,255,255,0.2); padding: 2px 8px; border-radius: 4px;">Microsoft
+                                            Excel Document</span>
+                                    </div>
+
+                                    <!-- TABEL MOCKUP EXCEL SHEET -->
+                                    <table class="inv-table-preview"
+                                        style="margin-bottom: 14px; border: 1px solid var(--slate-300); width: 100%; border-collapse: collapse;">
+                                        <thead>
+                                            <tr style="background: #f1f5f9;">
+                                                <th style="background: #f1f5f9; color: var(--navy-900); border: 1px solid var(--slate-300); padding: 10px 14px; text-align: left; font-weight: 700;">
+                                                    Tanggal</th>
+                                                <th style="background: #f1f5f9; color: var(--navy-900); border: 1px solid var(--slate-300); padding: 10px 14px; text-align: left; font-weight: 700;">
+                                                    Kode Transaksi</th>
+                                                <th style="background: #f1f5f9; color: var(--navy-900); border: 1px solid var(--slate-300); padding: 10px 14px; text-align: left; font-weight: 700;">
+                                                    Kategori / Keterangan</th>
+                                                <th
+                                                    style="background: #f1f5f9; color: var(--navy-900); border: 1px solid var(--slate-300); padding: 10px 14px; text-align: right; font-weight: 700;">
+                                                    Pemasukan (Rp)</th>
+                                                <th
+                                                    style="background: #f1f5f9; color: var(--navy-900); border: 1px solid var(--slate-300); padding: 10px 14px; text-align: right; font-weight: 700;">
+                                                    Pengeluaran (Rp)</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody style="font-size: 12px; font-family: 'JetBrains Mono', monospace;">
+                                            <tr>
+                                                <td style="border: 1px solid var(--slate-300); color: var(--slate-800); padding: 10px 14px;">22/07/2026</td>
+                                                <td style="border: 1px solid var(--slate-300); color: var(--slate-800); padding: 10px 14px;">INV-2026-07-0042</td>
+                                                <td style="border: 1px solid var(--slate-300); color: var(--slate-800); padding: 10px 14px;">Pelunasan Invoice Toko
+                                                    Berkah</td>
+                                                <td
+                                                    style="border: 1px solid var(--slate-300); text-align: right; font-weight: 700; color: var(--emerald-600); padding: 10px 14px;">
+                                                    1.180.000</td>
+                                                <td
+                                                    style="border: 1px solid var(--slate-300); text-align: right; color: var(--slate-500); padding: 10px 14px;">
+                                                    0</td>
+                                            </tr>
+                                            <tr>
+                                                <td style="border: 1px solid var(--slate-300); color: var(--slate-800); padding: 10px 14px;">22/07/2026</td>
+                                                <td style="border: 1px solid var(--slate-300); color: var(--slate-800); padding: 10px 14px;">EXP-2026-07-0105</td>
+                                                <td style="border: 1px solid var(--slate-300); color: var(--slate-800); padding: 10px 14px;">Bensin BBM Truk
+                                                    L-1234-AB & Makan Sopir</td>
+                                                <td
+                                                    style="border: 1px solid var(--slate-300); text-align: right; color: var(--slate-500); padding: 10px 14px;">
+                                                    0</td>
+                                                <td
+                                                    style="border: 1px solid var(--slate-300); text-align: right; font-weight: 700; color: var(--rose-600); padding: 10px 14px;">
+                                                    250.000</td>
+                                            </tr>
+                                            <tr>
+                                                <td style="border: 1px solid var(--slate-300); color: var(--slate-800); padding: 10px 14px;">21/07/2026</td>
+                                                <td style="border: 1px solid var(--slate-300); color: var(--slate-800); padding: 10px 14px;">PO-2026-07-0012</td>
+                                                <td style="border: 1px solid var(--slate-300); color: var(--slate-800); padding: 10px 14px;">Pembelian Bahan Baku Cup
+                                                    & Kardus</td>
+                                                <td
+                                                    style="border: 1px solid var(--slate-300); text-align: right; color: var(--slate-500); padding: 10px 14px;">
+                                                    0</td>
+                                                <td
+                                                    style="border: 1px solid var(--slate-300); text-align: right; font-weight: 700; color: var(--rose-600); padding: 10px 14px;">
+                                                    15.000.000</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+
+                                    <!-- ACTION BUTTONS -->
+                                    <div class="inv-actions-mock">
+                                        <button class="inv-btn-mock inv-btn-secondary"><i
+                                                data-lucide="file-spreadsheet"></i> Export to Excel (.xlsx)</button>
+                                        <button class="inv-btn-mock inv-btn-primary"><i data-lucide="file-text"></i>
+                                            Download PDF Laporan</button>
+                                        <button class="inv-btn-mock inv-btn-outline"><i data-lucide="printer"></i> Cetak
+                                            Rekap Laporan</button>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+                <div class="doc-callout">
+                    <div class="doc-callout-title"><i data-lucide="info"></i> Catatan PENTING Pembukuan:</div>
+                    Seluruh biaya bensin, makan sopir, dan kerugian barang reject otomatis masuk ke dalam Beban
+                    Pengeluaran Operasional, sehingga angka Laba Bersih yang diterima Owner di Dashboard dijamin 100%
+                    akurat.
+                </div>
+            </section>
+
+            <!-- SECTION 4 -->
+            <section id="sec4">
+                <h2 class="doc-sec-heading">
+                    <span class="section-num">4.</span> Matriks Pembagian Hak Akses Pengguna
+                </h2>
+                <p class="doc-p">
+                    Sistem mengelompokkan pengguna ke dalam 3 role utama dengan pembatasan wewenang yang tegas:
+                </p>
+
+                <table class="doc-table">
+                    <thead>
+                        <tr>
+                            <th>Fitur / Akses Modul</th>
+                            <th>👑 Owner (Pemilik)</th>
+                            <th>🚚 Tim Operasional</th>
+                            <th>🏭 Tim Produksi</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><b>Dashboard Keuangan (Pemasukan/Pengeluaran)</b></td>
+                            <td>Full (Lengkap)</td>
+                            <td>Terbatas (Hanya Status Pesanan)</td>
+                            <td>❌ Dilarang Access</td>
+                        </tr>
+                        <tr>
+                            <td><b>Form Biaya Sopir (Bensin, Makan, Tol, Servis)</b></td>
+                            <td>Monitoring & Rekap</td>
+                            <td>Input & Kelola Biaya Harian</td>
+                            <td>❌ Dilarang Access</td>
+                        </tr>
+                        <tr>
+                            <td><b>Export Excel (.xlsx) & PDF Laporan</b></td>
+                            <td>Semua Laporan</td>
+                            <td>Laporan Operasional Ops</td>
+                            <td>Laporan Produksi & Reject saja</td>
+                        </tr>
+                        <tr>
+                            <td><b>Manajemen Pelanggan & Invoice</b></td>
+                            <td>Full Access</td>
+                            <td>Input & Edit Invoice</td>
+                            <td>❌ Dilarang Access</td>
+                        </tr>
+                        <tr>
+                            <td><b>Master Formula Produksi (BOM)</b></td>
+                            <td>Kelola & Ubah Formula</td>
+                            <td>❌ Tidak Bikin Formula</td>
+                            <td>👁️ Hanya Lihat Formula Active</td>
+                        </tr>
+                        <tr>
+                            <td><b>Input Hasil Produksi Fisik</b></td>
+                            <td>Monitoring & View</td>
+                            <td>Opsional</td>
+                            <td>Input Utama Shift Produksi</td>
+                        </tr>
+                        <tr>
+                            <td><b>Pencatatan Barang Reject & Adjust Stok</b></td>
+                            <td>👑 <b>Persetujuan / Approval Utama</b></td>
+                            <td>Input Pengajuan Reject Ops</td>
+                            <td>Input Pengajuan Reject Mesin</td>
+                        </tr>
+                        <tr>
+                            <td><b>Stock Opname & Approval</b></td>
+                            <td>Setujui (Approval) Selisih</td>
+                            <td>Pengajuan Stock Opname</td>
+                            <td>Terbatas Bahan Baku Fisik</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </section>
+
+            <!-- SECTION 5 -->
+            <section id="sec5">
+                <h2 class="doc-sec-heading">
+                    <span class="section-num">5.</span> Tahapan Pelaksanaan & Implementasi
+                </h2>
+                <p class="doc-p">
+                    Rencana kerja pengembangan sistem dilakukan secara terstruktur melalui 6 tahapan berikut:
+                </p>
+
+                <div class="timeline">
+                    <div class="timeline-item">
+                        <div class="timeline-title">Tahap 1: Analisis & Finalisasi Data (Saat Ini)</div>
+                        <div class="timeline-desc">Konfirmasi alur bisnis, penetapan formula bahan baku, serta
+                            mengumpulkan data master produk dan supplier.</div>
+                    </div>
+
+                    <div class="timeline-item">
+                        <div class="timeline-title">Tahap 2: Desain Antarmuka & Wireframe</div>
+                        <div class="timeline-desc">Merancang tampilan layar aplikasi web (desktop & mobile) agar mudah
+                            digunakan oleh staf operasional dan pabrik.</div>
+                    </div>
+
+                    <div class="timeline-item">
+                        <div class="timeline-title">Tahap 3: Pengembangan Database & Sistem (Coding)</div>
+                        <div class="timeline-desc">Membangun logika backend, reservasi stok, perhitungan formula
+                            produksi otomatis, Form Biaya Operasional Sopir, Dashboard Keuangan Cashflow, serta modul
+                            export Excel (.xlsx) / PDF.</div>
+                    </div>
+
+                    <div class="timeline-item">
+                        <div class="timeline-title">Tahap 4: Pengujian Sistem (Testing)</div>
+                        <div class="timeline-desc">Menguji ketepatan pemotongan bahan baku, penguncian stok reservasi,
+                            penarikan data pengeluaran ke Excel, serta keamanan hak akses role.</div>
+                    </div>
+
+                    <div class="timeline-item">
+                        <div class="timeline-title">Tahap 5: User Acceptance Testing (UAT) & Pelatihan</div>
+                        <div class="timeline-desc">Klien melakukan uji coba sistem dengan data simulasi dan pelatihan
+                            bagi Tim Ops dan Tim Produksi.</div>
+                    </div>
+
+                    <div class="timeline-item">
+                        <div class="timeline-title">Tahap 6: Go-Live & Pemeliharaan</div>
+                        <div class="timeline-desc">Input stok awal resmi, pembuatan akun pengguna, dan sistem resmi
+                            digunakan penuh untuk operasional harian.</div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- FORM USULAN / REVISI TAMBAHAN KLIEN -->
+            <section id="sec-wa-form" style="margin-top: 48px; border-top: 2px dashed var(--slate-200); padding-top: 36px;">
+                <div style="background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%); color: white; border-radius: 14px; padding: 32px; box-shadow: 0 10px 25px -5px rgba(15, 23, 42, 0.2);">
+                    <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 8px;">
+                        <div style="width: 38px; height: 38px; background: #25D366; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; flex-shrink: 0;">
+                            <i data-lucide="message-square" style="width: 20px; height: 20px;"></i>
+                        </div>
+                        <div>
+                            <h3 style="font-size: 18px; font-weight: 800; color: #ffffff; margin: 0;">Form Pengajuan Tambahan Fitur / Catatan Klien</h3>
+                            <p style="font-size: 13px; color: #94a3b8; margin: 2px 0 0 0;">Punya usulan fitur baru atau perubahan alur? Isi form di bawah untuk langsung terhubung ke WhatsApp Developer.</p>
+                        </div>
+                    </div>
+
+                    <form id="waFeedbackForm" onsubmit="sendToWhatsApp(event)" style="margin-top: 20px; display: grid; gap: 16px;">
+                        <div>
+                            <label style="display: block; font-size: 11.5px; font-weight: 700; color: #cbd5e1; margin-bottom: 6px; text-transform: uppercase; letter-spacing: 0.5px;">Kategori Usulan / Masalah Yang Dihadapi *</label>
+                            <select id="waKategori" required
+                                style="width: 100%; padding: 10px 14px; border-radius: 8px; border: 1px solid #334155; background: #1e293b; color: white; font-size: 13.5px; outline: none;">
+                                <option value="Masalah / Kendala Operasional Saat Ini">Masalah / Kendala Operasional Saat Ini</option>
+                                <option value="Tambah Fitur Baru">Tambah Fitur Baru</option>
+                                <option value="Perubahan Alur Sistem">Perubahan Alur Sistem</option>
+                                <option value="Penyesuaian Laporan / Excel">Penyesuaian Laporan / Excel</option>
+                                <option value="Pertanyaan / Diskusi Lainnya">Pertanyaan / Diskusi Lainnya</option>
+                            </select>
+                        </div>
+
+                        <div>
+                            <label style="display: block; font-size: 11.5px; font-weight: 700; color: #cbd5e1; margin-bottom: 6px; text-transform: uppercase; letter-spacing: 0.5px;">Detail Masalah / Usulan Catatan Tambahan *</label>
+                            <textarea id="waCatatan" rows="4" required placeholder="Tuliskan rincian masalah yang dihadapi, usulan fitur, atau perubahan alur yang ingin ditambahkan di sini..."
+                                style="width: 100%; padding: 12px 14px; border-radius: 8px; border: 1px solid #334155; background: #1e293b; color: white; font-size: 13.5px; outline: none; font-family: inherit; resize: vertical;"></textarea>
+                        </div>
+
+                        <div style="display: flex; justify-content: flex-end; margin-top: 4px;">
+                            <button type="submit"
+                                style="background: linear-gradient(135deg, #25D366 0%, #128c7e 100%); color: white; border: none; padding: 12px 24px; border-radius: 8px; font-size: 14px; font-weight: 700; cursor: pointer; display: inline-flex; align-items: center; gap: 8px; box-shadow: 0 4px 14px rgba(37, 211, 102, 0.3);">
+                                <i data-lucide="send" style="width: 16px; height: 16px;"></i> Kirim via WhatsApp (0813-4415-5598)
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </section>
+
+        </main>
+
+    </div>
+
+    <script>
+        // Initialize Lucide Icons
+        lucide.createIcons();
+
+        // WhatsApp Direct Redirection Handler
+        function sendToWhatsApp(event) {
+            event.preventDefault();
+            const kategori = document.getElementById('waKategori').value;
+            const catatan = document.getElementById('waCatatan').value.trim();
+
+            if (!catatan) return;
+
+            const targetNumber = "6281344155598";
+            const textMessage = `*FORM USULAN / TAMBAHAN FITUR - SYSTEM AQUWAR*\n\n` +
+                `*Kategori:* ${kategori}\n\n` +
+                `*Detail Catatan / Usulan:* \n${catatan}\n\n` +
+                `_Dikirim via Dokumen Rancangan Sistem AQUWAR_`;
+
+            const waUrl = `https://wa.me/${targetNumber}?text=${encodeURIComponent(textMessage)}`;
+            window.open(waUrl, '_blank');
+        }
+    </script>
+</body>
+
+</html>

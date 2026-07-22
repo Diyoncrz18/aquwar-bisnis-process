@@ -17,6 +17,16 @@ Pemesanan pelanggan dapat dibuat langsung melalui sistem oleh Tim Operasional at
 
 Sistem tidak secara otomatis mencatat seluruh pesan WhatsApp sebagai transaksi. Hal ini dilakukan untuk mencegah pesanan fiktif, pesanan yang belum dikonfirmasi, perubahan pesanan, serta pembatalan pesanan memengaruhi stok dan laporan penjualan.
 
+## 1.1 Kesepakatan Utama Bersama Client
+
+Pembahasan dengan client menetapkan ketentuan berikut sebagai dasar pengembangan sistem:
+
+1. **Website company profile** menjadi halaman publik yang menampilkan produk Aquar, es kristal, dan tangki air, spesifikasi produk, foto pabrik, informasi kontak, serta tombol WhatsApp.
+2. **Pemesanan pelanggan dilakukan melalui WhatsApp.** Pesan WhatsApp tidak diubah secara otomatis menjadi transaksi agar pesanan fiktif, perubahan pesanan, dan pembatalan tidak memengaruhi data operasional maupun performa website. Setelah pelanggan menyetujui pesanan, Tim Operasional menginput data tersebut secara manual ke sistem.
+3. **Invoice merupakan dasar pembukuan dan pengeluaran barang.** Invoice mencatat pelanggan, produk, jumlah, harga, biaya pengiriman, dan detail transaksi dengan format/template perusahaan. Invoice berstatus Draft tidak mengubah stok. Setelah invoice dikonfirmasi, stok tersedia langsung berkurang melalui reservasi. Contoh: stok fisik 1.500 dos dan invoice dikonfirmasi untuk 500 dos menghasilkan stok tersedia 1.000 dos. Stok fisik baru berkurang ketika seluruh barang dikirim.
+4. **Bahan baku Aquar berkurang saat produksi dicatat, bukan saat invoice penjualan dibuat.** Produksi 2 dos Aquar membutuhkan 96 cup, 96 lid, 96 sedotan, 2 kardus, dan lem sesuai formula. Pesanan pelanggan mengurangi stok barang jadi yang tersedia, sedangkan produksi mengurangi bahan baku; pemisahan ini mencegah pengurangan stok dua kali. Sistem mengonversi bahan baku yang diterima dalam kemasan besar, misalnya 1 kemasan berisi 38.000 cup, ke satuan dasar pemakaian dan memberi warning ketika stok menipis.
+5. **Reject dicatat langsung oleh karyawan yang berwenang melalui sistem.** Data reject minimal mencatat produk atau bahan, jumlah, penyebab, lokasi, dan catatan/foto bukti apabila diwajibkan. Barang yang rusak dipisahkan dari stok layak jual. Barang pengganti untuk pelanggan tetap mengurangi stok, tetapi dicatat sebagai transaksi pengganti dan tidak menambah omzet.
+
 ---
 
 # 2. Latar Belakang
@@ -227,7 +237,9 @@ Website akan menampilkan:
 
 ## 6.2 Pemesanan Melalui Sistem dan WhatsApp
 
-Pemesanan dapat dibuat melalui dua kanal, yaitu langsung melalui sistem oleh Tim Operasional atau melalui WhatsApp. Tombol WhatsApp pada website tetap digunakan agar pelanggan dapat menghubungi perusahaan.
+Kanal pemesanan yang digunakan pelanggan pada website adalah WhatsApp. Website company profile tidak menyediakan keranjang belanja, checkout, maupun konversi pesan WhatsApp menjadi transaksi secara otomatis. Tombol WhatsApp digunakan agar pelanggan dapat menghubungi perusahaan tanpa membebani website dengan proses transaksi yang belum pasti.
+
+Pemesanan dapat dicatat melalui dua cara internal: Tim Operasional menginput pesanan yang sudah disepakati langsung ke sistem, atau Tim Operasional menginput manual pesanan yang diterima melalui WhatsApp. Istilah "pemesanan langsung melalui sistem" pada bagian ini berarti input oleh karyawan berwenang, bukan checkout otomatis oleh pelanggan di website.
 
 ### 6.2.1 Pemesanan Langsung Melalui Sistem
 
@@ -254,7 +266,33 @@ Alur pemesanan melalui WhatsApp adalah sebagai berikut:
 6. Tim Operasional mengonfirmasi invoice.
 7. Pesanan diproses sampai selesai.
 
-Alur tersebut digunakan untuk mencegah pesan WhatsApp atau pesanan yang belum pasti masuk ke dalam laporan dan memengaruhi stok.
+Alur tersebut digunakan untuk mencegah pesan WhatsApp atau pesanan yang belum pasti masuk ke dalam laporan dan memengaruhi stok, serta menjaga website company profile tetap ringan karena tidak memproses transaksi atau pesan secara otomatis.
+
+---
+
+# 7. Pengguna Sistem
+
+Sistem hanya akan memiliki tiga role utama:
+
+1. Owner.
+2. Tim Operasional.
+3. Tim Produksi.
+
+Setiap karyawan tetap disarankan memiliki akun masing-masing agar seluruh aktivitas dapat diketahui dan dicatat oleh sistem.
+
+Sebagai contoh, beberapa karyawan dapat memiliki role Tim Operasional, tetapi setiap karyawan menggunakan nama pengguna dan kata sandi yang berbeda.
+
+---
+
+# 8. Role Owner
+
+Owner memiliki akses tertinggi dalam sistem.
+
+Owner bertugas melakukan pengawasan, pengaturan, pemeriksaan laporan, serta pengambilan keputusan.
+
+## 8.1 Hak Akses Owner
+
+Owner dapat:
 
 ---
 
@@ -287,7 +325,6 @@ Owner dapat:
 * Melihat omzet.
 * Melihat invoice.
 * Melihat pembayaran.
-* Melihat piutang pelanggan.
 * Melihat stok barang jadi.
 * Melihat stok bahan baku.
 * Melihat hasil produksi.
@@ -388,7 +425,6 @@ Tim Produksi tidak dapat melihat:
 * Omzet.
 * Harga jual.
 * Pembayaran pelanggan.
-* Piutang.
 * Laporan laba.
 * Margin keuntungan.
 * Informasi keuangan lainnya.
@@ -408,7 +444,6 @@ Dashboard Owner dapat menampilkan:
 * Total penjualan tahun berjalan.
 * Jumlah invoice hari ini.
 * Jumlah invoice belum dibayar.
-* Jumlah piutang pelanggan.
 * Total produksi hari ini.
 * Total produksi bulan berjalan.
 * Jumlah reject hari ini.
@@ -778,6 +813,12 @@ Maka sistem akan:
 * Mencatat 3 dos sebagai reject.
 * Tidak memasukkan 3 dos reject ke stok siap jual.
 
+## 18.4 Pemisahan Produksi dan Penjualan
+
+Pengurangan bahan baku hanya terjadi ketika transaksi produksi dikonfirmasi. Sebagai contoh, produksi 2 dos Aquar mengurangi 96 cup, 96 lid, 96 sedotan, 2 kardus, dan lem sesuai formula yang berlaku.
+
+Invoice atau pesanan pelanggan tidak langsung mengurangi cup, lid, sedotan, kardus, atau lem. Invoice yang dikonfirmasi hanya mereservasi stok barang jadi Aquar dalam satuan dos. Ketentuan ini mencegah bahan baku terpotong dua kali apabila pesanan pelanggan kemudian dipenuhi melalui proses produksi.
+
 ---
 
 # 19. Produksi Es Kristal
@@ -887,6 +928,12 @@ INV-2026-07-0003
 ```
 
 Format nomor invoice dapat disesuaikan dengan kebutuhan perusahaan.
+
+## 21.4 Invoice sebagai Dasar Pembukuan
+
+Invoice merupakan dasar pembukuan dan pencatatan barang keluar. Template invoice perusahaan harus menampilkan identitas perusahaan, nomor invoice otomatis, tanggal, data pelanggan, daftar produk, jumlah, harga, diskon, biaya pengiriman, total tagihan, status pembayaran, serta catatan transaksi.
+
+Invoice yang baru disimpan sebagai Draft belum memengaruhi stok. Ketika Tim Operasional mengonfirmasi invoice, stok barang jadi menjadi terreservasi sehingga stok tersedia langsung berkurang. Contoh: stok fisik 1.500 dos Aquar dengan invoice terkonfirmasi 500 dos menghasilkan stok tersedia 1.000 dos. Stok fisik baru berkurang saat seluruh pesanan dikirim.
 
 ---
 
@@ -1135,138 +1182,16 @@ Alur pencatatan barang reject adalah:
 10. Sistem mencatat pengurangan atau pemindahan stok.
 11. Data reject masuk ke laporan.
 
----
+## 28.1 Tindakan Lanjutan Reject
 
-# 29. Modul Barang Pengganti
+Setelah reject diperiksa, tindak lanjutnya harus dicatat agar barang rusak tidak kembali masuk ke stok layak jual tanpa pemeriksaan. Pilihan tindakan lanjutan dapat berupa:
 
-Barang pengganti adalah barang baik yang diberikan untuk mengganti barang rusak yang diterima pelanggan.
+* Dikemas ulang dan dikembalikan ke stok layak jual setelah lolos pemeriksaan kualitas.
+* Diklaim kepada supplier apabila kerusakan berasal dari bahan baku atau kemasan dari supplier.
+* Dimusnahkan atau didaur ulang apabila tidak layak diproses kembali.
+* Diganti dengan barang baru untuk pelanggan melalui transaksi barang pengganti yang terpisah dari penjualan.
 
-Barang pengganti tidak boleh dihitung sebagai omzet.
-
-## 29.1 Data Barang Pengganti
-
-Data barang pengganti dapat meliputi:
-
-* Nomor transaksi.
-* Pelanggan.
-* Invoice asal.
-* Produk yang rusak.
-* Jumlah barang rusak.
-* Jumlah barang pengganti.
-* Alasan penggantian.
-* Foto bukti.
-* Tanggal penggantian.
-* Status pengiriman.
-* Persetujuan.
-* Catatan.
-
-## 29.2 Contoh Kasus
-
-Pelanggan membeli 100 dos Aquar. Setelah diterima, ditemukan 5 dos rusak.
-
-Proses dalam sistem:
-
-1. Transaksi penjualan tetap tercatat sebanyak 100 dos.
-2. Kerusakan dicatat sebanyak 5 dos.
-3. Barang pengganti dibuat sebanyak 5 dos.
-4. Stok barang jadi berkurang sebanyak 5 dos.
-5. Omzet tidak bertambah.
-6. Biaya barang pengganti masuk ke laporan operasional.
-
----
-
-# 30. Modul Retur
-
-Retur digunakan ketika pelanggan mengembalikan barang.
-
-## 30.1 Alasan Retur
-
-* Barang rusak.
-* Jumlah tidak sesuai.
-* Produk salah.
-* Kualitas tidak sesuai.
-* Pengiriman terlambat.
-* Kesalahan pesanan.
-* Alasan lainnya.
-
-## 30.2 Hasil Pemeriksaan Retur
-
-Barang retur dapat dikategorikan sebagai:
-
-* Masih layak jual.
-* Perlu dikemas ulang.
-* Menjadi barang reject.
-* Dikembalikan ke produksi.
-* Dimusnahkan.
-* Diganti dengan barang baru.
-
----
-
-# 31. Stock Opname
-
-Stock opname dilakukan untuk membandingkan stok fisik dengan stok di dalam sistem.
-
-## 31.1 Alur Stock Opname
-
-1. Tim Operasional memilih produk atau bahan baku.
-2. Sistem menampilkan stok tercatat.
-3. Tim Operasional menghitung stok fisik.
-4. Jumlah fisik dimasukkan ke sistem.
-5. Sistem menghitung selisih.
-6. Pengguna memasukkan alasan selisih.
-7. Penyesuaian diajukan.
-8. Owner memberikan persetujuan jika diperlukan.
-9. Sistem mencatat riwayat penyesuaian.
-
-## 31.2 Penyebab Selisih
-
-* Salah input.
-* Barang rusak.
-* Barang hilang.
-* Barang belum tercatat.
-* Barang digunakan internal.
-* Kesalahan satuan.
-* Kesalahan penghitungan.
-* Transaksi ganda.
-
----
-
-# 32. Modul Laporan
-
-Sistem akan menyediakan laporan untuk membantu Owner memantau perusahaan.
-
-## 32.1 Laporan Penjualan
-
-* Penjualan harian.
-* Penjualan mingguan.
-* Penjualan bulanan.
-* Penjualan tahunan.
-* Penjualan per produk.
-* Penjualan per pelanggan.
-* Penjualan per wilayah.
-* Produk terlaris.
-* Pelanggan terbesar.
-
-## 32.2 Laporan Invoice
-
-* Invoice berdasarkan tanggal.
-* Invoice berdasarkan status.
-* Invoice belum dibayar.
-* Invoice dibayar sebagian.
-* Invoice lunas.
-* Invoice dibatalkan.
-
-## 32.3 Laporan Pembayaran
-
-* Pembayaran harian.
-* Pembayaran berdasarkan metode.
-* Pembayaran per pelanggan.
-* Piutang pelanggan.
-* Invoice jatuh tempo.
-
-## 32.4 Laporan Produksi
-
-* Produksi harian.
+Setiap tindakan harus mempertahankan riwayat reject, pengguna yang mencatat, dan dampaknya terhadap stok maupun laporan kerugian.
 * Produksi bulanan.
 * Produksi per produk.
 * Produksi per shift.
@@ -1317,14 +1242,14 @@ Laporan dapat:
 * Diunduh dalam bentuk Microsoft Excel (.xlsx) sesuai filter yang dipilih pengguna.
 
 Export Excel termasuk dalam ruang lingkup tahap pertama untuk laporan penjualan,
-invoice, pembayaran dan piutang, stok barang jadi, stok bahan baku, produksi,
+invoice, pembayaran, stok barang jadi, stok bahan baku, produksi,
 reject, retur, barang pengganti, dan stock opname.
 
 File PDF dan Excel hanya dapat diunduh sesuai hak akses pengguna. Owner dapat
 mengunduh seluruh laporan. Tim Operasional hanya dapat mengunduh laporan
 operasional sesuai hak aksesnya. Tim Produksi hanya dapat mengunduh laporan
 produksi, bahan baku, dan reject, serta tidak dapat mengunduh laporan omzet,
-harga, HPP, margin, laba/rugi, pembayaran, maupun piutang.
+harga, HPP, margin, laba/rugi, maupun pembayaran.
 
 ---
 
