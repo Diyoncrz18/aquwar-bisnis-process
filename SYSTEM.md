@@ -717,7 +717,7 @@ Untuk menghasilkan satu dos Aquar yang berisi 48 cup, formula awal dapat dibuat 
 | ---------- | ----------------------: |
 | Cup        |                 48 buah |
 | Lid        |                 48 buah |
-| Sedotan    |                 48 buah |
+| Sedotan    |                0,1 pack |
 | Kardus     |                  1 buah |
 | Lem        | Sesuai standar produksi |
 
@@ -738,7 +738,7 @@ Jika Tim Produksi menghasilkan 100 dos Aquar, sistem akan menghitung:
 | ---------- | ------------: | ------------------: |
 | Cup        |      100 × 48 |          4.800 buah |
 | Lid        |      100 × 48 |          4.800 buah |
-| Sedotan    |      100 × 48 |          4.800 buah |
+| Sedotan    |     100 × 0,1 |             10 pack |
 | Kardus     |       100 × 1 |            100 buah |
 | Lem        | 100 × standar | Berdasarkan formula |
 

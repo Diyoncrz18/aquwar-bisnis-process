@@ -1228,7 +1228,7 @@
                                 </div>
                                 <div class="flow-text">
                                     Sistem langsung menghitung otomatis kebutuhan bahan baku berdasarkan formula baku
-                                    <b>($1\text{ Dos} = 48\text{ Cup, } 48\text{ Lid, } 48\text{ Sedotan, } 1\text{
+                                    <b>($1\text{ Dos} = 48\text{ Cup, } 48\text{ Lid, } 0,1\text{ Pack Sedotan, } 1\text{
                                         Kardus}$)</b> dan membandingkannya dengan stok di gudang saat itu:
                                 </div>
 
@@ -1269,15 +1269,15 @@
                                                 <td>5.200 buah</td>
                                             </tr>
                                             <tr>
-                                                <td><b>Sedotan</b></td>
-                                                <td>$100 \times 48\text{ buah}$</td>
-                                                <td><b>4.800 buah</b></td>
-                                                <td>5.000 buah</td>
+                                                <td><b>Sedotan (Pack)</b></td>
+                                                <td>$100 \times 0,1\text{ pack}$</td>
+                                                <td><b>10 pack</b></td>
+                                                <td>50 pack</td>
                                                 <td><span class="sim-badge-success"
                                                         style="background:#fef3c7; color:#92400e; border-color:#fde68a;"><i
                                                             data-lucide="alert-triangle"></i> CUKUP (MENIPIS)</span>
                                                 </td>
-                                                <td><b>200 buah</b> <i>(Warning Stok Menipis)</i></td>
+                                                <td><b>40 pack</b> <i>(Warning Stok Menipis)</i></td>
                                             </tr>
                                             <tr>
                                                 <td><b>Kardus</b></td>
@@ -1293,15 +1293,15 @@
 
                                     <div style="font-size: 13px; color: var(--slate-700); font-weight: 600;">
                                         📌 <b>Hasil Keputusan Sistem:</b> Karena seluruh 4 bahan baku mencukupi ($\ge
-                                        4.800\text{ buah}$), tombol konfirmasi berwarna hijau aktif: <span
+                                        4.800\text{ buah / } 10\text{ pack}$), tombol konfirmasi berwarna hijau aktif: <span
                                             class="sim-badge-success"><i data-lucide="check-circle-2"></i> PRODUKSI
                                             DISETUJUI & DAPAT DILANJUTKAN</span>.
                                     </div>
                                     <div style="font-size: 12px; color: var(--rose-600); margin-top: 6px;">
-                                        <i>*Skenario Jika Gagal: Seandainya stok Sedotan hanya ada 4.000 buah (kurang
-                                            800 buah), sistem akan langsung mengunci tombol dan menampilkan pesan merah:
+                                        <i>*Skenario Jika Gagal: Seandainya stok Sedotan hanya ada 8 pack (kurang
+                                            2 pack), sistem akan langsung mengunci tombol dan menampilkan pesan merah:
                                             <span class="sim-badge-danger"><i data-lucide="x-circle"></i> GAGAL: Stok
-                                                Sedotan Kurang 800 Buah! Produksi Dibatalkan.</span></i>
+                                                Sedotan Kurang 2 Pack! Produksi Dibatalkan.</span></i>
                                     </div>
                                 </div>
 
@@ -1328,7 +1328,7 @@
                                         <li><b>Stok Barang Jadi (Aquar Dos)</b>: Bertambah <b>+97 Dos</b> (stok siap
                                             jual).</li>
                                         <li><b>Stok Bahan Baku Gudang</b>: Terpotong otomatis untuk 100 dos (Cup:
-                                            -4.800, Lid: -4.800, Sedotan: -4.800, Kardus: -100).</li>
+                                            -4.800 bh, Lid: -4.800 bh, Sedotan: -10 pack, Kardus: -100 bh).</li>
                                         <li><b>Laporan Reject Mesin</b>: Mencatat <b>3 Dos</b> sebagai barang rusak
                                             pabrik beserta rincian kategori dan penyebab kerusakannya.</li>
                                     </ul>
@@ -1419,9 +1419,9 @@
                                                 <div
                                                     style="display: flex; justify-content: space-between; align-items: center;">
                                                     <span>• <b>Sedotan</b>:</span> <span><b
-                                                            style="color: #dc2626;">-4.800 bh</b> <i
+                                                            style="color: #dc2626;">-10 pack</b> <i
                                                             style="color: #64748b; font-size: 10px;">(Sisa:
-                                                            200)</i></span>
+                                                            40 pack)</i></span>
                                                 </div>
                                                 <div
                                                     style="display: flex; justify-content: space-between; align-items: center;">
